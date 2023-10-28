@@ -10,14 +10,54 @@ body {
 
 h2 {
     color: #5865f2;
+    font-size: 2rem;
     margin-top: 0.25em;
     margin-bottom: 1em;
     text-align: center;
     text-transform: uppercase;
 }
 
+.main {
+    display: flex;
+    justify-content: space-between;
+}
+
+#add-note {
+    padding: 20px;
+    width: 20%;
+}
+
+#add-note input,
+#add-note textarea {
+    border: 1px solid #5865f2;
+    border-radius: 5px;
+    box-sizing: border-box;
+    display: block;
+    font-size: 14px;
+    margin-bottom: 1rem;
+    padding: 10px;
+    width: 100%;
+}
+
+#add-note button {
+    background-color: #5865f2;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 10px 15px;
+    width: 100%;
+}
+
+#add-note button:hover {
+    background-color: #4752c7;
+}
+
 .notes-area {
     position: relative;
+    width: 80%;
 }
 
 .notes-area .zoom-buttons {
@@ -57,7 +97,7 @@ h2 {
     width: 100%;
 }
 
-#canvas {
+.notes-area .canvas-container #canvas {
     --grid-color: rgba(0, 0, 0, 0.12);
     --grid-size: 60px;
 

@@ -9,16 +9,30 @@
         <script src="./js/canvas.js" defer></script>
     </head>
     <body>
-        <section class="notes-area">
-            <div class="canvas-container">
-                <div id="canvas"></div>
-            </div>
-            <div class="zoom-buttons">
-                <button id="reset-position-button">&#9872;</button>
-                <button id="increase-zoom-button">&plus;</button>
-                <button id="reset-zoom-button">100%</button>
-                <button id="decrease-zoom-button">&dash;</button>
-            </div>
-        </section>
+        <main class="main">
+            <form id="add-note">
+                <h2>Add note</h2>
+                <input type="text" name="title" placeholder="Title" />
+                <textarea
+                    name="description"
+                    cols="30"
+                    rows="10"
+                    placeholder="Description"
+                ></textarea>
+                <button>Add note</button>
+            </form>
+
+            <section class="notes-area">
+                <div class="canvas-container">
+                    <div id="canvas"></div>
+                </div>
+                <div class="zoom-buttons">
+                    <button id="reset-position-button">&#9872;</button>
+                    <button id="increase-zoom-button">&plus;</button>
+                    <button id="reset-zoom-button">100%</button>
+                    <button id="decrease-zoom-button">&dash;</button>
+                </div>
+            </section>
+        </main>
     </body>
 </html>
