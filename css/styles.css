@@ -1,11 +1,18 @@
 html,
 body {
+    font-family: 'Poppins', sans-serif, Arial, Helvetica;
     margin: 0;
     padding: 0;
 }
 
 body {
     font-family: sans-serif, Arial, Helvetica;
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Montserrat', sans-serif, Arial, Helvetica;
 }
 
 h2 {
@@ -23,8 +30,10 @@ h2 {
 }
 
 #add-note {
+    box-shadow: 0 0 3px #7c7c7c;
     padding: 20px;
     width: 20%;
+    z-index: 1;
 }
 
 #add-note input,
@@ -33,7 +42,8 @@ h2 {
     border-radius: 5px;
     box-sizing: border-box;
     display: block;
-    font-size: 14px;
+    font-family: 'Poppins', sans-serif, Arial, Helvetica;
+    font-size: 15px;
     margin-bottom: 1rem;
     padding: 10px;
     width: 100%;
@@ -45,6 +55,7 @@ h2 {
     border-radius: 5px;
     color: #fff;
     cursor: pointer;
+    font-family: 'Poppins', sans-serif, Arial, Helvetica;
     font-size: 15px;
     font-weight: bold;
     padding: 10px 15px;
@@ -56,7 +67,6 @@ h2 {
 }
 
 .notes-area {
-    position: relative;
     width: 80%;
 }
 
@@ -132,7 +142,7 @@ h2 {
             var(--sub-grid-color) calc(var(--sub-grid-size) - 1px),
             var(--sub-grid-color) var(--sub-grid-size)
         );
-    box-shadow: 0 0 5px #000;
+    box-shadow: 0 0 3px #7c7c7c;
     height: 3500px;
     position: absolute;
     top: 50%;

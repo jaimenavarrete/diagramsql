@@ -4,6 +4,14 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Notes App</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+
         <link rel="stylesheet" href="./css/styles.css" />
 
         <script src="./js/canvas.js" defer></script>
@@ -11,7 +19,7 @@
     <body>
         <main class="main">
             <form id="add-note">
-                <h2>Add note</h2>
+                <h2>Add a new note</h2>
                 <input type="text" name="title" placeholder="Title" />
                 <textarea
                     name="description"
@@ -25,12 +33,12 @@
             <section class="notes-area">
                 <div class="canvas-container">
                     <div id="canvas"></div>
-                </div>
-                <div class="zoom-buttons">
-                    <button id="reset-position-button">&#9872;</button>
-                    <button id="increase-zoom-button">&plus;</button>
-                    <button id="reset-zoom-button">100%</button>
-                    <button id="decrease-zoom-button">&dash;</button>
+                    <div class="zoom-buttons">
+                        <button id="reset-position-button">&#9872;</button>
+                        <button id="increase-zoom-button">&plus;</button>
+                        <button id="reset-zoom-button">100%</button>
+                        <button id="decrease-zoom-button">&dash;</button>
+                    </div>
                 </div>
             </section>
         </main>
