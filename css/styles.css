@@ -1,12 +1,9 @@
 html,
 body {
+    color: #212121;
     font-family: 'Poppins', sans-serif, Arial, Helvetica;
     margin: 0;
     padding: 0;
-}
-
-body {
-    font-family: sans-serif, Arial, Helvetica;
 }
 
 h1,
@@ -70,6 +67,37 @@ h2 {
     width: 80%;
 }
 
+/* NOTES STYLES */
+
+.notes-area .note {
+    background-color: #fff;
+    border-top: 5px solid #5865f2;
+    border-radius: 10px;
+    box-shadow: 0 0 2px #5865f2;
+    padding: 15px;
+    max-width: 300px;
+}
+
+.notes-area .note-icon {
+    background-color: #fcfcfc;
+    border-radius: 10px;
+    height: auto;
+    width: 100%;
+}
+
+.notes-area .note-title {
+    font-size: 1.2rem;
+    margin: 5px 0 10px 0;
+}
+
+.notes-area p {
+    color: #2c2c2c;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* CANVAS BUTTONS STYLES */
+
 .notes-area .zoom-buttons {
     position: absolute;
     right: 1.5rem;
@@ -98,6 +126,8 @@ h2 {
     font-size: 20px;
     padding: 8px 15px;
 }
+
+/* CANVAS STYLES */
 
 .notes-area .canvas-container {
     background-color: #fcfcfc;

@@ -30,9 +30,6 @@ const resetCanvasPosition = () => {
     canvas.style.marginLeft = (-1 * initialWidth * (zoomPercentage / 100) / 2) + 'px';
     canvas.style.top = initialY + 'px';
     canvas.style.marginTop = (-1 * initialHeight * (zoomPercentage / 100) / 2) + 'px';
-
-    console.log(canvas.style.left, canvas.style.top);
-    console.log(canvas.style.marginLeft, canvas.style.marginTop);
 }
 
 const modifyCanvasGridSize = () => {
@@ -110,12 +107,14 @@ const moveCanvas = (e) => {
     canvas.style.top = (Number(canvas.style.top.replace('px', '')) + e.movementY) + 'px';
 }
 
+// Zoom events
 btnResetPosition.addEventListener('click', resetCanvasPosition);
 btnIncreaseZoom.addEventListener('click', increaseCanvasGridSize);
 btnDecreaseZoom.addEventListener('click', decreaseCanvasGridSize);
 btnResetZoom.addEventListener('click', resetCanvasGridSize);
 canvas.addEventListener('wheel', changeCanvasGridSizeMouseWheel);
 
+// Drag and drop events
 document.addEventListener('keydown', activateSpecialKey);
 document.addEventListener('keyup', deactivateSpecialKey);
 canvas.addEventListener('mousedown', () => isCanvasDragged = isSpecialKeyPressed);
