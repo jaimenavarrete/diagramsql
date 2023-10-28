@@ -1,0 +1,103 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: sans-serif, Arial, Helvetica;
+}
+
+h2 {
+    color: #5865f2;
+    margin-top: 0.25em;
+    margin-bottom: 1em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.notes-area {
+    position: relative;
+}
+
+.notes-area .zoom-buttons {
+    position: absolute;
+    right: 1.5rem;
+    bottom: 1.5rem;
+}
+
+.notes-area .zoom-buttons button {
+    background: white;
+    border: 1px solid #4752c7;
+    border-radius: 5px;
+    color: #4752c7;
+    cursor: pointer;
+    font-size: 25px;
+    font-weight: bold;
+    margin: 0 2px;
+    padding: 5px 15px;
+    vertical-align: middle;
+}
+
+.notes-area .zoom-buttons button:hover {
+    background-color: #4752c7;
+    color: #f2f2f2;
+}
+
+.notes-area .zoom-buttons #reset-zoom-button {
+    font-size: 20px;
+    padding: 8px 15px;
+}
+
+.notes-area .canvas-container {
+    background-color: #fcfcfc;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+#canvas {
+    --grid-color: rgba(0, 0, 0, 0.12);
+    --grid-size: 60px;
+
+    --sub-grid-color: rgba(0, 0, 0, 0.07);
+    --sub-grid-size: 12px;
+
+    background-image: repeating-linear-gradient(
+            0deg,
+            transparent 0px,
+            transparent calc(var(--grid-size) - 1px),
+            var(--grid-color) calc(var(--grid-size) - 1px),
+            var(--grid-color) var(--grid-size)
+        ),
+        repeating-linear-gradient(
+            0deg,
+            transparent 0px,
+            transparent calc(var(--sub-grid-size) - 1px),
+            var(--sub-grid-color) calc(var(--sub-grid-size) - 1px),
+            var(--sub-grid-color) var(--sub-grid-size)
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            transparent calc(var(--grid-size) - 1px),
+            var(--grid-color) calc(var(--grid-size) - 1px),
+            var(--grid-color) var(--grid-size)
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            transparent calc(var(--sub-grid-size) - 1px),
+            var(--sub-grid-color) calc(var(--sub-grid-size) - 1px),
+            var(--sub-grid-color) var(--sub-grid-size)
+        );
+    box-shadow: 0 0 5px #000;
+    height: 3500px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -1750px;
+    margin-left: -3000px;
+    width: 6000px;
+}
