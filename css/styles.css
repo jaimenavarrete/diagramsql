@@ -43,8 +43,16 @@ h2 {
     font-size: 15px;
     margin-bottom: 1rem;
     padding: 10px;
-    resize: vertical;
     width: 100%;
+}
+
+#add-note textarea {
+    resize: vertical;
+}
+
+#add-note input[type='file'] {
+    border-style: dashed;
+    cursor: pointer;
 }
 
 #add-note button {
@@ -87,13 +95,12 @@ h2 {
 }
 
 .notes-area .note-title {
-    font-size: 1.2rem;
-    margin: 5px 0 10px 0;
+    font-size: 1.3rem;
+    margin: 15px 0;
 }
 
 .notes-area p {
-    color: #2c2c2c;
-    font-size: 0.9rem;
+    color: #4e4e4e;
     margin: 0;
 }
 

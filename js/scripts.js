@@ -24,12 +24,21 @@ const errorAlert = (message) => iziToast.show({
     position: 'topCenter'
 });
 
-const createNoteCard = (title, description) => {
+const createNoteCard = (title, description, image) => {
     const $noteCard = document.createElement('div');
     $noteCard.classList.add('note');
     $noteCard.style.position = 'absolute';
     $noteCard.style.left = (initialWidth / 2) + 'px';
     $noteCard.style.top = (initialHeight / 2) + 'px';
+
+    if(image) {
+        const $image = document.createElement('img');
+        $image.classList.add('note-icon');
+        $image.src = URL.createObjectURL(image);
+        $image.draggable = false;
+
+        $noteCard.appendChild($image);
+    }
 
     const $title = document.createElement('h3');
     $title.classList.add('note-title');
@@ -49,7 +58,7 @@ const createNoteCard = (title, description) => {
 addNoteForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const { title, description } = e.target.elements;
+    const { title, description, image } = e.target.elements;
 
-    createNoteCard(title.value, description.value);
+    createNoteCard(title.value, description.value, image.files[0]);
 })
