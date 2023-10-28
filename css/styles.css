@@ -43,6 +43,7 @@ h2 {
     font-size: 15px;
     margin-bottom: 1rem;
     padding: 10px;
+    resize: vertical;
     width: 100%;
 }
 
