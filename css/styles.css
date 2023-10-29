@@ -146,6 +146,17 @@ h2 {
 }
 
 .notes-area .canvas-container #canvas {
+    box-shadow: 0 0 3px #7c7c7c;
+    height: 3500px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -1750px;
+    margin-left: -3000px;
+    width: 6000px;
+}
+
+.notes-area .canvas-container #canvas-grid-layer {
     --grid-color: rgba(0, 0, 0, 0.12);
     --grid-size: 60px;
 
@@ -180,7 +191,6 @@ h2 {
             var(--sub-grid-color) calc(var(--sub-grid-size) - 1px),
             var(--sub-grid-color) var(--sub-grid-size)
         );
-    box-shadow: 0 0 3px #7c7c7c;
     height: 3500px;
     position: absolute;
     top: 50%;
