@@ -76,7 +76,7 @@ h2 {
     width: 80%;
 }
 
-/* NOTES STYLES */
+/*** NOTES STYLES ***/
 
 .notes-area .note {
     background-color: #fff;
@@ -102,6 +102,12 @@ h2 {
 .notes-area p {
     color: #4e4e4e;
     margin: 0;
+}
+
+/* Dragged note styles */
+
+.dragged-note {
+    opacity: 0.5;
 }
 
 /* CANVAS BUTTONS STYLES */
@@ -163,7 +169,7 @@ h2 {
     --sub-grid-color: rgba(0, 0, 0, 0.07);
     --sub-grid-size: 12px;
 
-    background-image: repeating-linear-gradient(
+    background: repeating-linear-gradient(
             0deg,
             transparent 0px,
             transparent calc(var(--grid-size) - 1px),

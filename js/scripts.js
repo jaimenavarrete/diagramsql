@@ -30,6 +30,7 @@ const createNoteCard = (title, description, image) => {
     $noteCard.style.position = 'absolute';
     $noteCard.style.left = (initialWidth / 2) + 'px';
     $noteCard.style.top = (initialHeight / 2) + 'px';
+    $noteCard.draggable = true;
 
     if(image) {
         const $image = document.createElement('img');

@@ -26,6 +26,10 @@ const specialKey = ' ';
 let isSpecialKeyPressed = false;
 let isCanvasDragged = false;
 
+// Drag notes
+let noteInitialDragPositionX = 0;
+let noteInitialDragPositionY = 0;
+
 const resetCanvasPosition = () => {
     // Scaled elements do not change width or height, so is not necessary to modify margins
     canvas.style.left = initialX + 'px';
@@ -134,6 +138,25 @@ const moveCanvas = (e) => {
     canvasGridLayer.style.top = canvas.style.top;
 }
 
+const startDraggingNote = (e) => {
+    e.target.classList.add('dragged-note');
+
+    noteInitialDragPositionX = e.offsetX < 0 ? 0 : e.offsetX;
+    noteInitialDragPositionY = e.offsetY < 0 ? 0 : e.offsetY;
+}
+
+const finishDraggingNote = (e) => {
+    const draggedNote = e.target;
+    
+    const notePositionX = draggedNote.offsetLeft;
+    const notePositionY = draggedNote.offsetTop;
+
+    draggedNote.style.left = (notePositionX + e.offsetX - noteInitialDragPositionX) + 'px';
+    draggedNote.style.top = (notePositionY + e.offsetY - noteInitialDragPositionY) + 'px';
+
+    draggedNote.classList.remove('dragged-note');
+}
+
 // Zoom events
 btnResetPosition.addEventListener('click', resetCanvasPosition);
 btnIncreaseZoom.addEventListener('click', increaseCanvasZoom);
@@ -141,9 +164,13 @@ btnDecreaseZoom.addEventListener('click', decreaseCanvasZoom);
 btnResetZoom.addEventListener('click', resetCanvasGridSize);
 canvas.addEventListener('wheel', changeCanvasGridSizeMouseWheel);
 
-// Drag and drop events
+// Drag and drop canvas events
 document.addEventListener('keydown', activateSpecialKey);
 document.addEventListener('keyup', deactivateSpecialKey);
 canvas.addEventListener('mousedown', () => isCanvasDragged = isSpecialKeyPressed);
 canvas.addEventListener('mouseup', () => isCanvasDragged = false);
 canvas.addEventListener('mousemove', moveCanvas);
+
+// Drag and drop notes events
+canvas.addEventListener('dragstart', startDraggingNote)
+canvas.addEventListener('dragend', finishDraggingNote)
