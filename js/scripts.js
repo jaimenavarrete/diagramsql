@@ -1,5 +1,11 @@
 const addNoteForm = document.getElementById('add-note');
+const addNoteFormStyles = window.getComputedStyle(addNoteForm);
+const resizeBar = document.getElementById('resize-bar');
 
+// Resize form
+let isResizeBarGrabbed = false;
+
+// Alerts
 const successAlert = (message) => iziToast.show({
     title: '&#10004; Success',
     titleColor: '#FFFFFF',
@@ -23,7 +29,6 @@ const errorAlert = (message) => iziToast.show({
     progressBarColor: '#FFFFFF',
     position: 'topCenter'
 });
-
 const createNoteCard = (title, description, image, color) => {
     const $noteCard = document.createElement('div');
     $noteCard.classList.add('note');
@@ -57,6 +62,14 @@ const createNoteCard = (title, description, image, color) => {
     successAlert('The note was created successfully');
 }
 
+const resizeForm = (e) => {
+    if(!isResizeBarGrabbed) return;
+
+    const currentFormWidth = parseFloat(addNoteFormStyles.getPropertyValue('width'));
+
+    addNoteForm.style.width = (currentFormWidth + e.movementX) + 'px';
+};
+
 addNoteForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -65,4 +78,9 @@ addNoteForm.addEventListener('submit', (e) => {
     console.log(title, color)
 
     createNoteCard(title.value, description.value, image.files[0], color.value);
-})
+});
+
+// Resize form events
+resizeBar.addEventListener('mousedown', (e) => isResizeBarGrabbed = true);
+resizeBar.addEventListener('mouseup', (e) => isResizeBarGrabbed = false);
+document.addEventListener('mousemove', resizeForm);

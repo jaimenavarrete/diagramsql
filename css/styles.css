@@ -1,9 +1,13 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 html,
 body {
     color: #212121;
     font-family: 'Poppins', sans-serif, Arial, Helvetica;
-    margin: 0;
-    padding: 0;
 }
 
 h1,
@@ -23,12 +27,12 @@ h2 {
 
 .main {
     display: flex;
-    justify-content: space-between;
 }
 
 #add-note {
     box-shadow: 0 0 3px #7c7c7c;
     padding: 20px;
+    position: relative;
     width: 20%;
     z-index: 1;
 }
@@ -78,11 +82,24 @@ h2 {
     background-color: #4752c7;
 }
 
-.notes-area {
-    width: 80%;
+/*** RESIZE BAR STYLES ***/
+
+#resize-bar {
+    cursor: col-resize;
+    position: absolute;
+    right: -3px;
+    top: 0;
+    width: 6px;
+    height: 100%;
 }
 
-/*** NOTES STYLES ***/
+/*** NOTES AREA STYLES ***/
+
+.notes-area {
+    flex: 1;
+}
+
+/* NOTES STYLES */
 
 .notes-area .note {
     background-color: #fff;
