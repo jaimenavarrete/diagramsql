@@ -6,7 +6,7 @@ const canvasGridLayer = document.getElementById('canvas-grid-layer');
 const canvasGridLayerStyles = window.getComputedStyle(canvasGridLayer);
 
 const getPropertyValueAsNumber = (propertyName) => 
-    Number(canvasGridLayerStyles.getPropertyValue(propertyName).replace('px', ''))
+    parseFloat(canvasGridLayerStyles.getPropertyValue(propertyName))
 
 // Initial canvas styles values
 const initialGridSize = getPropertyValueAsNumber('--grid-size');
@@ -17,8 +17,8 @@ const initialX = getPropertyValueAsNumber('left');
 const initialY = getPropertyValueAsNumber('top');
 
 // Initial canvas container styles values
-const containerInitialWidth = Number(canvasContainerStyles.getPropertyValue('width').replace('px', ''));
-const containerInitialHeight = Number(canvasContainerStyles.getPropertyValue('height').replace('px', ''));
+const containerInitialWidth = parseFloat(canvasContainerStyles.getPropertyValue('width'));
+const containerInitialHeight = parseFloat(canvasContainerStyles.getPropertyValue('height'));
 
 // Zoom buttons
 const btnResetPosition = document.getElementById('reset-position-button');
@@ -141,6 +141,7 @@ const deactivateSpecialKey = (e) => {
     // Change cursor type
     canvas.style.cursor = 'default';
     isSpecialKeyPressed = false;
+    isCanvasDragged = false;
 }
 
 const moveCanvas = (e) => {
@@ -154,8 +155,8 @@ const moveCanvas = (e) => {
         canvasGridLayer.style.top = initialY + 'px';
     }
 
-    const currentPositionX = Number(canvas.style.left.replace('px', ''));
-    const currentPositionY = Number(canvas.style.top.replace('px', ''));
+    const currentPositionX = parseFloat(canvas.style.left);
+    const currentPositionY = parseFloat(canvas.style.top);
 
     canvas.style.left = (currentPositionX + e.movementX) + 'px';
     canvas.style.top = (currentPositionY + e.movementY) + 'px';
