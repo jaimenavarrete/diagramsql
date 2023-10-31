@@ -1,5 +1,7 @@
 // CANVAS
 const canvas = document.getElementById('canvas');
+const canvasContainer = document.getElementById('canvas-container');
+const canvasContainerStyles = window.getComputedStyle(canvasContainer);
 const canvasGridLayer = document.getElementById('canvas-grid-layer');
 const canvasGridLayerStyles = window.getComputedStyle(canvasGridLayer);
 
@@ -13,6 +15,10 @@ const initialWidth = getPropertyValueAsNumber('width');
 const initialHeight = getPropertyValueAsNumber('height');
 const initialX = getPropertyValueAsNumber('left');
 const initialY = getPropertyValueAsNumber('top');
+
+// Initial canvas container styles values
+const containerInitialWidth = Number(canvasContainerStyles.getPropertyValue('width').replace('px', ''));
+const containerInitialHeight = Number(canvasContainerStyles.getPropertyValue('height').replace('px', ''));
 
 // Zoom buttons
 const btnResetPosition = document.getElementById('reset-position-button');
@@ -30,7 +36,21 @@ let isCanvasDragged = false;
 let noteInitialDragPositionX = 0;
 let noteInitialDragPositionY = 0;
 
+const showResetPositionButton = (currentPositionX, currentPositionY) => {
+    const isOffTheScreenX = Math.abs(initialX - currentPositionX) > containerInitialWidth / 2;
+    const isOffTheScreenY = Math.abs(initialY - currentPositionY) > containerInitialHeight / 2;
+    
+    if(isOffTheScreenX || isOffTheScreenY) {
+        btnResetPosition.classList.add('active');
+        return;
+    }
+    
+    btnResetPosition.classList.remove('active');
+}
+
 const resetCanvasPosition = () => {
+    if(!btnResetPosition.classList.contains('active')) return;
+
     // Scaled elements do not change width or height, so is not necessary to modify margins
     canvas.style.left = initialX + 'px';
     canvas.style.top = initialY + 'px';
@@ -39,6 +59,9 @@ const resetCanvasPosition = () => {
     canvasGridLayer.style.marginLeft = (-1 * initialWidth * (zoomPercentage / 100) / 2) + 'px';
     canvasGridLayer.style.top = initialY + 'px';
     canvasGridLayer.style.marginTop = (-1 * initialHeight * (zoomPercentage / 100) / 2) + 'px';
+
+    // Hide button
+    btnResetPosition.classList.remove('active');
 }
 
 const modifyCanvasSize = () => {
@@ -131,11 +154,16 @@ const moveCanvas = (e) => {
         canvasGridLayer.style.top = initialY + 'px';
     }
 
-    canvas.style.left = (Number(canvas.style.left.replace('px', '')) + e.movementX) + 'px';
-    canvas.style.top = (Number(canvas.style.top.replace('px', '')) + e.movementY) + 'px';
+    const currentPositionX = Number(canvas.style.left.replace('px', ''));
+    const currentPositionY = Number(canvas.style.top.replace('px', ''));
+
+    canvas.style.left = (currentPositionX + e.movementX) + 'px';
+    canvas.style.top = (currentPositionY + e.movementY) + 'px';
 
     canvasGridLayer.style.left = canvas.style.left;
     canvasGridLayer.style.top = canvas.style.top;
+
+    showResetPositionButton(currentPositionX, currentPositionY);
 }
 
 const startDraggingNote = (e) => {

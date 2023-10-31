@@ -24,9 +24,10 @@ const errorAlert = (message) => iziToast.show({
     position: 'topCenter'
 });
 
-const createNoteCard = (title, description, image) => {
+const createNoteCard = (title, description, image, color) => {
     const $noteCard = document.createElement('div');
     $noteCard.classList.add('note');
+    $noteCard.style.setProperty("--note-color", color);
     $noteCard.style.position = 'absolute';
     $noteCard.style.left = (initialWidth / 2) + 'px';
     $noteCard.style.top = (initialHeight / 2) + 'px';
@@ -59,7 +60,9 @@ const createNoteCard = (title, description, image) => {
 addNoteForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const { title, description, image } = e.target.elements;
+    const { title, description, image, color } = e.target.elements;
 
-    createNoteCard(title.value, description.value, image.files[0]);
+    console.log(title, color)
+
+    createNoteCard(title.value, description.value, image.files[0], color.value);
 })

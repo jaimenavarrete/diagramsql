@@ -55,6 +55,12 @@ h2 {
     cursor: pointer;
 }
 
+#add-note input[type='color'] {
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0;
+}
+
 #add-note button {
     background-color: #5865f2;
     border: none;
@@ -80,9 +86,9 @@ h2 {
 
 .notes-area .note {
     background-color: #fff;
-    border-top: 5px solid #5865f2;
+    border-top: 5px solid var(--note-color);
     border-radius: 10px;
-    box-shadow: 0 0 2px #5865f2;
+    box-shadow: 0 0 2px var(--note-color);
     padding: 15px;
     max-width: 300px;
 }
@@ -116,6 +122,8 @@ h2 {
     position: absolute;
     right: 1.5rem;
     bottom: 1.5rem;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .notes-area .zoom-buttons button {
@@ -134,6 +142,17 @@ h2 {
 .notes-area .zoom-buttons button:hover {
     background-color: #4752c7;
     color: #f2f2f2;
+}
+
+.notes-area .zoom-buttons #reset-position-button {
+    cursor: default;
+    opacity: 0;
+    transition: all 0.2s ease-out;
+}
+
+.notes-area .zoom-buttons #reset-position-button.active {
+    cursor: pointer;
+    opacity: 1;
 }
 
 .notes-area .zoom-buttons #reset-zoom-button {

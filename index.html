@@ -31,11 +31,12 @@
                     placeholder="Description"
                 ></textarea>
                 <input type="file" name="image" />
+                <input type="color" name="color" />
                 <button>Add note</button>
             </form>
 
             <section class="notes-area">
-                <div class="canvas-container">
+                <div id="canvas-container" class="canvas-container">
                     <div id="canvas-grid-layer"></div>
                     <div id="canvas"></div>
                     <div class="zoom-buttons">
