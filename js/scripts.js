@@ -2,6 +2,8 @@ const addNoteForm = document.getElementById('add-note');
 const addNoteFormStyles = window.getComputedStyle(addNoteForm);
 const resizeBar = document.getElementById('resize-bar');
 
+const notes = [];
+
 // Resize form
 let isResizeBarGrabbed = false;
 
@@ -30,19 +32,20 @@ const errorAlert = (message) => iziToast.show({
     position: 'topCenter'
 });
 
-const createNoteCard = (title, description, image, color) => {
+const createNoteCardElement = (note) => {
     const $noteCard = document.createElement('div');
+
     $noteCard.classList.add('note');
-    $noteCard.style.setProperty("--note-color", color);
+    $noteCard.style.setProperty("--note-color", note.color);
     $noteCard.style.position = 'absolute';
-    $noteCard.style.left = (initialWidth / 2) + 'px';
-    $noteCard.style.top = (initialHeight / 2) + 'px';
+    $noteCard.style.left = note.positionX + 'px';
+    $noteCard.style.top = note.positionY + 'px';
     $noteCard.draggable = true;
 
-    if(image) {
+    if(note.image) {
         const $image = document.createElement('img');
         $image.classList.add('note-icon');
-        $image.src = URL.createObjectURL(image);
+        $image.src = URL.createObjectURL(note.image);
         $image.draggable = false;
 
         $noteCard.appendChild($image);
@@ -50,27 +53,39 @@ const createNoteCard = (title, description, image, color) => {
 
     const $title = document.createElement('h3');
     $title.classList.add('note-title');
-    $title.textContent = title;
+    $title.textContent = note.title;
 
     const $description = document.createElement('p');
-    $description.textContent = description;
+    $description.textContent = note.description;
 
     $noteCard.append($title, $description);
 
-    // Insert note into canvas
-    canvas.appendChild($noteCard);
+    return $noteCard;
+}
+
+const createNote = (noteFormInputs) => ({
+    title: noteFormInputs.title.value,
+    description: noteFormInputs.description.value || "[No description]",
+    image: noteFormInputs.image.files[0], 
+    color: noteFormInputs.color.value,
+    positionX: initialWidth / 2,
+    positionY: initialHeight / 2,
+});
+
+const addNote = (noteFormInputs) => {
+    const note = createNote(noteFormInputs);
+    notes.push(note);
+
+    // Insert note card element into canvas
+    const $noteCardElement = createNoteCardElement(note)
+    canvas.appendChild($noteCardElement);
 
     successAlert('The note was created successfully');
 }
 
 const submitForm = (e) => {
     e.preventDefault();
-
-    const { title, description, image, color } = e.target.elements;
-
-    console.log(title, color)
-
-    createNoteCard(title.value, description.value, image.files[0], color.value);
+    addNote(e.target.elements);
 };
 
 const resizeForm = (e) => {
