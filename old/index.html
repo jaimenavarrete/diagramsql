@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Notes App</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+
+        <link rel="stylesheet" href="./css/styles.css" />
+        <link rel="stylesheet" href="./css/iziToast.min.css" />
+
+        <script src="./js/iziToast.min.js" defer></script>
+        <script src="./js/canvas.js" defer></script>
+        <script src="./js/scripts.js" defer></script>
+    </head>
+    <body>
+        <main class="main">
+            <form id="add-note">
+                <h2>Add a new note</h2>
+                <input type="text" name="title" placeholder="Title" />
+                <textarea
+                    name="description"
+                    cols="30"
+                    rows="10"
+                    placeholder="Description"
+                ></textarea>
+                <input type="file" name="image" />
+                <input type="color" name="color" />
+                <button>Add note</button>
+
+                <div id="resize-bar"></div>
+            </form>
+
+            <section class="notes-area">
+                <div id="canvas-container" class="canvas-container">
+                    <div id="canvas-grid-layer"></div>
+                    <div id="canvas"></div>
+                    <div class="zoom-buttons">
+                        <button id="reset-position-button">&#9872;</button>
+                        <button id="increase-zoom-button">&plus;</button>
+                        <button id="reset-zoom-button">100%</button>
+                        <button id="decrease-zoom-button">&dash;</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>
