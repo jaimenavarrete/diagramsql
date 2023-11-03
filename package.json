@@ -6,10 +6,13 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "preview": "vite preview"
+        "preview": "vite preview",
+        "lint": "eslint ."
     },
     "devDependencies": {
         "@sveltejs/vite-plugin-svelte": "2.4.2",
+        "eslint": "8.52.0",
+        "eslint-plugin-svelte": "2.34.1",
         "svelte": "4.0.5",
         "vite": "4.4.5"
     }
