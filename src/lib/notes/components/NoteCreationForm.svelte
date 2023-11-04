@@ -1,4 +1,20 @@
-<form>
+<script>
+    let formRef;
+
+    let formWidth,
+        isResizeBarGrabbed = false;
+
+    $: formStyles = formRef ? window.getComputedStyle(formRef) : null;
+
+    const resizeForm = (e) => {
+        if (!isResizeBarGrabbed) return;
+
+        formWidth ??= parseFloat(formStyles.getPropertyValue('width'));
+        formWidth += e.movementX;
+    };
+</script>
+
+<form bind:this={formRef} style:width={formWidth ? `${formWidth}px` : null}>
     <h2>Add a new note</h2>
     <input type="text" name="title" placeholder="Title" />
     <textarea
@@ -11,8 +27,14 @@
     <input type="color" name="color" />
     <button>Add note</button>
 
-    <div class="resize-bar" />
+    <!-- svelte-ignore a11y-no-static-element-interactions -->
+    <div on:mousedown={() => (isResizeBarGrabbed = true)} class="resize-bar" />
 </form>
+
+<svelte:document
+    on:mouseup={() => (isResizeBarGrabbed = false)}
+    on:mousemove={resizeForm}
+/>
 
 <style>
     form {
