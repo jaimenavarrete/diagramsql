@@ -1,8 +1,10 @@
 <script>
+    import NoteCreationForm from '../components/NoteCreationForm.svelte';
     import Canvas from './../components/Canvas.svelte';
 </script>
 
 <main>
+    <NoteCreationForm />
     <section class="notes-area">
         <Canvas />
     </section>
