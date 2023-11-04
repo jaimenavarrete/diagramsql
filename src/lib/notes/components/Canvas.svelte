@@ -1,8 +1,6 @@
 <script>
-    // Canvas interactions
-    let specialKey = ' ',
-        isSpecialKeyPressed = false,
-        isCanvasGrabbed;
+    // Canvas interaction
+    let specialKey = ' ';
 
     // Element references
     let containerRef;
@@ -11,13 +9,17 @@
     let zoomRatio = 1,
         canvasTop,
         canvasLeft,
-        gridHeight = 3500,
-        gridWidth = 6000,
-        isResetButtonActive = false;
+        isResetButtonActive = false,
+        isSpecialKeyPressed = false,
+        isCanvasGrabbed = false;
 
     // Reactive variables
-    $: gridMarginTop = (-1 * gridHeight * zoomRatio) / 2;
-    $: gridMarginLeft = (-1 * gridWidth * zoomRatio) / 2;
+    $: gridHeight = 3500 * zoomRatio;
+    $: gridWidth = 6000 * zoomRatio;
+    $: gridSize = 60 * zoomRatio;
+    $: subGridSize = 12 * zoomRatio;
+    $: gridMarginTop = (-1 * gridHeight) / 2;
+    $: gridMarginLeft = (-1 * gridWidth) / 2;
     $: containerStyles = containerRef
         ? window.getComputedStyle(containerRef)
         : null;
@@ -55,20 +57,37 @@
         if (!canvasTop) {
             canvasTop = getContainerStyle('height') / 2;
             canvasLeft = getContainerStyle('width') / 2;
-
-            console.log(canvasTop, canvasLeft);
         }
 
         canvasTop += e.movementY;
         canvasLeft += e.movementX;
+    };
 
-        console.log(canvasTop, canvasLeft);
+    const increaseCanvasZoom = () => {
+        if (zoomRatio >= 2) return;
+        zoomRatio += 0.1;
+    };
+
+    const decreaseCanvasZoom = () => {
+        if (zoomRatio <= 0.5) return;
+        zoomRatio -= 0.1;
+    };
+
+    const resetCanvasZoom = () => {
+        if (zoomRatio >= 2) return;
+        zoomRatio = 1;
+    };
+
+    const changeCanvasZoomMouseWheel = (e) => {
+        return e.deltaY < 0 ? increaseCanvasZoom() : decreaseCanvasZoom();
     };
 </script>
 
 <div id="canvas-container" bind:this={containerRef} class="canvas-container">
     <div
         id="canvas-grid-layer"
+        style:--grid-size={`${gridSize}px`}
+        style:--sub-grid-size={`${subGridSize}px`}
         style:top={canvasTop ? `${canvasTop}px` : null}
         style:left={canvasLeft ? `${canvasLeft}px` : null}
         style:width="{gridWidth}px"
@@ -82,6 +101,8 @@
         on:mousedown={() => (isCanvasGrabbed = isSpecialKeyPressed)}
         on:mouseup={() => (isCanvasGrabbed = false)}
         on:mousemove={moveCanvas}
+        on:wheel={changeCanvasZoomMouseWheel}
+        style:transform={`scale(${zoomRatio})`}
         style:top={canvasTop ? `${canvasTop}px` : null}
         style:left={canvasLeft ? `${canvasLeft}px` : null}
         style:cursor={isSpecialKeyPressed ? 'grab' : 'default'}
@@ -93,9 +114,15 @@
             on:click={resetCanvasPosition}
             class:active={isResetButtonActive}>&#9872;</button
         >
-        <button id="increase-zoom-button">&plus;</button>
-        <button id="reset-zoom-button">100%</button>
-        <button id="decrease-zoom-button">&dash;</button>
+        <button id="increase-zoom-button" on:click={increaseCanvasZoom}
+            >&plus;</button
+        >
+        <button id="reset-zoom-button" on:click={resetCanvasZoom}
+            >{Math.round(zoomRatio * 100)}%</button
+        >
+        <button id="decrease-zoom-button" on:click={decreaseCanvasZoom}
+            >&dash;</button
+        >
     </div>
 </div>
 
@@ -173,10 +200,7 @@
 
     .canvas-container #canvas-grid-layer {
         --grid-color: rgba(0, 0, 0, 0.12);
-        --grid-size: 60px;
-
         --sub-grid-color: rgba(0, 0, 0, 0.07);
-        --sub-grid-size: 12px;
 
         background: repeating-linear-gradient(
                 0deg,
