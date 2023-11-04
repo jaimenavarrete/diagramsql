@@ -1,8 +1,58 @@
-<div id="canvas-container" class="canvas-container">
-    <div id="canvas-grid-layer" />
-    <div id="canvas" />
+<script>
+    // Element references
+    let containerRef;
+
+    // States
+    let zoomRatio = 1,
+        canvasTop,
+        canvasLeft,
+        gridHeight = 6000,
+        gridWidth = 3500,
+        isResetButtonActive = false;
+
+    // Reactive variables
+    $: gridMarginTop = (-1 * gridHeight * zoomRatio) / 2;
+    $: gridMarginLeft = (-1 * gridWidth * zoomRatio) / 2;
+    $: containerStyles = containerRef
+        ? window.getComputedStyle(containerRef)
+        : null;
+
+    // Utility functions
+    const getContainerStyle = (propertyName) =>
+        parseFloat(containerStyles.getPropertyValue(propertyName));
+
+    // Event Handlers
+    const resetCanvasPosition = () => {
+        if (!isResetButtonActive) return;
+
+        canvasTop = `${getContainerStyle('height') / 2}`;
+        canvasLeft = `${getContainerStyle('width') / 2}`;
+
+        isResetButtonActive = false;
+    };
+</script>
+
+<div id="canvas-container" bind:this={containerRef} class="canvas-container">
+    <div
+        id="canvas-grid-layer"
+        style:top={canvasTop ? `${canvasTop}px` : null}
+        style:left={canvasLeft ? `${canvasLeft}px` : null}
+        style:width="{gridWidth}px"
+        style:height="{gridHeight}px"
+        style:margin-top="{gridMarginTop}px"
+        style:margin-left="{gridMarginLeft}px"
+    />
+    <div
+        id="canvas"
+        style:top={canvasTop ? `${canvasTop}px` : null}
+        style:left={canvasLeft ? `${canvasLeft}px` : null}
+    />
     <div class="zoom-buttons">
-        <button id="reset-position-button">&#9872;</button>
+        <button
+            id="reset-position-button"
+            on:click={resetCanvasPosition}
+            class:active={isResetButtonActive}>&#9872;</button
+        >
         <button id="increase-zoom-button">&plus;</button>
         <button id="reset-zoom-button">100%</button>
         <button id="decrease-zoom-button">&dash;</button>
@@ -110,12 +160,8 @@
                 var(--sub-grid-color) calc(var(--sub-grid-size) - 1px),
                 var(--sub-grid-color) var(--sub-grid-size)
             );
-        height: 3500px;
         position: absolute;
         top: 50%;
         left: 50%;
-        margin-top: -1750px;
-        margin-left: -3000px;
-        width: 6000px;
     }
 </style>
