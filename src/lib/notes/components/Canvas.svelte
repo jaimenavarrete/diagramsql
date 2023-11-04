@@ -1,4 +1,9 @@
 <script>
+    // Canvas interactions
+    let specialKey = ' ',
+        isSpecialKeyPressed = false,
+        isCanvasGrabbed;
+
     // Element references
     let containerRef;
 
@@ -6,8 +11,8 @@
     let zoomRatio = 1,
         canvasTop,
         canvasLeft,
-        gridHeight = 6000,
-        gridWidth = 3500,
+        gridHeight = 3500,
+        gridWidth = 6000,
         isResetButtonActive = false;
 
     // Reactive variables
@@ -25,10 +30,39 @@
     const resetCanvasPosition = () => {
         if (!isResetButtonActive) return;
 
-        canvasTop = `${getContainerStyle('height') / 2}`;
-        canvasLeft = `${getContainerStyle('width') / 2}`;
+        canvasTop = getContainerStyle('height') / 2;
+        canvasLeft = getContainerStyle('width') / 2;
 
         isResetButtonActive = false;
+    };
+
+    const activateSpecialKey = (e) => {
+        if (e.key !== specialKey || isSpecialKeyPressed) return;
+
+        isSpecialKeyPressed = true;
+    };
+
+    const deactivateSpecialKey = (e) => {
+        if (e.key !== specialKey || !isSpecialKeyPressed) return;
+
+        isSpecialKeyPressed = false;
+        isCanvasGrabbed = false;
+    };
+
+    const moveCanvas = (e) => {
+        if (!isSpecialKeyPressed || !isCanvasGrabbed) return;
+
+        if (!canvasTop) {
+            canvasTop = getContainerStyle('height') / 2;
+            canvasLeft = getContainerStyle('width') / 2;
+
+            console.log(canvasTop, canvasLeft);
+        }
+
+        canvasTop += e.movementY;
+        canvasLeft += e.movementX;
+
+        console.log(canvasTop, canvasLeft);
     };
 </script>
 
@@ -42,11 +76,17 @@
         style:margin-top="{gridMarginTop}px"
         style:margin-left="{gridMarginLeft}px"
     />
+    <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div
         id="canvas"
+        on:mousedown={() => (isCanvasGrabbed = isSpecialKeyPressed)}
+        on:mouseup={() => (isCanvasGrabbed = false)}
+        on:mousemove={moveCanvas}
         style:top={canvasTop ? `${canvasTop}px` : null}
         style:left={canvasLeft ? `${canvasLeft}px` : null}
+        style:cursor={isSpecialKeyPressed ? 'grab' : 'default'}
     />
+
     <div class="zoom-buttons">
         <button
             id="reset-position-button"
@@ -58,6 +98,12 @@
         <button id="decrease-zoom-button">&dash;</button>
     </div>
 </div>
+
+<!-- Document reference -->
+<svelte:document
+    on:keydown={activateSpecialKey}
+    on:keyup={deactivateSpecialKey}
+/>
 
 <style>
     /* CANVAS BUTTONS STYLES */
