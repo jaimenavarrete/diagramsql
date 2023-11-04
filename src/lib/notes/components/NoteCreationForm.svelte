@@ -1,20 +1,52 @@
 <script>
+    import { showToast } from '../../shared/components/Toasts.svelte';
+
+    // Props
+    export let notes;
+
+    // Element references
     let formRef;
 
+    // States
     let formWidth,
         isResizeBarGrabbed = false;
 
+    // Reactive variables
     $: formStyles = formRef ? window.getComputedStyle(formRef) : null;
 
+    // Utility functions
+    const createNote = (formData) => ({
+        title: formData.get('title'),
+        description: formData.get('description') || '[No description]',
+        image: formData.get('image'),
+        color: formData.get('color'),
+        positionY: 1750,
+        positionX: 3000,
+    });
+
+    // Event handlers
     const resizeForm = (e) => {
         if (!isResizeBarGrabbed) return;
 
         formWidth ??= parseFloat(formStyles.getPropertyValue('width'));
         formWidth += e.movementX;
     };
+
+    const submitForm = (e) => {
+        const formData = new FormData(e.target);
+        const note = createNote(formData);
+
+        notes.push(note);
+
+        showToast('success', 'The note was created successfully');
+    };
 </script>
 
-<form bind:this={formRef} style:width={formWidth ? `${formWidth}px` : null}>
+<form
+    bind:this={formRef}
+    on:submit|preventDefault={submitForm}
+    style:width={formWidth ? `${formWidth}px` : null}
+>
     <h2>Add a new note</h2>
     <input type="text" name="title" placeholder="Title" />
     <textarea
