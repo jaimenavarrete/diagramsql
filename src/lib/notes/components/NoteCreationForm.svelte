@@ -36,7 +36,7 @@
         const formData = new FormData(e.target);
         const note = createNote(formData);
 
-        notes.push(note);
+        notes = [...notes, note];
 
         showToast('success', 'The note was created successfully');
     };

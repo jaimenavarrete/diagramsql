@@ -8,9 +8,9 @@
 </script>
 
 <main>
-    <NoteCreationForm {notes} />
+    <NoteCreationForm bind:notes />
     <section class="notes-area">
-        <Canvas />
+        <Canvas {notes} />
     </section>
 </main>
 

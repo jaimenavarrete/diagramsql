@@ -1,4 +1,8 @@
 <script>
+    import Note from './Note.svelte';
+
+    export let notes = [];
+
     // Canvas interaction
     let specialKey = ' ';
 
@@ -106,7 +110,11 @@
         style:top={canvasTop ? `${canvasTop}px` : null}
         style:left={canvasLeft ? `${canvasLeft}px` : null}
         style:cursor={isSpecialKeyPressed ? 'grab' : 'default'}
-    />
+    >
+        {#each notes as note}
+            <Note {note} />
+        {/each}
+    </div>
 
     <div class="zoom-buttons">
         <button
