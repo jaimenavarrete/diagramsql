@@ -8,6 +8,7 @@
         childNote.positionX + childNote.width
     );
 
+    // Arrow size
     $: arrowWidth = highestX - lowestX;
     $: arrowHeight =
         parentNote.positionY - (childNote.positionY + childNote.height);
@@ -15,6 +16,13 @@
     // Arrow positioning
     $: firstLineX = childNote.width / 2 + childNote.positionX - lowestX;
     $: secondLineX = parentNote.width / 2 + parentNote.positionX - lowestX;
+    $: linesDistance = Math.abs(firstLineX - secondLineX);
+
+    // Rounded-corners values
+    let initialRadius = 10;
+    $: radius =
+        linesDistance < initialRadius * 2 ? linesDistance / 2 : initialRadius;
+    $: side = firstLineX - secondLineX > 0 ? -1 : 1;
 </script>
 
 <svg
@@ -38,32 +46,35 @@
         </marker>
     </defs>
 
-    <line
-        x1={firstLineX}
-        y1="20"
-        x2={firstLineX}
-        y2={arrowHeight / 2}
+    <path
+        d={`M${firstLineX},20
+            L${firstLineX},${arrowHeight / 2 - radius} 
+            A${radius},${radius} 0 0 ${side > 0 ? 0 : 1} ${
+            firstLineX + radius * side
+        },${arrowHeight / 2}`}
         stroke="#5865F2"
         stroke-width="3"
         marker-start="url(#arrowhead)"
+        fill="none"
     />
 
-    <line
-        x1={firstLineX}
-        y1={arrowHeight / 2}
-        x2={secondLineX}
-        y2={arrowHeight / 2}
+    <path
+        d={`M${firstLineX + radius * side},${arrowHeight / 2}
+            L${secondLineX - radius * side},${arrowHeight / 2} 
+            A${radius},${radius} 0 0 ${side < 0 ? 0 : 1} ${secondLineX},${
+            arrowHeight / 2 + radius
+        }`}
         stroke="#5865F2"
         stroke-width="3"
+        fill="none"
     />
 
-    <line
-        x1={secondLineX}
-        y1={arrowHeight / 2}
-        x2={secondLineX}
-        y2={arrowHeight}
+    <path
+        d={`M${secondLineX},${arrowHeight / 2 + radius}
+            L${secondLineX},${arrowHeight}`}
         stroke="#5865F2"
         stroke-width="3"
+        fill="none"
     />
 </svg>
 

@@ -21,7 +21,7 @@
         description: formData.get('description') || '[No description]',
         image: formData.get('image'),
         color: formData.get('color'),
-        parentId: null,
+        parentId: '2e2b5f22-4149-4410-8691-93844dd2dc4e',
     });
 
     // Event handlers
