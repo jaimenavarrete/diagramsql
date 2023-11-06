@@ -1,5 +1,6 @@
 <script>
     import Note from './Note.svelte';
+    import ConnectionArrow from './ConnectionArrow.svelte';
 
     export let notes = [];
 
@@ -115,6 +116,10 @@
     >
         {#each notes as note}
             <Note bind:note {canvasHeight} {canvasWidth} {zoomRatio} />
+
+            {#if note.parentId}
+                <ConnectionArrow parentNote={notes[0]} childNote={note} />
+            {/if}
         {/each}
     </div>
 

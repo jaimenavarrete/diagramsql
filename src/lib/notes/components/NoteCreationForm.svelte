@@ -21,6 +21,7 @@
         description: formData.get('description') || '[No description]',
         image: formData.get('image'),
         color: formData.get('color'),
+        parentId: null,
     });
 
     // Event handlers
