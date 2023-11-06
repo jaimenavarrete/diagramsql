@@ -11,6 +11,8 @@
 
     // States
     let zoomRatio = 1,
+        canvasHeight = 3500,
+        canvasWidth = 6000,
         canvasTop,
         canvasLeft,
         isResetButtonActive = false,
@@ -18,8 +20,8 @@
         isCanvasGrabbed = false;
 
     // Reactive variables
-    $: gridHeight = 3500 * zoomRatio;
-    $: gridWidth = 6000 * zoomRatio;
+    $: gridHeight = canvasHeight * zoomRatio;
+    $: gridWidth = canvasWidth * zoomRatio;
     $: gridSize = 60 * zoomRatio;
     $: subGridSize = 12 * zoomRatio;
     $: gridMarginTop = (-1 * gridHeight) / 2;
@@ -112,7 +114,7 @@
         style:cursor={isSpecialKeyPressed ? 'grab' : 'default'}
     >
         {#each notes as note}
-            <Note {note} {zoomRatio} />
+            <Note bind:note {canvasHeight} {canvasWidth} {zoomRatio} />
         {/each}
     </div>
 

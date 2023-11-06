@@ -10,7 +10,7 @@
 <main>
     <NoteCreationForm bind:notes />
     <section class="notes-area">
-        <Canvas {notes} />
+        <Canvas bind:notes />
     </section>
 </main>
 

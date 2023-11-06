@@ -1,6 +1,12 @@
 <script>
+    import { onMount } from 'svelte';
+
     export let note;
+    export let canvasHeight;
+    export let canvasWidth;
     export let zoomRatio;
+
+    let noteRef;
 
     let isNoteGrabbed = false;
 
@@ -12,10 +18,20 @@
         note.positionY += e.movementY / zoomRatio;
         note.positionX += e.movementX / zoomRatio;
     };
+
+    onMount(() => {
+        const noteStyles = window.getComputedStyle(noteRef);
+
+        note.positionY = canvasHeight / 2;
+        note.positionX = canvasWidth / 2;
+        note.width = parseFloat(noteStyles.getPropertyValue('width'));
+        note.height = parseFloat(noteStyles.getPropertyValue('height'));
+    });
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
+    bind:this={noteRef}
     on:mousedown|self={() => (isNoteGrabbed = true)}
     class="note"
     style:--note-color={note.color}

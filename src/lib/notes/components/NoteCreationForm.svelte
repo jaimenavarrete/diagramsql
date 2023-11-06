@@ -16,12 +16,11 @@
 
     // Utility functions
     const createNote = (formData) => ({
+        id: crypto.randomUUID(),
         title: formData.get('title'),
         description: formData.get('description') || '[No description]',
         image: formData.get('image'),
         color: formData.get('color'),
-        positionY: 1750,
-        positionX: 3000,
     });
 
     // Event handlers
