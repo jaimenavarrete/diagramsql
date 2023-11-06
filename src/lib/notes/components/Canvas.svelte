@@ -112,7 +112,7 @@
         style:cursor={isSpecialKeyPressed ? 'grab' : 'default'}
     >
         {#each notes as note}
-            <Note {note} />
+            <Note {note} {zoomRatio} />
         {/each}
     </div>
 
