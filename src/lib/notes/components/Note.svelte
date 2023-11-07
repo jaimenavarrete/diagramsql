@@ -7,8 +7,20 @@
     export let zoomRatio;
 
     let noteRef;
+    let imageRef;
 
     let isNoteGrabbed = false;
+
+    // Utility functions
+
+    const getNoteSize = () => {
+        const noteStyles = window.getComputedStyle(noteRef);
+
+        note.width = parseFloat(noteStyles.getPropertyValue('width'));
+        note.height = parseFloat(noteStyles.getPropertyValue('height'));
+    };
+
+    // Event handler
 
     const moveNote = (e) => {
         if (!isNoteGrabbed) return;
@@ -19,13 +31,18 @@
         note.positionX += e.movementX / zoomRatio;
     };
 
-    onMount(() => {
-        const noteStyles = window.getComputedStyle(noteRef);
+    // Lifecycle hook
 
+    onMount(() => {
         note.positionY = canvasHeight / 2;
         note.positionX = canvasWidth / 2;
-        note.width = parseFloat(noteStyles.getPropertyValue('width'));
-        note.height = parseFloat(noteStyles.getPropertyValue('height'));
+
+        if (note.image.size > 0) {
+            imageRef.onload = getNoteSize;
+            return;
+        }
+
+        getNoteSize();
     });
 </script>
 
@@ -41,6 +58,7 @@
     {#if note.image.size > 0}
         <img
             src={URL.createObjectURL(note.image)}
+            bind:this={imageRef}
             alt="Note"
             draggable="false"
         />
