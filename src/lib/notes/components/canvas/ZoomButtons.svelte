@@ -6,6 +6,24 @@
 
     let isResetButtonActive = false;
 
+    // Utility functions
+    export const showResetPositionButton = () => {
+        const initialTop = getContainerStyle('height') / 2;
+        const initialLeft = getContainerStyle('width') / 2;
+
+        const isOffScreenY = Math.abs(canvasTop - initialTop) > initialTop;
+        const isOffScreenX = Math.abs(canvasLeft - initialLeft) > initialLeft;
+
+        if (isOffScreenY || isOffScreenX) {
+            isResetButtonActive = true;
+            return;
+        }
+
+        isResetButtonActive = false;
+    };
+
+    // Event Handlers
+
     const resetCanvasPosition = () => {
         if (!isResetButtonActive) return;
 

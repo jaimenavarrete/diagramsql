@@ -7,15 +7,14 @@
 
     // Canvas interaction
     let specialKey = ' ';
-    let changeCanvasZoomMouseWheel;
 
     // Element references
     let containerRef;
 
     // States
     let zoomRatio = 1,
-        canvasHeight = 3500,
-        canvasWidth = 6000,
+        canvasHeight = 100000,
+        canvasWidth = 100000,
         canvasTop,
         canvasLeft,
         isSpecialKeyPressed = false,
@@ -24,8 +23,8 @@
     // Reactive variables
     $: gridHeight = canvasHeight * zoomRatio;
     $: gridWidth = canvasWidth * zoomRatio;
-    $: gridSize = 60 * zoomRatio;
-    $: subGridSize = 12 * zoomRatio;
+    $: gridSize = 100 * zoomRatio;
+    $: subGridSize = 20 * zoomRatio;
     $: gridMarginTop = (-1 * gridHeight) / 2;
     $: gridMarginLeft = (-1 * gridWidth) / 2;
     $: containerStyles = containerRef
@@ -35,6 +34,8 @@
     // Utility functions
     const getContainerStyle = (propertyName) =>
         parseFloat(containerStyles.getPropertyValue(propertyName));
+
+    let showResetPositionButton;
 
     // Event Handlers
 
@@ -61,7 +62,11 @@
 
         canvasTop += e.movementY;
         canvasLeft += e.movementX;
+
+        showResetPositionButton();
     };
+
+    let changeCanvasZoomMouseWheel;
 </script>
 
 <div id="canvas-container" bind:this={containerRef} class="canvas-container">
@@ -101,6 +106,7 @@
         bind:zoomRatio
         bind:canvasTop
         bind:canvasLeft
+        bind:showResetPositionButton
         bind:changeCanvasZoomMouseWheel
         {getContainerStyle}
     />
@@ -123,18 +129,18 @@
 
     .canvas-container #canvas {
         box-shadow: 0 0 3px #7c7c7c;
-        height: 3500px;
+        height: 100000px;
         position: absolute;
         top: 50%;
         left: 50%;
-        margin-top: -1750px;
-        margin-left: -3000px;
-        width: 6000px;
+        margin-top: -50000px;
+        margin-left: -50000px;
+        width: 100000px;
     }
 
     .canvas-container #canvas-grid-layer {
-        --grid-color: rgba(0, 0, 0, 0.12);
-        --sub-grid-color: rgba(0, 0, 0, 0.07);
+        --grid-color: #ebeaea;
+        --sub-grid-color: #f6f6f6;
 
         background: repeating-linear-gradient(
                 0deg,
