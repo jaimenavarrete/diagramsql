@@ -64,6 +64,7 @@
         max-width: 300px;
         padding: 15px;
         position: absolute;
+        z-index: 2;
     }
 
     img {
