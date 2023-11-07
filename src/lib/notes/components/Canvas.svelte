@@ -1,6 +1,6 @@
 <script>
     import Note from './Note.svelte';
-    import ConnectionArrow from './ConnectionArrow.svelte';
+    import ConnectionArrow from './connection-arrow/ConnectionArrow.svelte';
 
     export let notes = [];
 
