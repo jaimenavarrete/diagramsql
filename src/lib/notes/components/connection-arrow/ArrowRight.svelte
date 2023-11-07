@@ -1,6 +1,7 @@
 <script>
     export let parentNote;
     export let childNote;
+    export let isNear = false;
 
     $: lowestY = Math.min(parentNote.positionY, childNote.positionY);
     $: highestY = Math.max(
@@ -46,14 +47,14 @@
     </defs>
 
     <path
-        d={`M${arrowWidth - 20},${firstLineY}
+        d={`M${isNear ? arrowWidth : arrowWidth - 20},${firstLineY}
             L${arrowWidth / 2 + radius},${firstLineY} 
             A${radius},${radius} 0 0 ${side > 0 ? 0 : 1} ${arrowWidth / 2}, ${
             firstLineY + radius * side
         }`}
         stroke="#5865F2"
         stroke-width="3"
-        marker-start="url(#arrowheadRight)"
+        marker-start={isNear ? null : 'url(#arrowheadRight)'}
         fill="none"
     />
 
