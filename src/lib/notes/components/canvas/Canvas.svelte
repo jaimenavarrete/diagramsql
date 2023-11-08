@@ -1,7 +1,7 @@
 <script>
     import Note from '../Note.svelte';
     import ConnectionArrow from '../connection-arrow/ConnectionArrow.svelte';
-    import ZoomButtons from './ZoomButtons.svelte';
+    import CanvasButtons from './CanvasButtons.svelte';
 
     export let notes = [];
 
@@ -72,7 +72,7 @@
 
 <div id="canvas-container" bind:this={containerRef} class="canvas-container">
     <div
-        id="canvas-grid-layer"
+        class="canvas-grid-layer"
         style:--grid-size={`${gridSize}px`}
         style:--sub-grid-size={`${subGridSize}px`}
         style:--grid-color={`${isGridActive ? '#e0e0e0' : 'transparent'}`}
@@ -86,7 +86,7 @@
     />
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div
-        id="canvas"
+        class="canvas"
         on:mousedown={() => (isCanvasGrabbed = isSpecialKeyPressed)}
         on:mousemove={moveCanvas}
         on:wheel={changeCanvasZoomMouseWheel}
@@ -104,7 +104,7 @@
         {/each}
     </div>
 
-    <ZoomButtons
+    <CanvasButtons
         bind:zoomRatio
         bind:canvasTop
         bind:canvasLeft
@@ -131,7 +131,7 @@
         width: 100%;
     }
 
-    .canvas-container #canvas {
+    .canvas-container .canvas {
         box-shadow: 0 0 1px #7c7c7c;
         height: 100000px;
         position: absolute;
@@ -142,7 +142,7 @@
         width: 100000px;
     }
 
-    .canvas-container #canvas-grid-layer {
+    .canvas-container .canvas-grid-layer {
         background: repeating-linear-gradient(
                 0deg,
                 transparent 0px,
