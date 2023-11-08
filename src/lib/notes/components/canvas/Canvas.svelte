@@ -18,7 +18,8 @@
         canvasTop,
         canvasLeft,
         isSpecialKeyPressed = false,
-        isCanvasGrabbed = false;
+        isCanvasGrabbed = false,
+        isGridActive;
 
     // Reactive variables
     $: gridHeight = canvasHeight * zoomRatio;
@@ -74,6 +75,8 @@
         id="canvas-grid-layer"
         style:--grid-size={`${gridSize}px`}
         style:--sub-grid-size={`${subGridSize}px`}
+        style:--grid-color={`${isGridActive ? '#e0e0e0' : 'transparent'}`}
+        style:--sub-grid-color={`${isGridActive ? '#ebebeb' : 'transparent'}`}
         style:top={canvasTop ? `${canvasTop}px` : null}
         style:left={canvasLeft ? `${canvasLeft}px` : null}
         style:width="{gridWidth}px"
@@ -105,6 +108,7 @@
         bind:zoomRatio
         bind:canvasTop
         bind:canvasLeft
+        bind:isGridActive
         bind:showResetPositionButton
         bind:changeCanvasZoomMouseWheel
         {getContainerStyle}
@@ -139,9 +143,6 @@
     }
 
     .canvas-container #canvas-grid-layer {
-        --grid-color: #e0e0e0;
-        --sub-grid-color: #ebebeb;
-
         background: repeating-linear-gradient(
                 0deg,
                 transparent 0px,

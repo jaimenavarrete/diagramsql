@@ -1,10 +1,16 @@
 <script>
+    // Props
+
     export let zoomRatio;
     export let canvasTop;
     export let canvasLeft;
     export let getContainerStyle;
 
+    // States
     let isResetButtonActive = false;
+
+    // Export to parent
+    export let isGridActive = true;
 
     // Utility functions
     export const showResetPositionButton = () => {
@@ -55,19 +61,31 @@
 
 <section class="canvas-buttons">
     <button
-        id="reset-position-button"
         on:click={resetCanvasPosition}
-        class:active={isResetButtonActive}>&#9872;</button
+        class="reset-position-button"
+        class:active={isResetButtonActive}
+        title="Reset canvas position">&#9872;</button
+    >
+    <button
+        on:click={() => (isGridActive = !isGridActive)}
+        class="show-grid-button"
+        title="Show grid">&#9769;</button
     >
     <div class="zoom-buttons">
-        <button id="increase-zoom-button" on:click={increaseCanvasZoom}
-            >&plus;</button
+        <button
+            on:click={increaseCanvasZoom}
+            class="increase-zoom-button"
+            title="Increase zoom">&plus;</button
         >
-        <button id="reset-zoom-button" on:click={resetCanvasZoom}
-            >{Math.round(zoomRatio * 100)}%</button
+        <button
+            on:click={resetCanvasZoom}
+            class="reset-zoom-button"
+            title="Reset zoom">{Math.round(zoomRatio * 100)}%</button
         >
-        <button id="decrease-zoom-button" on:click={decreaseCanvasZoom}
-            >&dash;</button
+        <button
+            on:click={decreaseCanvasZoom}
+            class="decrease-zoom-button"
+            title="Decrease zoom">&dash;</button
         >
     </div>
 </section>
@@ -86,11 +104,12 @@
         background: white;
         border: none;
         border-radius: 5px;
+        box-shadow: 0 0 2px #7c7c7c;
         color: #4752c7;
         cursor: pointer;
         font-size: 25px;
         font-weight: bold;
-        margin: 0 10px;
+        margin-right: 10px;
         padding: 3px 15px;
         transition: all 0.2s ease-out;
     }
@@ -100,18 +119,17 @@
         color: #fff;
     }
 
-    .canvas-buttons #reset-position-button {
-        box-shadow: 0 0 2px #7c7c7c;
+    .canvas-buttons .reset-position-button {
         cursor: default;
         opacity: 0;
     }
 
-    .canvas-buttons #reset-position-button:is(.active) {
+    .canvas-buttons .reset-position-button:is(.active) {
         cursor: pointer;
         opacity: 1;
     }
 
-    .canvas-buttons #reset-zoom-button {
+    .canvas-buttons .reset-zoom-button {
         font-size: 16px;
     }
 
@@ -124,6 +142,7 @@
     }
 
     .zoom-buttons button {
+        box-shadow: none;
         margin: 0;
     }
 </style>
