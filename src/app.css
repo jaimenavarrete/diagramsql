@@ -5,7 +5,8 @@
 }
 
 html,
-body {
+body,
+button {
     color: #212121;
     font-family: 'Poppins', sans-serif, Arial, Helvetica;
 }

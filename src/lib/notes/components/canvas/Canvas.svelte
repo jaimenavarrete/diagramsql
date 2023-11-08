@@ -85,7 +85,6 @@
     <div
         id="canvas"
         on:mousedown={() => (isCanvasGrabbed = isSpecialKeyPressed)}
-        on:mouseup={() => (isCanvasGrabbed = false)}
         on:mousemove={moveCanvas}
         on:wheel={changeCanvasZoomMouseWheel}
         style:transform={`scale(${zoomRatio})`}
@@ -116,11 +115,12 @@
 <svelte:document
     on:keydown={activateSpecialKey}
     on:keyup={deactivateSpecialKey}
+    on:mouseup={() => (isCanvasGrabbed = false)}
 />
 
 <style>
     .canvas-container {
-        background-color: #fcfcfc;
+        background-color: #f2f2f2;
         height: 100vh;
         overflow: hidden;
         position: relative;
@@ -128,7 +128,7 @@
     }
 
     .canvas-container #canvas {
-        box-shadow: 0 0 3px #7c7c7c;
+        box-shadow: 0 0 1px #7c7c7c;
         height: 100000px;
         position: absolute;
         top: 50%;
@@ -139,8 +139,8 @@
     }
 
     .canvas-container #canvas-grid-layer {
-        --grid-color: #ebeaea;
-        --sub-grid-color: #f6f6f6;
+        --grid-color: #e0e0e0;
+        --sub-grid-color: #ebebeb;
 
         background: repeating-linear-gradient(
                 0deg,

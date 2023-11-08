@@ -53,25 +53,28 @@
     };
 </script>
 
-<div class="zoom-buttons">
+<section class="canvas-buttons">
     <button
         id="reset-position-button"
         on:click={resetCanvasPosition}
         class:active={isResetButtonActive}>&#9872;</button
     >
-    <button id="increase-zoom-button" on:click={increaseCanvasZoom}
-        >&plus;</button
-    >
-    <button id="reset-zoom-button" on:click={resetCanvasZoom}
-        >{Math.round(zoomRatio * 100)}%</button
-    >
-    <button id="decrease-zoom-button" on:click={decreaseCanvasZoom}
-        >&dash;</button
-    >
-</div>
+    <div class="zoom-buttons">
+        <button id="increase-zoom-button" on:click={increaseCanvasZoom}
+            >&plus;</button
+        >
+        <button id="reset-zoom-button" on:click={resetCanvasZoom}
+            >{Math.round(zoomRatio * 100)}%</button
+        >
+        <button id="decrease-zoom-button" on:click={decreaseCanvasZoom}
+            >&dash;</button
+        >
+    </div>
+</section>
 
 <style>
-    .zoom-buttons {
+    .canvas-buttons {
+        display: flex;
         position: absolute;
         right: 1.5rem;
         bottom: 1.5rem;
@@ -79,37 +82,48 @@
         user-select: none;
     }
 
-    .zoom-buttons button {
+    .canvas-buttons button {
         background: white;
-        border: 1px solid #4752c7;
+        border: none;
         border-radius: 5px;
         color: #4752c7;
         cursor: pointer;
         font-size: 25px;
         font-weight: bold;
-        margin: 0 2px;
-        padding: 5px 15px;
-        vertical-align: middle;
-    }
-
-    .zoom-buttons button:hover {
-        background-color: #4752c7;
-        color: #f2f2f2;
-    }
-
-    .zoom-buttons #reset-position-button {
-        cursor: default;
-        opacity: 0;
+        margin: 0 10px;
+        padding: 3px 15px;
         transition: all 0.2s ease-out;
     }
 
-    .zoom-buttons #reset-position-button:is(.active) {
+    .canvas-buttons button:hover {
+        background-color: #4752c7;
+        color: #fff;
+    }
+
+    .canvas-buttons #reset-position-button {
+        box-shadow: 0 0 2px #7c7c7c;
+        cursor: default;
+        opacity: 0;
+    }
+
+    .canvas-buttons #reset-position-button:is(.active) {
         cursor: pointer;
         opacity: 1;
     }
 
-    .zoom-buttons #reset-zoom-button {
-        font-size: 20px;
-        padding: 8px 15px;
+    .canvas-buttons #reset-zoom-button {
+        font-size: 16px;
+    }
+
+    .zoom-buttons {
+        background: white;
+        border-radius: 5px;
+        box-shadow: 0 0 2px #7c7c7c;
+        padding: 3px;
+        display: flex;
+    }
+
+    .zoom-buttons button {
+        margin: 0;
     }
 </style>
