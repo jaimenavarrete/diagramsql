@@ -1,5 +1,5 @@
 <script>
-    import Note from '../Note.svelte';
+    import Note from '../../../notes/components/Note.svelte';
     import ConnectionArrow from '../connection-arrow/ConnectionArrow.svelte';
     import CanvasButtons from './CanvasButtons.svelte';
 

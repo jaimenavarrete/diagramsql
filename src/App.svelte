@@ -1,9 +1,9 @@
 <script>
     import { Router, Route } from 'svelte-routing';
-    import Notes from './lib/notes/Notes.svelte';
+    import Diagrams from './lib/diagrams/Diagrams.svelte';
 </script>
 
 <Router>
-    <Route path="/notes/*" component={Notes} />
+    <Route path="/diagrams/*" component={Diagrams} />
     <Route>{location.href}</Route>
 </Router>

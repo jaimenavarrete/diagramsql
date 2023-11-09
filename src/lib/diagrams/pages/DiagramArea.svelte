@@ -1,7 +1,7 @@
 <script>
     import Toasts from '../../shared/components/Toasts.svelte';
 
-    import NoteCreationForm from '../components/NoteCreationForm.svelte';
+    import NoteCreationForm from '../../notes/components/NoteCreationForm.svelte';
     import Canvas from '../components/canvas/Canvas.svelte';
 
     let notes = [

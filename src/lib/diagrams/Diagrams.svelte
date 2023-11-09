@@ -1,9 +1,9 @@
 <script>
     import { Router, Route } from 'svelte-routing';
-    import NotesArea from './pages/NotesArea.svelte';
+    import DiagramArea from './pages/DiagramArea.svelte';
 </script>
 
 <!-- /notes -->
 <Router>
-    <Route path="/" component={NotesArea} />
+    <Route path="/" component={DiagramArea} />
 </Router>
