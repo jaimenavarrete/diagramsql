@@ -4,6 +4,7 @@
     import Table from '../../../tables/components/Table.svelte';
     import Note from '../../../notes/components/Note.svelte';
     import ConnectionArrow from '../connection-arrow/ConnectionArrow.svelte';
+    import ToolbarButtons from './canvas-buttons/ToolbarButtons.svelte';
     import ZoomButtons from './canvas-buttons/ZoomButtons.svelte';
 
     export let tables = [];
@@ -111,6 +112,8 @@
             <Note bind:note {canvasHeight} {canvasWidth} {zoomRatio} />
         {/each}
     </div>
+
+    <ToolbarButtons />
 
     <ZoomButtons
         bind:zoomRatio

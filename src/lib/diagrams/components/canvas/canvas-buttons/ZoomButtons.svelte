@@ -105,8 +105,8 @@
 
 <style>
     .canvas-buttons {
-        right: 1.5rem;
-        bottom: 1.5rem;
+        right: 1rem;
+        bottom: 1rem;
     }
 
     .canvas-buttons .reset-position-button {
@@ -121,6 +121,6 @@
     }
 
     .canvas-buttons .reset-zoom-button {
-        font-size: 16px;
+        font-size: 15px;
     }
 </style>
