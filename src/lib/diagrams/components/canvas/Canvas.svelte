@@ -1,8 +1,10 @@
 <script>
+    import Table from '../../../tables/components/Table.svelte';
     import Note from '../../../notes/components/Note.svelte';
     import ConnectionArrow from '../connection-arrow/ConnectionArrow.svelte';
     import CanvasButtons from './CanvasButtons.svelte';
 
+    export let tables = [];
     export let notes = [];
 
     // Canvas interaction
@@ -95,12 +97,16 @@
         style:left={canvasLeft ? `${canvasLeft}px` : null}
         style:cursor={isSpecialKeyPressed ? 'grab' : 'default'}
     >
+        {#each tables as table}
+            <Table bind:table {canvasHeight} {canvasWidth} {zoomRatio} />
+
+            {#if table.parentId}
+                <ConnectionArrow parentNote={tables[0]} childNote={table} />
+            {/if}
+        {/each}
+
         {#each notes as note}
             <Note bind:note {canvasHeight} {canvasWidth} {zoomRatio} />
-
-            {#if note.parentId}
-                <ConnectionArrow parentNote={notes[0]} childNote={note} />
-            {/if}
         {/each}
     </div>
 

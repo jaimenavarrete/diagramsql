@@ -1,8 +1,18 @@
 <script>
     import Toasts from '../../shared/components/Toasts.svelte';
 
-    import NoteCreationForm from '../../notes/components/NoteCreationForm.svelte';
+    import TableCreationForm from '../../tables/components/TableCreationForm.svelte';
     import Canvas from '../components/canvas/Canvas.svelte';
+
+    let tables = [
+        {
+            id: '2e2b5f22-4149-4410-8691-93844dd2dc4e',
+            title: 'Testing table title',
+            description: '[No description]',
+            color: '#3C90D1',
+            parentId: null,
+        },
+    ];
 
     let notes = [
         {
@@ -13,15 +23,14 @@
                 size: 0,
             },
             color: '#E14D45',
-            parentId: null,
         },
     ];
 </script>
 
 <main>
-    <NoteCreationForm bind:notes />
-    <section class="notes-area">
-        <Canvas bind:notes />
+    <TableCreationForm bind:tables />
+    <section class="diagram-area">
+        <Canvas bind:tables bind:notes />
     </section>
 </main>
 
@@ -33,7 +42,7 @@
         display: flex;
     }
 
-    .notes-area {
+    .diagram-area {
         flex: 1;
     }
 </style>
