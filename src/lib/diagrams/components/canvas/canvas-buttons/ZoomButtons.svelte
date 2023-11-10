@@ -47,17 +47,16 @@
     };
 
     const increaseCanvasZoom = () => {
-        if (zoomRatio >= 2) return;
+        if (zoomRatio >= 2.5) return;
         zoomRatio += 0.1;
     };
 
     const decreaseCanvasZoom = () => {
-        if (zoomRatio <= 0.5) return;
+        if (zoomRatio <= 0.2) return;
         zoomRatio -= 0.1;
     };
 
     const resetCanvasZoom = () => {
-        if (zoomRatio >= 2) return;
         zoomRatio = 1;
     };
 

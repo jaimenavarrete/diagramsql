@@ -76,9 +76,8 @@
 <style>
     .note {
         background-color: #fff;
-        border-top: 5px solid var(--note-color);
+        border: 2px solid var(--note-color);
         border-radius: 10px;
-        box-shadow: 0 0 2px var(--note-color);
         max-width: 300px;
         padding: 15px;
         position: absolute;

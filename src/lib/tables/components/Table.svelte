@@ -54,24 +54,27 @@
 <style>
     .table {
         background-color: #fff;
-        border-top: 5px solid var(--table-color);
-        border-radius: 10px;
+        border-top: 7px solid var(--table-color);
+        border-radius: 5px;
         box-shadow: 0 0 2px var(--table-color);
         max-width: 300px;
-        padding: 15px;
         position: absolute;
         z-index: 2;
     }
 
     h3 {
+        background: #f2f2f2;
+        border-bottom: 1px solid #cbcbcb;
         cursor: auto;
-        font-size: 1.3rem;
-        margin: 0 0 15px 0;
+        font-size: 1.1em;
+        padding: 15px;
+        text-align: center;
     }
 
     p {
         cursor: auto;
         color: #4e4e4e;
         margin: 0;
+        padding: 15px;
     }
 </style>
