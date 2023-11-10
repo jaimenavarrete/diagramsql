@@ -105,29 +105,8 @@
 
 <style>
     .canvas-buttons {
-        display: flex;
-        position: absolute;
         right: 1.5rem;
         bottom: 1.5rem;
-        -webkit-user-select: none;
-        user-select: none;
-    }
-
-    .canvas-buttons button {
-        background: white;
-        border: none;
-        border-radius: 5px;
-        color: #212121;
-        cursor: pointer;
-        font-size: 25px;
-        font-weight: bold;
-        padding: 12px 15px;
-        transition: all 0.1s ease-out;
-    }
-
-    .canvas-buttons button:hover {
-        background-color: rgba(88, 101, 242, 0.3);
-        color: rgb(71, 82, 199);
     }
 
     .canvas-buttons .reset-position-button {
@@ -143,14 +122,5 @@
 
     .canvas-buttons .reset-zoom-button {
         font-size: 16px;
-    }
-
-    .buttons-container {
-        background: white;
-        border-radius: 5px;
-        box-shadow: 0 0 2px #7c7c7c;
-        padding: 3px;
-        margin-left: 10px;
-        display: flex;
     }
 </style>

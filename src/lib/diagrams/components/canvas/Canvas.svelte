@@ -1,8 +1,10 @@
 <script>
+    import './../../../../assets/css/canvas-buttons.css';
+
     import Table from '../../../tables/components/Table.svelte';
     import Note from '../../../notes/components/Note.svelte';
     import ConnectionArrow from '../connection-arrow/ConnectionArrow.svelte';
-    import CanvasButtons from './CanvasButtons.svelte';
+    import ZoomButtons from './canvas-buttons/ZoomButtons.svelte';
 
     export let tables = [];
     export let notes = [];
@@ -110,7 +112,7 @@
         {/each}
     </div>
 
-    <CanvasButtons
+    <ZoomButtons
         bind:zoomRatio
         bind:canvasTop
         bind:canvasLeft
