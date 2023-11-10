@@ -60,22 +60,26 @@
 </script>
 
 <section class="canvas-buttons">
-    <button
-        on:click={resetCanvasPosition}
-        class="reset-position-button"
+    <div
+        class="buttons-container reset-position-button"
         class:active={isResetButtonActive}
-        title="Reset canvas position">&#9872;</button
     >
-    <button
-        on:click={() => (isGridActive = !isGridActive)}
-        class="show-grid-button"
-        title="Show grid">&#9769;</button
-    >
-    <div class="zoom-buttons">
+        <button on:click={resetCanvasPosition} title="Reset canvas position"
+            >&#9872;</button
+        >
+    </div>
+    <div class="buttons-container">
         <button
-            on:click={increaseCanvasZoom}
-            class="increase-zoom-button"
-            title="Increase zoom">&plus;</button
+            on:click={() => (isGridActive = !isGridActive)}
+            class="show-grid-button"
+            title="Show grid">&#9769;</button
+        >
+    </div>
+    <div class="buttons-container">
+        <button
+            on:click={decreaseCanvasZoom}
+            class="decrease-zoom-button"
+            title="Decrease zoom">&dash;</button
         >
         <button
             on:click={resetCanvasZoom}
@@ -83,9 +87,9 @@
             title="Reset zoom">{Math.round(zoomRatio * 100)}%</button
         >
         <button
-            on:click={decreaseCanvasZoom}
-            class="decrease-zoom-button"
-            title="Decrease zoom">&dash;</button
+            on:click={increaseCanvasZoom}
+            class="increase-zoom-button"
+            title="Increase zoom">&plus;</button
         >
     </div>
 </section>
@@ -104,24 +108,23 @@
         background: white;
         border: none;
         border-radius: 5px;
-        box-shadow: 0 0 2px #7c7c7c;
-        color: #4752c7;
+        color: #212121;
         cursor: pointer;
         font-size: 25px;
         font-weight: bold;
-        margin-right: 10px;
-        padding: 3px 15px;
-        transition: all 0.2s ease-out;
+        padding: 5px 15px;
+        transition: all 0.1s ease-out;
     }
 
     .canvas-buttons button:hover {
-        background-color: #4752c7;
-        color: #fff;
+        background-color: rgba(88, 101, 242, 0.3);
+        color: rgb(71, 82, 199);
     }
 
     .canvas-buttons .reset-position-button {
         cursor: default;
         opacity: 0;
+        transition: all 0.1s ease-out;
     }
 
     .canvas-buttons .reset-position-button:is(.active) {
@@ -133,16 +136,12 @@
         font-size: 16px;
     }
 
-    .zoom-buttons {
+    .buttons-container {
         background: white;
         border-radius: 5px;
         box-shadow: 0 0 2px #7c7c7c;
         padding: 3px;
+        margin-left: 10px;
         display: flex;
-    }
-
-    .zoom-buttons button {
-        box-shadow: none;
-        margin: 0;
     }
 </style>
