@@ -4,26 +4,26 @@
     import ArrowDown from './ArrowDown.svelte';
     import ArrowRight from './ArrowRight.svelte';
 
-    export let parentNote;
-    export let childNote;
+    export let parentTable;
+    export let childTable;
 
     let arrowGap = 60;
 
     $: parentPoints = {
-        top: parentNote.positionY,
-        left: parentNote.positionX,
-        down: parentNote.positionY + parentNote.height,
-        right: parentNote.positionX + parentNote.width,
+        top: parentTable.positionY,
+        left: parentTable.positionX,
+        down: parentTable.positionY + parentTable.height,
+        right: parentTable.positionX + parentTable.width,
     };
 
     $: childPoints = {
-        top: childNote.positionY,
-        left: childNote.positionX,
-        down: childNote.positionY + childNote.height,
-        right: childNote.positionX + childNote.width,
+        top: childTable.positionY,
+        left: childTable.positionX,
+        down: childTable.positionY + childTable.height,
+        right: childTable.positionX + childTable.width,
     };
 
-    // Child note positions
+    // Child table positions
     $: isUp = childPoints.down < parentPoints.top - arrowGap;
     $: isLeft = childPoints.right < parentPoints.left - arrowGap;
     $: isDown = childPoints.top > parentPoints.down + arrowGap;
@@ -36,19 +36,19 @@
 </script>
 
 {#if isUp}
-    <ArrowUp {parentNote} {childNote} />
+    <ArrowUp {parentTable} {childTable} />
 {:else if isDown}
-    <ArrowDown {parentNote} {childNote} />
+    <ArrowDown {parentTable} {childTable} />
 {:else if isLeft}
-    <ArrowLeft {parentNote} {childNote} />
+    <ArrowLeft {parentTable} {childTable} />
 {:else if isRight}
-    <ArrowRight {parentNote} {childNote} />
+    <ArrowRight {parentTable} {childTable} />
 {:else if isNearUp}
-    <ArrowUp {parentNote} {childNote} isNear={true} />
+    <ArrowUp {parentTable} {childTable} isNear={true} />
 {:else if isNearDown}
-    <ArrowDown {parentNote} {childNote} isNear={true} />
+    <ArrowDown {parentTable} {childTable} isNear={true} />
 {:else if isNearLeft}
-    <ArrowLeft {parentNote} {childNote} isNear={true} />
+    <ArrowLeft {parentTable} {childTable} isNear={true} />
 {:else if isNearRight}
-    <ArrowRight {parentNote} {childNote} isNear={true} />
+    <ArrowRight {parentTable} {childTable} isNear={true} />
 {/if}

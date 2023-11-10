@@ -1,22 +1,22 @@
 <script>
-    export let parentNote;
-    export let childNote;
+    export let parentTable;
+    export let childTable;
     export let isNear = false;
 
-    $: lowestX = Math.min(parentNote.positionX, childNote.positionX);
+    $: lowestX = Math.min(parentTable.positionX, childTable.positionX);
     $: highestX = Math.max(
-        parentNote.positionX + parentNote.width,
-        childNote.positionX + childNote.width
+        parentTable.positionX + parentTable.width,
+        childTable.positionX + childTable.width
     );
 
     // Arrow size
     $: arrowWidth = highestX - lowestX;
     $: arrowHeight =
-        childNote.positionY - (parentNote.positionY + parentNote.height);
+        childTable.positionY - (parentTable.positionY + parentTable.height);
 
     // Arrow positioning
-    $: firstLineX = childNote.width / 2 + childNote.positionX - lowestX;
-    $: secondLineX = parentNote.width / 2 + parentNote.positionX - lowestX;
+    $: firstLineX = childTable.width / 2 + childTable.positionX - lowestX;
+    $: secondLineX = parentTable.width / 2 + parentTable.positionX - lowestX;
     $: linesDistance = Math.abs(firstLineX - secondLineX);
 
     // Rounded-corners values
@@ -28,7 +28,7 @@
 
 <svg
     xmlns="http://www.w3.org/2000/svg"
-    style:top={`${parentNote.positionY + parentNote.height}px`}
+    style:top={`${parentTable.positionY + parentTable.height}px`}
     style:left={`${lowestX}px`}
     style:height={`${arrowHeight}px`}
     style:width={`${arrowWidth}px`}

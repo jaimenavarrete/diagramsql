@@ -101,7 +101,7 @@
             <Table bind:table {canvasHeight} {canvasWidth} {zoomRatio} />
 
             {#if table.parentId}
-                <ConnectionArrow parentNote={tables[0]} childNote={table} />
+                <ConnectionArrow parentTable={tables[0]} childTable={table} />
             {/if}
         {/each}
 
