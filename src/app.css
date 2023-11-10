@@ -25,3 +25,9 @@ h2 {
     text-align: center;
     text-transform: uppercase;
 }
+
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

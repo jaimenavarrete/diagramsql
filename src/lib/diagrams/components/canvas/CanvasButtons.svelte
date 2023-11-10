@@ -1,4 +1,11 @@
 <script>
+    import {
+        IconPlus,
+        IconMinus,
+        IconGrid4x4,
+        IconCurrentLocation,
+    } from '@tabler/icons-svelte';
+
     // Props
 
     export let zoomRatio;
@@ -64,22 +71,23 @@
         class="buttons-container reset-position-button"
         class:active={isResetButtonActive}
     >
-        <button on:click={resetCanvasPosition} title="Reset canvas position"
-            >&#9872;</button
+        <button on:click={resetCanvasPosition} title="Go to center"
+            ><IconCurrentLocation size={20} /></button
         >
     </div>
     <div class="buttons-container">
         <button
             on:click={() => (isGridActive = !isGridActive)}
             class="show-grid-button"
-            title="Show grid">&#9769;</button
+            title={isGridActive ? 'Hide grid' : 'Show grid'}
+            ><IconGrid4x4 size={20} /></button
         >
     </div>
     <div class="buttons-container">
         <button
             on:click={decreaseCanvasZoom}
             class="decrease-zoom-button"
-            title="Decrease zoom">&dash;</button
+            title="Decrease zoom"><IconMinus size={20} /></button
         >
         <button
             on:click={resetCanvasZoom}
@@ -89,8 +97,9 @@
         <button
             on:click={increaseCanvasZoom}
             class="increase-zoom-button"
-            title="Increase zoom">&plus;</button
-        >
+            title="Increase zoom"
+            ><IconPlus size={20} />
+        </button>
     </div>
 </section>
 
@@ -112,7 +121,7 @@
         cursor: pointer;
         font-size: 25px;
         font-weight: bold;
-        padding: 5px 15px;
+        padding: 12px 15px;
         transition: all 0.1s ease-out;
     }
 
