@@ -76,9 +76,12 @@
 <style>
     .note {
         background-color: #fff;
-        border: 2px solid var(--note-color);
-        border-radius: 10px;
-        max-width: 300px;
+        border-radius: 5px;
+        border: 1px solid var(--note-color);
+        border-right-width: 3px;
+        border-bottom-width: 3px;
+        color: #4e4e4e;
+        max-width: 350px;
         padding: 15px;
         position: absolute;
         z-index: 2;
@@ -86,7 +89,7 @@
 
     img {
         background-color: #fcfcfc;
-        border-radius: 10px;
+        border-radius: 5px 5px 0 0;
         height: auto;
         margin-bottom: 15px;
         width: 100%;
@@ -94,13 +97,11 @@
 
     h3 {
         cursor: auto;
-        font-size: 1.3rem;
-        margin: 0 0 15px 0;
+        padding-bottom: 15px;
     }
 
     p {
         cursor: auto;
-        color: #4e4e4e;
         margin: 0;
     }
 </style>

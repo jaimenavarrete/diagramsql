@@ -61,7 +61,8 @@
             <td class="name">name</td>
             <td class="type">varchar(50)</td>
             <td class="constraints nullable"
-                ><span title="Nullable"><IconCircleLetterN /></span></td
+                ><span title="Nullable"><IconCircleLetterN stroke={1} /></span
+                ></td
             >
             <td class="constraints unique" />
         </tr>
@@ -71,7 +72,8 @@
             <td class="type">int</td>
             <td class="constraints nullable" />
             <td class="constraints unique"
-                ><span title="Unique"><IconCircleLetterU /></span></td
+                ><span title="Unique"><IconCircleLetterU stroke={1} /></span
+                ></td
             >
         </tr>
         <tr class="property">
@@ -79,10 +81,12 @@
             <td class="name">phoneNumber</td>
             <td class="type">varchar(10)</td>
             <td class="constraints nullable"
-                ><span title="Nullable"><IconCircleLetterN /></span></td
+                ><span title="Nullable"><IconCircleLetterN stroke={1} /></span
+                ></td
             >
             <td class="constraints unique"
-                ><span title="Unique"><IconCircleLetterU /></span></td
+                ><span title="Unique"><IconCircleLetterU stroke={1} /></span
+                ></td
             >
         </tr>
     </table>
@@ -97,9 +101,9 @@
 <style>
     .table {
         background-color: #ededed;
-        border-top: 7px solid var(--table-color);
+        border: 1px solid var(--table-color);
+        border-top: 5px solid var(--table-color);
         border-radius: 5px;
-        box-shadow: 0 0 2px var(--table-color);
         color: #4e4e4e;
         max-width: 450px;
         position: absolute;
@@ -140,6 +144,7 @@
     }
 
     .properties-list .constraints {
+        color: #000;
         padding: 3px;
     }
 
