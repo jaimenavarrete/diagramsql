@@ -8,6 +8,7 @@
     export let childTable;
 
     let arrowGap = 60;
+    let color = '#4e4e4e';
 
     $: parentPoints = {
         top: parentTable.positionY,
@@ -36,19 +37,19 @@
 </script>
 
 {#if isUp}
-    <ArrowUp {parentTable} {childTable} />
+    <ArrowUp {parentTable} {childTable} {color} />
 {:else if isDown}
-    <ArrowDown {parentTable} {childTable} />
+    <ArrowDown {parentTable} {childTable} {color} />
 {:else if isLeft}
-    <ArrowLeft {parentTable} {childTable} />
+    <ArrowLeft {parentTable} {childTable} {color} />
 {:else if isRight}
-    <ArrowRight {parentTable} {childTable} />
+    <ArrowRight {parentTable} {childTable} {color} />
 {:else if isNearUp}
-    <ArrowUp {parentTable} {childTable} isNear={true} />
+    <ArrowUp {parentTable} {childTable} isNear={true} {color} />
 {:else if isNearDown}
-    <ArrowDown {parentTable} {childTable} isNear={true} />
+    <ArrowDown {parentTable} {childTable} isNear={true} {color} />
 {:else if isNearLeft}
-    <ArrowLeft {parentTable} {childTable} isNear={true} />
+    <ArrowLeft {parentTable} {childTable} isNear={true} {color} />
 {:else if isNearRight}
-    <ArrowRight {parentTable} {childTable} isNear={true} />
+    <ArrowRight {parentTable} {childTable} isNear={true} {color} />
 {/if}

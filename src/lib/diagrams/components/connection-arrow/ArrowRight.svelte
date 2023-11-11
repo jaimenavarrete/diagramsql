@@ -2,6 +2,7 @@
     export let parentTable;
     export let childTable;
     export let isNear = false;
+    export let color = '#4e4e4e';
 
     $: lowestY = Math.min(parentTable.positionY, childTable.positionY);
     $: highestY = Math.max(
@@ -40,7 +41,7 @@
             markerHeight="5"
             refX="0"
             refY="2.5"
-            fill="#5865F2"
+            fill={color}
         >
             <polygon points="0 0, 6 2.5, 0 5" />
         </marker>
@@ -52,7 +53,7 @@
             A${radius},${radius} 0 0 ${side > 0 ? 0 : 1} ${arrowWidth / 2}, ${
             firstLineY + radius * side
         }`}
-        stroke="#5865F2"
+        stroke={color}
         stroke-width="3"
         marker-start={isNear ? null : 'url(#arrowheadRight)'}
         fill="none"
@@ -64,7 +65,7 @@
             A${radius},${radius} 0 0 ${side < 0 ? 0 : 1} ${
             arrowWidth / 2 - radius
         }, ${secondLineY}`}
-        stroke="#5865F2"
+        stroke={color}
         stroke-width="3"
         fill="none"
     />
@@ -72,7 +73,7 @@
     <path
         d={`M${arrowWidth / 2 - radius},${secondLineY} 
             L0,${secondLineY}`}
-        stroke="#5865F2"
+        stroke={color}
         stroke-width="3"
         fill="none"
     />
