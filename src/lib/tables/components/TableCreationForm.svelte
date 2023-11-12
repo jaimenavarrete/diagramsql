@@ -68,7 +68,7 @@
 
 <style>
     form {
-        box-shadow: 0 0 3px #7c7c7c;
+        border-right: 1px solid #e4e4e4;
         padding: 20px;
         position: relative;
         width: 20%;

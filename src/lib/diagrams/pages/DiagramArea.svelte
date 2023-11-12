@@ -40,6 +40,7 @@
 <style>
     main {
         display: flex;
+        height: 95vh;
     }
 
     .diagram-area {

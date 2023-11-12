@@ -136,14 +136,13 @@
 <style>
     .canvas-container {
         background-color: #f2f2f2;
-        height: 100vh;
+        height: 100%;
         overflow: hidden;
         position: relative;
         width: 100%;
     }
 
     .canvas-container .canvas {
-        box-shadow: 0 0 1px #7c7c7c;
         height: 100000px;
         position: absolute;
         top: 50%;
