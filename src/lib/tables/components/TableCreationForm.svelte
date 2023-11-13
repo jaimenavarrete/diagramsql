@@ -1,9 +1,12 @@
 <script>
+    import { fade } from 'svelte/transition';
+
     import { IconX } from '@tabler/icons-svelte';
     import { showToast } from '../../shared/components/Toasts.svelte';
+    import { onMount } from 'svelte';
 
-    // Props
     export let tables;
+    export let isTableFormActive;
 
     // Element references
     let formRef;
@@ -11,9 +14,6 @@
     // States
     let formWidth,
         isResizeBarGrabbed = false;
-
-    // Reactive variables
-    $: formStyles = formRef ? window.getComputedStyle(formRef) : null;
 
     // Utility functions
     const createTable = (formData) => ({
@@ -27,8 +27,6 @@
     // Event handlers
     const resizeForm = (e) => {
         if (!isResizeBarGrabbed) return;
-
-        formWidth ??= parseFloat(formStyles.getPropertyValue('width'));
         formWidth -= e.movementX;
     };
 
@@ -40,16 +38,25 @@
 
         showToast('success', 'The table was created successfully');
     };
+
+    // Life cycle
+    onMount(() => {
+        let formStyles = window.getComputedStyle(formRef);
+        formWidth = parseFloat(formStyles.getPropertyValue('width'));
+    });
 </script>
 
 <form
+    transition:fade={{ duration: 100 }}
     bind:this={formRef}
     on:submit|preventDefault={submitForm}
     style:width={formWidth ? `${formWidth}px` : null}
 >
     <header>
         <h2>Table properties</h2>
-        <button type="button"><IconX /></button>
+        <button on:click={() => (isTableFormActive = false)} type="button"
+            ><IconX /></button
+        >
     </header>
     <div class="form-control">
         <label for="name">Name</label>
@@ -84,9 +91,13 @@
 
 <style>
     form {
+        background: #fff;
         border-left: 1px solid #e4e4e4;
-        position: relative;
-        width: 20%;
+        position: absolute;
+        height: 100%;
+        top: 0;
+        right: 0;
+        z-index: 1;
     }
 
     header {

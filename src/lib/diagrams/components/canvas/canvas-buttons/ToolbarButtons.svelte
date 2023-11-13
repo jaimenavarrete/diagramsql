@@ -5,6 +5,8 @@
         IconNote,
         IconTablePlus,
     } from '@tabler/icons-svelte';
+
+    export let isTableFormActive = false;
 </script>
 
 <section class="canvas-buttons">
@@ -17,8 +19,10 @@
         </button>
     </div>
     <div class="buttons-container">
-        <button class="add-table-button" title="Add table"
-            ><IconTablePlus size={20} /></button
+        <button
+            on:click={() => (isTableFormActive = true)}
+            class="add-table-button"
+            title="Add table"><IconTablePlus size={20} /></button
         >
         <button class="add-note-button" title="Add note"
             ><IconNote size={20} /></button

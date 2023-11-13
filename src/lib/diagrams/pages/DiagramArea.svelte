@@ -1,7 +1,5 @@
 <script>
     import Toasts from '../../shared/components/Toasts.svelte';
-
-    import TableCreationForm from '../../tables/components/TableCreationForm.svelte';
     import Canvas from '../components/canvas/Canvas.svelte';
 
     let tables = [
@@ -28,10 +26,7 @@
 </script>
 
 <main>
-    <section class="diagram-area">
-        <Canvas bind:tables bind:notes />
-    </section>
-    <TableCreationForm bind:tables />
+    <Canvas bind:tables bind:notes />
 </main>
 
 <!-- Toast notifications -->
@@ -39,11 +34,6 @@
 
 <style>
     main {
-        display: flex;
         height: 95vh;
-    }
-
-    .diagram-area {
-        flex: 1;
     }
 </style>

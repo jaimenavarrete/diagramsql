@@ -7,6 +7,8 @@
     import ToolbarButtons from './canvas-buttons/ToolbarButtons.svelte';
     import ZoomButtons from './canvas-buttons/ZoomButtons.svelte';
 
+    import TableCreationForm from '../../../tables/components/TableCreationForm.svelte';
+
     export let tables = [];
     export let notes = [];
 
@@ -24,7 +26,8 @@
         canvasLeft,
         isSpecialKeyPressed = false,
         isCanvasGrabbed = false,
-        isGridActive;
+        isGridActive,
+        isTableFormActive;
 
     // Reactive variables
     $: gridHeight = canvasHeight * zoomRatio;
@@ -76,6 +79,10 @@
 </script>
 
 <div id="canvas-container" bind:this={containerRef} class="canvas-container">
+    {#if isTableFormActive}
+        <TableCreationForm bind:tables bind:isTableFormActive />
+    {/if}
+
     <div
         class="canvas-grid-layer"
         style:--grid-size={`${gridSize}px`}
@@ -113,7 +120,7 @@
         {/each}
     </div>
 
-    <ToolbarButtons />
+    <ToolbarButtons bind:isTableFormActive />
 
     <ZoomButtons
         bind:zoomRatio
