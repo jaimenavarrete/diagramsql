@@ -38,19 +38,19 @@
     });
 </script>
 
-<!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
     bind:this={tableRef}
-    on:mousedown|self={() => (isTableGrabbed = true)}
     class="table"
     style:--table-color={table.color}
     style:top={`${table.positionY}px`}
     style:left={`${table.positionX}px`}
 >
-    <h3>{table.title}</h3>
+    <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+    <h3 on:mousedown={() => (isTableGrabbed = true)}>{table.title}</h3>
     <table class="properties-list">
         <tr class="property">
-            <td class="key pk-key" title="Primary Key"><IconKey /></td>
+            <td class="key pk-key" title="Primary Key"><IconKey size={22} /></td
+            >
             <td class="name">id</td>
             <td class="type">int</td>
             <td class="constraints nullable" />
@@ -61,19 +61,18 @@
             <td class="name">name</td>
             <td class="type">varchar(50)</td>
             <td class="constraints nullable"
-                ><span title="Nullable"><IconCircleLetterN stroke={1} /></span
+                ><span title="Nullable"><IconCircleLetterN size={22} /></span
                 ></td
             >
             <td class="constraints unique" />
         </tr>
         <tr class="property">
-            <td class="key" title="Foreign Key"><IconKey /></td>
+            <td class="key" title="Foreign Key"><IconKey size={22} /></td>
             <td class="name">categoryId</td>
             <td class="type">int</td>
             <td class="constraints nullable" />
             <td class="constraints unique"
-                ><span title="Unique"><IconCircleLetterU stroke={1} /></span
-                ></td
+                ><span title="Unique"><IconCircleLetterU size={22} /></span></td
             >
         </tr>
         <tr class="property">
@@ -81,12 +80,11 @@
             <td class="name">phoneNumber</td>
             <td class="type">varchar(10)</td>
             <td class="constraints nullable"
-                ><span title="Nullable"><IconCircleLetterN stroke={1} /></span
+                ><span title="Nullable"><IconCircleLetterN size={22} /></span
                 ></td
             >
             <td class="constraints unique"
-                ><span title="Unique"><IconCircleLetterU stroke={1} /></span
-                ></td
+                ><span title="Unique"><IconCircleLetterU size={22} /></span></td
             >
         </tr>
     </table>
@@ -101,21 +99,34 @@
 <style>
     .table {
         background-color: #ededed;
-        border: 1px solid var(--table-color);
+        box-sizing: border-box;
+        border: 1px solid #4e4e4e;
         border-top: 5px solid var(--table-color);
         border-radius: 5px;
         color: #4e4e4e;
+        cursor: pointer;
         max-width: 450px;
         position: absolute;
         z-index: 2;
     }
 
+    .table:hover {
+        border-color: #4752c7;
+        border-top-color: var(--table-color);
+    }
+
+    .table:hover h3 {
+        background: rgba(88, 101, 242, 0.2);
+        color: #4752c7;
+    }
+
     h3 {
         border-bottom: 1px solid #e5e5e5;
-        cursor: auto;
+        cursor: move;
         font-size: 1.1em;
         padding: 15px;
         text-align: center;
+        transition: all 0.1s ease-out;
     }
 
     .properties-list {
@@ -127,7 +138,7 @@
 
     .properties-list td {
         font-size: 0.9em;
-        padding: 10px;
+        padding: 8px 10px;
     }
 
     .properties-list .key {
