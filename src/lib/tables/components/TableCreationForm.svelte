@@ -1,4 +1,5 @@
 <script>
+    import { IconX } from '@tabler/icons-svelte';
     import { showToast } from '../../shared/components/Toasts.svelte';
 
     // Props
@@ -28,7 +29,7 @@
         if (!isResizeBarGrabbed) return;
 
         formWidth ??= parseFloat(formStyles.getPropertyValue('width'));
-        formWidth += e.movementX;
+        formWidth -= e.movementX;
     };
 
     const submitForm = (e) => {
@@ -46,16 +47,31 @@
     on:submit|preventDefault={submitForm}
     style:width={formWidth ? `${formWidth}px` : null}
 >
-    <h2>Add a new table</h2>
-    <input type="text" name="title" placeholder="Title" />
-    <textarea
-        name="description"
-        cols="30"
-        rows="10"
-        placeholder="Description"
-    />
-    <input type="color" name="color" />
-    <button>Add table</button>
+    <header>
+        <h2>Table properties</h2>
+        <button type="button"><IconX /></button>
+    </header>
+    <div class="form-control">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Users" />
+    </div>
+    <div class="form-control">
+        <label for="description">Description</label>
+        <textarea
+            id="description"
+            name="description"
+            cols="30"
+            rows="5"
+            placeholder="Registered users"
+        />
+    </div>
+    <div class="form-control">
+        <label for="color">Pick a color</label>
+        <input type="color" id="color" name="color" />
+    </div>
+    <div class="form-control">
+        <button type="submit">Add table</button>
+    </div>
 
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div on:mousedown={() => (isResizeBarGrabbed = true)} class="resize-bar" />
@@ -68,11 +84,37 @@
 
 <style>
     form {
-        border-right: 1px solid #e4e4e4;
-        padding: 20px;
+        border-left: 1px solid #e4e4e4;
         position: relative;
         width: 20%;
-        z-index: 1;
+    }
+
+    header {
+        background: #e4e4e4;
+        margin-bottom: 20px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    form h2 {
+        color: #212121;
+        font-size: 1em;
+        padding: 10px 20px;
+        text-transform: uppercase;
+    }
+
+    .form-control {
+        padding: 0px 20px;
+    }
+
+    form label {
+        color: #4e4e4e;
+        display: block;
+        font-weight: bold;
+        font-size: 0.9em;
+        margin-bottom: 5px;
     }
 
     form input,
@@ -81,7 +123,6 @@
         border-radius: 5px;
         box-sizing: border-box;
         display: block;
-        font-family: 'Poppins', sans-serif, Arial, Helvetica;
         font-size: 15px;
         margin-bottom: 1rem;
         padding: 10px;
@@ -99,11 +140,21 @@
     }
 
     form button {
-        background-color: #5865f2;
+        background: #e4e4e4;
         border: none;
         border-radius: 5px;
-        color: #fff;
+        color: #212121;
         cursor: pointer;
+        padding: 10px 20px;
+    }
+
+    form button:hover {
+        color: #5865f2;
+    }
+
+    form .form-control button {
+        background-color: #5865f2;
+        color: #fff;
         font-family: 'Poppins', sans-serif, Arial, Helvetica;
         font-size: 15px;
         font-weight: bold;
@@ -111,8 +162,9 @@
         width: 100%;
     }
 
-    form button:hover {
+    form .form-control button:hover {
         background-color: #4752c7;
+        color: #fff;
     }
 
     /*** RESIZE BAR STYLES ***/
@@ -120,7 +172,7 @@
     .resize-bar {
         cursor: col-resize;
         position: absolute;
-        right: -3px;
+        left: -3px;
         top: 0;
         width: 6px;
         height: 100%;

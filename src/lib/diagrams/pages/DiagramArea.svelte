@@ -28,10 +28,10 @@
 </script>
 
 <main>
-    <TableCreationForm bind:tables />
     <section class="diagram-area">
         <Canvas bind:tables bind:notes />
     </section>
+    <TableCreationForm bind:tables />
 </main>
 
 <!-- Toast notifications -->

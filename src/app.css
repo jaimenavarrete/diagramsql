@@ -6,7 +6,9 @@
 
 html,
 body,
-button {
+button,
+input,
+textarea {
     color: #212121;
     font-family: 'Poppins', sans-serif, Arial, Helvetica;
 }
@@ -19,11 +21,7 @@ h3 {
 
 h2 {
     color: #5865f2;
-    font-size: 2rem;
-    margin-top: 0.25em;
-    margin-bottom: 1em;
-    text-align: center;
-    text-transform: uppercase;
+    font-size: 1.75rem;
 }
 
 button {
