@@ -52,7 +52,9 @@
     class:selected-table={isTableSelected}
 >
     <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-    <h3 on:mousedown={() => (isTableGrabbed = true)}>{table.title}</h3>
+    <h3 on:mousedown={() => (isTableGrabbed = true)}>
+        {table.name || '[No name]'}
+    </h3>
     <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <table on:click={selectTable} class="properties-list">
@@ -98,7 +100,7 @@
     </table>
     <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
     <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <p on:click={selectTable}>{table.description}</p>
+    <p on:click={selectTable}>{table.description || '[No description]'}</p>
 </div>
 
 <svelte:document
@@ -128,6 +130,7 @@
 
     .selected-table {
         border-color: #4752c7;
+        border-top-color: var(--table-color);
         box-shadow: 0 0 25px #4752c775;
     }
 

@@ -27,7 +27,6 @@
         isSpecialKeyPressed = false,
         isCanvasGrabbed = false,
         isGridActive,
-        isTableFormActive,
         selectedTable;
 
     // Reactive variables
@@ -80,8 +79,8 @@
 </script>
 
 <div id="canvas-container" bind:this={containerRef} class="canvas-container">
-    {#if isTableFormActive}
-        <TableCreationForm bind:tables bind:isTableFormActive />
+    {#if selectedTable}
+        <TableCreationForm bind:tables bind:selectedTable />
     {/if}
 
     <div
@@ -127,7 +126,7 @@
         {/each}
     </div>
 
-    <ToolbarButtons bind:isTableFormActive />
+    <ToolbarButtons bind:tables bind:selectedTable />
 
     <ZoomButtons
         bind:zoomRatio

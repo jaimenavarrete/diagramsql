@@ -6,7 +6,7 @@
     import { onMount } from 'svelte';
 
     export let tables;
-    export let isTableFormActive;
+    export let selectedTable;
 
     // Element references
     let formRef;
@@ -54,7 +54,7 @@
 >
     <header>
         <h2>Table properties</h2>
-        <button on:click={() => (isTableFormActive = false)} type="button"
+        <button on:click={() => (selectedTable = null)} type="button"
             ><IconX /></button
         >
     </header>

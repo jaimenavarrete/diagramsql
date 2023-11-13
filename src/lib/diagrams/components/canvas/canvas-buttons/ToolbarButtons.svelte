@@ -1,4 +1,5 @@
 <script>
+    import { showToast } from '../../../../shared/components/Toasts.svelte';
     import {
         IconArrowBackUp,
         IconArrowForwardUp,
@@ -6,7 +7,29 @@
         IconTablePlus,
     } from '@tabler/icons-svelte';
 
-    export let isTableFormActive = false;
+    export let tables;
+    export let selectedTable;
+
+    // Utility functions
+
+    const createTable = () => ({
+        id: crypto.randomUUID(),
+        name: '',
+        description: '',
+        color: '#000000',
+        parentId: '',
+    });
+
+    // Event Handlers
+
+    const addTable = () => {
+        const table = createTable();
+        tables = [...tables, table];
+
+        selectedTable = table;
+
+        showToast('success', 'The table was created successfully');
+    };
 </script>
 
 <section class="canvas-buttons">
@@ -19,10 +42,8 @@
         </button>
     </div>
     <div class="buttons-container">
-        <button
-            on:click={() => (isTableFormActive = true)}
-            class="add-table-button"
-            title="Add table"><IconTablePlus size={20} /></button
+        <button on:click={addTable} class="add-table-button" title="Add table"
+            ><IconTablePlus size={20} /></button
         >
         <button class="add-note-button" title="Add note"
             ><IconNote size={20} /></button

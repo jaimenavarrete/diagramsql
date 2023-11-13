@@ -5,7 +5,7 @@
     let tables = [
         {
             id: '2e2b5f22-4149-4410-8691-93844dd2dc4e',
-            title: 'Testing table title',
+            name: 'Testing table title',
             description: '[No description]',
             color: '#3C90D1',
             parentId: null,
