@@ -93,6 +93,7 @@
     form {
         background: #fff;
         border-left: 1px solid #e4e4e4;
+        box-shadow: 0 0 25px #21212120;
         position: absolute;
         height: 100%;
         top: 0;

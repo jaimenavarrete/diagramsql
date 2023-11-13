@@ -7,6 +7,7 @@
     } from '@tabler/icons-svelte';
 
     export let table;
+    export let selectedTable;
     export let canvasHeight;
     export let canvasWidth;
     export let zoomRatio;
@@ -15,7 +16,11 @@
 
     let isTableGrabbed = false;
 
+    $: isTableSelected = table === selectedTable;
+
     // Event handler
+
+    const selectTable = () => (selectedTable = table);
 
     const moveTable = (e) => {
         if (!isTableGrabbed) return;
@@ -44,10 +49,13 @@
     style:--table-color={table.color}
     style:top={`${table.positionY}px`}
     style:left={`${table.positionX}px`}
+    class:selected-table={isTableSelected}
 >
     <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
     <h3 on:mousedown={() => (isTableGrabbed = true)}>{table.title}</h3>
-    <table class="properties-list">
+    <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <table on:click={selectTable} class="properties-list">
         <tr class="property">
             <td class="key pk-key" title="Primary Key"><IconKey size={22} /></td
             >
@@ -88,7 +96,9 @@
             >
         </tr>
     </table>
-    <p>{table.description}</p>
+    <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <p on:click={selectTable}>{table.description}</p>
 </div>
 
 <svelte:document
@@ -100,9 +110,10 @@
     .table {
         background-color: #ededed;
         box-sizing: border-box;
-        border: 1px solid #4e4e4e;
+        border: 1px solid var(--table-color);
         border-top: 5px solid var(--table-color);
         border-radius: 5px;
+        box-shadow: 0 0 25px #21212120;
         color: #4e4e4e;
         cursor: pointer;
         max-width: 450px;
@@ -110,13 +121,18 @@
         z-index: 2;
     }
 
-    .table:hover {
-        border-color: #4752c7;
-        border-top-color: var(--table-color);
+    .table:hover h3 {
+        background: rgba(88, 101, 242, 0.3);
+        color: #4752c7;
     }
 
-    .table:hover h3 {
-        background: rgba(88, 101, 242, 0.2);
+    .selected-table {
+        border-color: #4752c7;
+        box-shadow: 0 0 25px #4752c775;
+    }
+
+    .selected-table h3 {
+        background: rgba(88, 101, 242, 0.3);
         color: #4752c7;
     }
 
@@ -132,7 +148,6 @@
     .properties-list {
         background-color: #fff;
         border-collapse: collapse;
-        cursor: auto;
         width: 100%;
     }
 
@@ -167,7 +182,6 @@
         background-color: #fff;
         border-top: 1px solid #e5e5e5;
         border-radius: 0 0 5px 5px;
-        cursor: auto;
         font-size: 0.9em;
         line-height: 1.8;
         margin: 0;

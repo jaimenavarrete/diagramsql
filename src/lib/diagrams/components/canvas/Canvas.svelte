@@ -27,7 +27,8 @@
         isSpecialKeyPressed = false,
         isCanvasGrabbed = false,
         isGridActive,
-        isTableFormActive;
+        isTableFormActive,
+        selectedTable;
 
     // Reactive variables
     $: gridHeight = canvasHeight * zoomRatio;
@@ -108,7 +109,13 @@
         style:cursor={isSpecialKeyPressed ? 'grab' : 'default'}
     >
         {#each tables as table}
-            <Table bind:table {canvasHeight} {canvasWidth} {zoomRatio} />
+            <Table
+                bind:table
+                bind:selectedTable
+                {canvasHeight}
+                {canvasWidth}
+                {zoomRatio}
+            />
 
             {#if table.parentId}
                 <ConnectionArrow parentTable={tables[0]} childTable={table} />
@@ -157,6 +164,8 @@
         margin-top: -50000px;
         margin-left: -50000px;
         width: 100000px;
+
+        transition: transform 0.05s linear;
     }
 
     .canvas-container .canvas-grid-layer {
