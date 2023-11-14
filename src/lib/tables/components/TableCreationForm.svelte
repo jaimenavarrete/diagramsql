@@ -1,7 +1,7 @@
 <script>
     import { fade } from 'svelte/transition';
 
-    import { IconX } from '@tabler/icons-svelte';
+    import { IconColumns, IconInfoCircle, IconX } from '@tabler/icons-svelte';
     import { onMount } from 'svelte';
 
     export let tables;
@@ -15,7 +15,7 @@
     let formWidth,
         isResizeBarGrabbed = false;
 
-    $: selectedTableId = selectedTable.id;
+    $: selectedTableId = selectedTable?.id;
     $: selectedTableId, focusedElementRef?.focus();
 
     // Event handlers
@@ -44,48 +44,62 @@
             ><IconX /></button
         >
     </header>
-    <div class="form-control">
-        <label for="name">Name</label>
-        <input
-            bind:this={focusedElementRef}
-            on:input={(e) => {
-                selectedTable.name = e.currentTarget.value;
-                tables = tables;
-            }}
-            type="text"
-            id="name"
-            placeholder="Users"
-            value={selectedTable?.name || null}
-        />
-    </div>
-    <div class="form-control">
-        <label for="description">Description</label>
-        <textarea
-            on:input={(e) => {
-                selectedTable.description = e.currentTarget.value;
-                tables = tables;
-            }}
-            id="description"
-            name="description"
-            cols="30"
-            rows="5"
-            placeholder="Registered users"
-            value={selectedTable?.description || null}
-        />
-    </div>
-    <div class="form-control">
-        <label for="color">Pick a color</label>
-        <input
-            on:input={(e) => {
-                selectedTable.color = e.currentTarget.value;
-                tables = tables;
-            }}
-            type="color"
-            id="color"
-            name="color"
-            value={selectedTable?.color || null}
-        />
-    </div>
+    <section class="form-section">
+        <h3><IconInfoCircle /> <span>Information</span></h3>
+        <div class="form-control">
+            <label for="name">Name</label>
+            <input
+                bind:this={focusedElementRef}
+                on:input={(e) => {
+                    selectedTable.name = e.currentTarget.value;
+                    tables = tables;
+                }}
+                type="text"
+                id="name"
+                placeholder="Users"
+                value={selectedTable?.name || null}
+            />
+        </div>
+        <div class="form-control">
+            <label for="description">Description</label>
+            <textarea
+                on:input={(e) => {
+                    selectedTable.description = e.currentTarget.value;
+                    tables = tables;
+                }}
+                id="description"
+                name="description"
+                cols="30"
+                rows="5"
+                placeholder="Registered users"
+                value={selectedTable?.description || null}
+            />
+        </div>
+        <div class="form-control">
+            <label for="color">Pick a color</label>
+            <input
+                on:input={(e) => {
+                    selectedTable.color = e.currentTarget.value;
+                    tables = tables;
+                }}
+                type="color"
+                id="color"
+                name="color"
+                value={selectedTable?.color || null}
+            />
+        </div>
+    </section>
+    <section class="form-section">
+        <h3><IconColumns /> <span>Columns</span></h3>
+        <div class="form-control">
+            <input
+                type="text"
+                id="name"
+                placeholder="Users"
+                value={selectedTable?.name || null}
+            />
+        </div>
+    </section>
 
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div on:mousedown={() => (isResizeBarGrabbed = true)} class="resize-bar" />
@@ -124,15 +138,30 @@
         text-transform: uppercase;
     }
 
-    .form-control {
+    .form-section {
+        margin-bottom: 30px;
         padding: 0px 20px;
+    }
+
+    .form-section h3 {
+        border-bottom: 1px solid #f2f2f2;
+        font-size: 1em;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+
+        display: flex;
+        align-items: center;
+    }
+
+    .form-section h3 span {
+        margin-left: 5px;
     }
 
     form label {
         color: #4752c7;
         display: block;
         font-weight: bold;
-        font-size: 0.9em;
+        font-size: 0.85em;
         margin-bottom: 5px;
     }
 
@@ -143,7 +172,7 @@
         border-radius: 5px;
         display: block;
         font-size: 15px;
-        margin-bottom: 1rem;
+        margin-bottom: 20px;
         padding: 10px;
         width: 100%;
     }
