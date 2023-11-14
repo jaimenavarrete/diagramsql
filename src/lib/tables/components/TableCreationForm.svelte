@@ -9,10 +9,14 @@
 
     // Element references
     let formRef;
+    let focusedElementRef;
 
     // States
     let formWidth,
         isResizeBarGrabbed = false;
+
+    $: selectedTableId = selectedTable.id;
+    $: selectedTableId, focusedElementRef?.focus();
 
     // Event handlers
 
@@ -43,6 +47,7 @@
     <div class="form-control">
         <label for="name">Name</label>
         <input
+            bind:this={focusedElementRef}
             on:input={(e) => {
                 selectedTable.name = e.currentTarget.value;
                 tables = tables;
@@ -124,7 +129,7 @@
     }
 
     form label {
-        color: #4e4e4e;
+        color: #4752c7;
         display: block;
         font-weight: bold;
         font-size: 0.9em;
@@ -133,14 +138,19 @@
 
     form input,
     form textarea {
-        border: 1px solid #5865f2;
+        background: #f2f2f2;
+        border: 1px solid #e4e4e4;
         border-radius: 5px;
-        box-sizing: border-box;
         display: block;
         font-size: 15px;
         margin-bottom: 1rem;
         padding: 10px;
         width: 100%;
+    }
+
+    form input:focus,
+    form textarea:focus {
+        outline-color: #4752c7;
     }
 
     form textarea {
