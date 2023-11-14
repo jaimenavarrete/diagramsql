@@ -1,7 +1,14 @@
 <script>
     import { fade } from 'svelte/transition';
 
-    import { IconColumns, IconInfoCircle, IconX } from '@tabler/icons-svelte';
+    import {
+        IconCircleLetterN,
+        IconCircleLetterU,
+        IconColumns,
+        IconInfoCircle,
+        IconKey,
+        IconX,
+    } from '@tabler/icons-svelte';
     import { onMount } from 'svelte';
 
     export let tables;
@@ -91,14 +98,22 @@
     </section>
     <section class="form-section">
         <h3><IconColumns /> <span>Columns</span></h3>
-        <div class="form-control">
-            <input
-                type="text"
-                id="name"
-                placeholder="Users"
-                value={selectedTable?.name || null}
-            />
-        </div>
+        <article class="column-control">
+            <input type="text" id="column-name" placeholder="Name" />
+            <input type="text" id="column-type" placeholder="Type" />
+            <label class="checkbox is-primary-key" title="Primary Key">
+                <input type="checkbox" />
+                <button type="button"><IconKey /></button>
+            </label>
+            <label class="checkbox is-nullable" title="Nullable">
+                <input type="checkbox" />
+                <button type="button"><IconCircleLetterN /></button>
+            </label>
+            <label class="checkbox is-unique" title="Unique">
+                <input type="checkbox" />
+                <button type="button"><IconCircleLetterU /></button>
+            </label>
+        </article>
     </section>
 
     <!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -119,6 +134,7 @@
         height: 100%;
         top: 0;
         right: 0;
+        width: 500px;
         z-index: 1;
     }
 
@@ -218,6 +234,53 @@
     form .form-control button:hover {
         background-color: #4752c7;
         color: #fff;
+    }
+
+    /*** COLUMNS STYLES ***/
+
+    .column-control {
+        margin-bottom: 7px;
+
+        display: flex;
+    }
+
+    .column-control input {
+        font-size: 14px;
+        margin: 0 2px;
+        padding: 0 10px;
+    }
+
+    .column-control .checkbox {
+        cursor: pointer;
+        margin-bottom: 0;
+    }
+
+    .column-control .checkbox input {
+        display: none;
+    }
+
+    .column-control .checkbox button {
+        border: 1px solid transparent;
+        color: #e4e4e4;
+        margin: 0 2px;
+        padding: 7px;
+    }
+
+    .column-control .checkbox:hover button {
+        background: #f2f2f2;
+        color: #4e4e4e;
+        pointer-events: none;
+    }
+
+    .column-control .is-primary-key input:checked ~ button {
+        border-color: #ed991d;
+        color: #ed991d;
+    }
+
+    .column-control .is-nullable input:checked ~ button,
+    .column-control .is-unique input:checked ~ button {
+        border-color: #5865f2;
+        color: #5865f2;
     }
 
     /*** RESIZE BAR STYLES ***/
