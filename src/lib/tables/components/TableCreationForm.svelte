@@ -2,7 +2,6 @@
     import { fade } from 'svelte/transition';
 
     import { IconX } from '@tabler/icons-svelte';
-    import { showToast } from '../../shared/components/Toasts.svelte';
     import { onMount } from 'svelte';
 
     export let tables;
@@ -15,28 +14,11 @@
     let formWidth,
         isResizeBarGrabbed = false;
 
-    // Utility functions
-    const createTable = (formData) => ({
-        id: crypto.randomUUID(),
-        title: formData.get('title'),
-        description: formData.get('description') || '[No description]',
-        color: formData.get('color'),
-        parentId: '2e2b5f22-4149-4410-8691-93844dd2dc4e',
-    });
-
     // Event handlers
+
     const resizeForm = (e) => {
         if (!isResizeBarGrabbed) return;
         formWidth -= e.movementX;
-    };
-
-    const submitForm = (e) => {
-        const formData = new FormData(e.target);
-        const table = createTable(formData);
-
-        tables = [...tables, table];
-
-        showToast('success', 'The table was created successfully');
     };
 
     // Life cycle
@@ -49,7 +31,7 @@
 <form
     transition:fade={{ duration: 100 }}
     bind:this={formRef}
-    on:submit|preventDefault={submitForm}
+    on:submit|preventDefault
     style:width={formWidth ? `${formWidth}px` : null}
 >
     <header>
@@ -60,24 +42,44 @@
     </header>
     <div class="form-control">
         <label for="name">Name</label>
-        <input type="text" id="name" name="name" placeholder="Users" />
+        <input
+            on:input={(e) => {
+                selectedTable.name = e.currentTarget.value;
+                tables = tables;
+            }}
+            type="text"
+            id="name"
+            placeholder="Users"
+            value={selectedTable?.name || null}
+        />
     </div>
     <div class="form-control">
         <label for="description">Description</label>
         <textarea
+            on:input={(e) => {
+                selectedTable.description = e.currentTarget.value;
+                tables = tables;
+            }}
             id="description"
             name="description"
             cols="30"
             rows="5"
             placeholder="Registered users"
+            value={selectedTable?.description || null}
         />
     </div>
     <div class="form-control">
         <label for="color">Pick a color</label>
-        <input type="color" id="color" name="color" />
-    </div>
-    <div class="form-control">
-        <button type="submit">Add table</button>
+        <input
+            on:input={(e) => {
+                selectedTable.color = e.currentTarget.value;
+                tables = tables;
+            }}
+            type="color"
+            id="color"
+            name="color"
+            value={selectedTable?.color || null}
+        />
     </div>
 
     <!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -152,7 +154,7 @@
     }
 
     form button {
-        background: #e4e4e4;
+        background: transparent;
         border: none;
         border-radius: 5px;
         color: #212121;

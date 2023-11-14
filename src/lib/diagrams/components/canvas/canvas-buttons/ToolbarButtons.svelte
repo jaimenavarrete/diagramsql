@@ -14,10 +14,10 @@
 
     const createTable = () => ({
         id: crypto.randomUUID(),
-        name: '',
-        description: '',
+        name: null,
+        description: null,
         color: '#000000',
-        parentId: '',
+        parentId: null,
     });
 
     // Event Handlers
