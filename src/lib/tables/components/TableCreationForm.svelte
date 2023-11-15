@@ -5,14 +5,18 @@
         IconCircleLetterN,
         IconCircleLetterU,
         IconColumns,
+        IconColumnsOff,
         IconInfoCircle,
         IconKey,
+        IconPlus,
         IconX,
     } from '@tabler/icons-svelte';
     import { onMount } from 'svelte';
 
     export let tables;
     export let selectedTable;
+
+    $: console.log(selectedTable.columns);
 
     // Element references
     let formRef;
@@ -26,6 +30,18 @@
     $: selectedTableId, focusedElementRef?.focus();
 
     // Event handlers
+
+    const addColumn = () => {
+        const newColumn = {
+            id: crypto.randomUUID(),
+            isPrimaryKey: false,
+            isNullable: false,
+            isUnique: false,
+        };
+
+        selectedTable.columns = [...selectedTable.columns, newColumn];
+        tables = tables;
+    };
 
     const resizeForm = (e) => {
         if (!isResizeBarGrabbed) return;
@@ -98,22 +114,51 @@
     </section>
     <section class="form-section">
         <h3><IconColumns /> <span>Columns</span></h3>
-        <article class="column-control">
-            <input type="text" id="column-name" placeholder="Name" />
-            <input type="text" id="column-type" placeholder="Type" />
-            <label class="checkbox is-primary-key" title="Primary Key">
-                <input type="checkbox" />
-                <button type="button"><IconKey /></button>
-            </label>
-            <label class="checkbox is-nullable" title="Nullable">
-                <input type="checkbox" />
-                <button type="button"><IconCircleLetterN /></button>
-            </label>
-            <label class="checkbox is-unique" title="Unique">
-                <input type="checkbox" />
-                <button type="button"><IconCircleLetterU /></button>
-            </label>
-        </article>
+
+        {#if selectedTable.columns.length === 0}
+            <p class="no-columns-text">
+                <IconColumnsOff size={32} /><span
+                    >You have no columns here.</span
+                >
+            </p>
+        {:else}
+            {#each selectedTable.columns as column}
+                <article class="column-control">
+                    <input
+                        bind:value={column.name}
+                        type="text"
+                        placeholder="Name"
+                    />
+                    <input
+                        bind:value={column.type}
+                        type="text"
+                        id="column-type"
+                        placeholder="Type"
+                    />
+                    <label class="checkbox is-primary-key" title="Primary Key">
+                        <input
+                            type="checkbox"
+                            bind:value={column.isPrimaryKey}
+                        />
+                        <button type="button"><IconKey /></button>
+                    </label>
+                    <label class="checkbox is-nullable" title="Nullable">
+                        <input type="checkbox" bind:value={column.isNullable} />
+                        <button type="button"><IconCircleLetterN /></button>
+                    </label>
+                    <label class="checkbox is-unique" title="Unique">
+                        <input type="checkbox" bind:value={column.isUnique} />
+                        <button type="button"><IconCircleLetterU /></button>
+                    </label>
+                </article>
+            {/each}
+        {/if}
+
+        <div class="form-control add-column-container">
+            <button on:click={addColumn}
+                ><IconPlus size={22} /> Add column</button
+            >
+        </div>
     </section>
 
     <!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -221,22 +266,38 @@
         color: #5865f2;
     }
 
-    form .form-control button {
-        background-color: #5865f2;
-        color: #fff;
-        font-family: 'Poppins', sans-serif, Arial, Helvetica;
-        font-size: 15px;
-        font-weight: bold;
-        padding: 10px 15px;
-        width: 100%;
+    form .add-column-container {
+        margin-top: 20px;
+
+        display: flex;
+        justify-content: end;
     }
 
-    form .form-control button:hover {
-        background-color: #4752c7;
-        color: #fff;
+    form .add-column-container button {
+        border: 2px dashed transparent;
+        color: #5865f2;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 7px 25px;
+        transition: all 0.1s ease-out;
+    }
+
+    form .add-column-container button:hover {
+        background-color: #4752c720;
+        border-color: #4752c7;
     }
 
     /*** COLUMNS STYLES ***/
+
+    .no-columns-text {
+        color: #4e4e4e;
+        font-size: 0.9em;
+        text-align: center;
+    }
+
+    .no-columns-text span {
+        display: block;
+    }
 
     .column-control {
         margin-bottom: 7px;

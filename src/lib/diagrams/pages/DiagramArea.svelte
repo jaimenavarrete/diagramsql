@@ -8,6 +8,7 @@
             name: 'Testing table title',
             description: '[No description]',
             color: '#3C90D1',
+            columns: [],
             parentId: null,
         },
     ];
