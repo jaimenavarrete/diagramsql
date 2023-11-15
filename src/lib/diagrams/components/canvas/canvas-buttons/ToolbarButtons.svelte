@@ -17,6 +17,7 @@
         name: null,
         description: null,
         color: '#000000',
+        columns: [],
         parentId: null,
     });
 

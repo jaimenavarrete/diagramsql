@@ -16,8 +16,6 @@
     export let tables;
     export let selectedTable;
 
-    $: console.log(selectedTable.columns);
-
     // Element references
     let formRef;
     let focusedElementRef;
@@ -115,7 +113,7 @@
     <section class="form-section">
         <h3><IconColumns /> <span>Columns</span></h3>
 
-        {#if selectedTable.columns.length === 0}
+        {#if !selectedTable?.columns || selectedTable.columns.length === 0}
             <p class="no-columns-text">
                 <IconColumnsOff size={32} /><span
                     >You have no columns here.</span

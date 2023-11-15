@@ -52,55 +52,59 @@
     class:selected-table={isTableSelected}
 >
     <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-    <h3 on:mousedown={() => (isTableGrabbed = true)}>
-        {table.name || '[No name]'}
-    </h3>
-    <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+    {#if !table.name}
+        <h3 on:mousedown={() => (isTableGrabbed = true)} class="no-name-text">
+            No name
+        </h3>
+    {:else}
+        <h3 on:mousedown={() => (isTableGrabbed = true)}>{table.name}</h3>
+    {/if}
+
     <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <table on:click={selectTable} class="properties-list">
-        <tr class="property">
-            <td class="key pk-key" title="Primary Key"><IconKey size={22} /></td
-            >
-            <td class="name">id</td>
-            <td class="type">int</td>
-            <td class="constraints nullable" />
-            <td class="constraints unique" />
-        </tr>
-        <tr class="property">
-            <td class="key" />
-            <td class="name">name</td>
-            <td class="type">varchar(50)</td>
-            <td class="constraints nullable"
-                ><span title="Nullable"><IconCircleLetterN size={22} /></span
-                ></td
-            >
-            <td class="constraints unique" />
-        </tr>
-        <tr class="property">
-            <td class="key" title="Foreign Key"><IconKey size={22} /></td>
-            <td class="name">categoryId</td>
-            <td class="type">int</td>
-            <td class="constraints nullable" />
-            <td class="constraints unique"
-                ><span title="Unique"><IconCircleLetterU size={22} /></span></td
-            >
-        </tr>
-        <tr class="property">
-            <td class="key" />
-            <td class="name">phoneNumber</td>
-            <td class="type">varchar(10)</td>
-            <td class="constraints nullable"
-                ><span title="Nullable"><IconCircleLetterN size={22} /></span
-                ></td
-            >
-            <td class="constraints unique"
-                ><span title="Unique"><IconCircleLetterU size={22} /></span></td
-            >
-        </tr>
-    </table>
     <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <p on:click={selectTable}>{table.description || '[No description]'}</p>
+    <div on:click={selectTable} role="article">
+        <table class="properties-list">
+            {#if !table?.columns || table.columns.length === 0}
+                <tr class="no-columns-text">
+                    <td>No columns</td>
+                </tr>
+            {:else}
+                {#each table.columns as column}
+                    <tr class="property">
+                        <td
+                            class="key"
+                            class:pk-key={column.isPrimaryKey}
+                            title="Primary Key"
+                        >
+                            <IconKey size={22} />
+                        </td>
+                        <td class="name">{column.name}</td>
+                        <td class="type">{column.type}</td>
+                        <td class="constraints nullable">
+                            {#if column.isNullable}
+                                <span title="Nullable"
+                                    ><IconCircleLetterN size={22} /></span
+                                >
+                            {/if}
+                        </td>
+                        <td class="constraints unique">
+                            {#if column.isUnique}
+                                <span title="Unique"
+                                    ><IconCircleLetterU size={22} /></span
+                                >
+                            {/if}
+                        </td>
+                    </tr>
+                {/each}
+            {/if}
+        </table>
+
+        {#if !table.description}
+            <p class="no-description-text">No description</p>
+        {:else}
+            <p>{table.description}</p>
+        {/if}
+    </div>
 </div>
 
 <svelte:document
@@ -189,5 +193,22 @@
         line-height: 1.8;
         margin: 0;
         padding: 15px 10px;
+    }
+
+    /* Empty state styles */
+
+    .table .no-name-text {
+        color: #b3b3b3;
+    }
+
+    .table:hover .no-name-text,
+    .selected-table .no-name-text {
+        color: #4752c780;
+    }
+
+    .table .no-columns-text,
+    .table .no-description-text {
+        color: #b3b3b3;
+        text-align: center;
     }
 </style>
