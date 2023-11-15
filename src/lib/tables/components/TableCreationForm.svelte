@@ -2,6 +2,7 @@
     import { fade } from 'svelte/transition';
 
     import {
+        IconCircleLetterC,
         IconCircleLetterN,
         IconCircleLetterU,
         IconColumns,
@@ -152,33 +153,54 @@
                         />
                         <button type="button"><IconKey /></button>
                     </label>
-                    <label class="checkbox is-nullable" title="Nullable">
-                        <input
-                            on:change={(e) => {
-                                column.isNullable = e.currentTarget.checked;
-                                tables = tables;
-                            }}
-                            type="checkbox"
-                            value={column.isNullable}
-                        />
-                        <button type="button"><IconCircleLetterN /></button>
-                    </label>
-                    <label class="checkbox is-unique" title="Unique">
-                        <input
-                            on:change={(e) => {
-                                column.isUnique = e.currentTarget.checked;
-                                tables = tables;
-                            }}
-                            type="checkbox"
-                            value={column.isUnique}
-                        />
-                        <button type="button"><IconCircleLetterU /></button>
+
+                    <label
+                        class="checkbox constraints-button"
+                        title="Constraints"
+                    >
+                        <input type="checkbox" />
+                        <button type="button"><IconCircleLetterC /></button>
+
+                        <div class="constraints-container">
+                            <label
+                                class="checkbox is-nullable"
+                                title="Nullable"
+                            >
+                                <input
+                                    on:change={(e) => {
+                                        column.isNullable =
+                                            e.currentTarget.checked;
+                                        tables = tables;
+                                    }}
+                                    type="checkbox"
+                                    value={column.isNullable}
+                                />
+                                <button type="button"
+                                    ><IconCircleLetterN /></button
+                                >
+                            </label>
+                            <label class="checkbox is-unique" title="Unique">
+                                <input
+                                    on:change={(e) => {
+                                        column.isUnique =
+                                            e.currentTarget.checked;
+                                        tables = tables;
+                                    }}
+                                    type="checkbox"
+                                    value={column.isUnique}
+                                />
+                                <button type="button"
+                                    ><IconCircleLetterU /></button
+                                >
+                            </label>
+                        </div>
                     </label>
                 </article>
             {/each}
         {/if}
 
         <div class="form-control add-column-container">
+            <span>N° of columns: {selectedTable?.columns.length}</span>
             <button on:click={addColumn}
                 ><IconPlus size={22} /> Add column</button
             >
@@ -293,18 +315,27 @@
     }
 
     form .add-column-container {
+        border-top: 1px solid #f2f2f2;
         margin-top: 20px;
+        padding-top: 5px;
 
         display: flex;
-        justify-content: end;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    form .add-column-container span {
+        color: #4e4e4e;
+        font-size: 14px;
     }
 
     form .add-column-container button {
         border: 2px dashed transparent;
         color: #5865f2;
-        font-size: 14px;
+        font-size: 15px;
+
         font-weight: bold;
-        padding: 7px 25px;
+        padding: 7px 15px;
         transition: all 0.1s ease-out;
     }
 
@@ -347,13 +378,11 @@
     }
 
     .column-control .checkbox button {
-        border: 1px solid transparent;
         color: #e4e4e4;
-        margin: 0 2px;
-        padding: 7px;
+        padding: 10px;
     }
 
-    .column-control .checkbox:hover button {
+    .column-control .checkbox:hover > button {
         background: #f2f2f2;
         color: #4e4e4e;
         pointer-events: none;
@@ -366,6 +395,31 @@
     .column-control .is-nullable input:checked ~ button,
     .column-control .is-unique input:checked ~ button {
         color: #5865f2;
+    }
+
+    .column-control .constraints-button {
+        position: relative;
+    }
+
+    .column-control .constraints-container {
+        background: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 15px #21212140;
+        display: none;
+        position: absolute;
+        z-index: 1;
+    }
+
+    .column-control
+        .constraints-button
+        > input:checked
+        ~ .constraints-container {
+        display: block;
+    }
+
+    .column-control .constraints-button > input:checked ~ button {
+        background: #f2f2f2;
+        color: #4e4e4e;
     }
 
     /*** RESIZE BAR STYLES ***/
