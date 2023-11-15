@@ -1,5 +1,10 @@
 <script>
-    import { IconPlus, IconRoute, IconRouteOff } from '@tabler/icons-svelte';
+    import {
+        IconPlus,
+        IconRoute,
+        IconRouteOff,
+        IconTrash,
+    } from '@tabler/icons-svelte';
 
     // Props
     export let selectedTable;
@@ -11,13 +16,19 @@
             id: crypto.randomUUID(),
             foreignKeyFieldId: null,
             referencedTableId: null,
-            referencedField: null,
+            referencedFieldId: null,
         };
 
         selectedTable.relationships = [
             ...selectedTable.relationships,
             newRelationship,
         ];
+    };
+
+    const deleteRelationship = (id) => {
+        selectedTable.relationships = selectedTable.relationships.filter(
+            (relation) => relation.id !== id
+        );
     };
 </script>
 
@@ -29,9 +40,49 @@
             <span><IconRouteOff size={32} /></span>
             You have no relationships here.
         </p>
+    {:else}
+        {#each selectedTable.relationships as relation}
+            <article class="relationship-control">
+                <select
+                    on:change={(e) => {
+                        relation.name = e.currentTarget.value;
+                    }}
+                >
+                    <option>FK Field</option>
+                </select>
+                <select
+                    on:change={(e) => {
+                        relation.type = e.currentTarget.value;
+                    }}
+                    id="relationship-type"
+                >
+                    <option>PK Field</option>
+                </select>
+                <select
+                    on:change={(e) => {
+                        relation.type = e.currentTarget.value;
+                    }}
+                    id="relationship-type"
+                >
+                    <option>PK Field</option>
+                </select>
+                <!-- Delete button -->
+                <div
+                    class="checkbox delete-relationship-button"
+                    title="Delete column"
+                >
+                    <button
+                        on:click={() => deleteRelationship(relation.id)}
+                        type="button"
+                    >
+                        <IconTrash /></button
+                    >
+                </div>
+            </article>
+        {/each}
     {/if}
 
-    <div class="form-control add-column-button">
+    <div class="form-control add-relationship-button">
         <span>N° of relationships: {selectedTable?.relationships.length}</span>
         <button on:click={addRelationship}
             ><IconPlus size={22} /> Add relationship</button
@@ -40,6 +91,18 @@
 </section>
 
 <style>
+    select {
+        background: #f2f2f2;
+        border: 1px solid #e4e4e4;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    select:focus {
+        outline-color: #4752c7;
+    }
+
     button {
         background: transparent;
         border: none;
@@ -48,7 +111,7 @@
         padding: 10px 20px;
     }
 
-    .add-column-button {
+    .add-relationship-button {
         border-top: 1px solid #f2f2f2;
         margin-top: 20px;
         padding-top: 5px;
@@ -58,12 +121,12 @@
         align-items: center;
     }
 
-    .add-column-button span {
+    .add-relationship-button span {
         color: #4e4e4e;
         font-size: 14px;
     }
 
-    .add-column-button button {
+    .add-relationship-button button {
         border: 2px dashed transparent;
         color: #5865f2;
         font-size: 15px;
@@ -73,7 +136,7 @@
         transition: all 0.1s ease-out;
     }
 
-    .add-column-button button:hover {
+    .add-relationship-button button:hover {
         background-color: #4752c720;
         border-color: #4752c7;
     }
@@ -88,5 +151,48 @@
 
     .no-relationships-text span {
         display: block;
+    }
+
+    /*** RELATIONSHIPS STYLES ***/
+
+    .relationship-control {
+        margin-bottom: 7px;
+
+        display: flex;
+    }
+
+    .relationship-control select {
+        font-size: 14px;
+        margin: 0 2px;
+        padding: 0 10px;
+    }
+
+    .relationship-control .checkbox {
+        cursor: pointer;
+    }
+
+    .relationship-control .checkbox select {
+        display: none;
+    }
+
+    .relationship-control .checkbox button {
+        color: #e4e4e4;
+        padding: 10px;
+    }
+
+    .relationship-control .checkbox:hover > button {
+        background: #f2f2f2;
+        color: #4e4e4e;
+        pointer-events: none;
+    }
+
+    .relationship-control .delete-relationship-button button {
+        color: #db3b21;
+    }
+
+    .relationship-control .delete-relationship-button:hover button {
+        background: #db3b2120;
+        color: #db3b21;
+        pointer-events: initial;
     }
 </style>
