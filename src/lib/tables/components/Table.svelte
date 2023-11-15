@@ -76,10 +76,20 @@
                             class:pk-key={column.isPrimaryKey}
                             title="Primary Key"
                         >
-                            <IconKey size={22} />
+                            {#if column.isPrimaryKey}
+                                <IconKey size={22} />
+                            {/if}
                         </td>
-                        <td class="name">{column.name}</td>
-                        <td class="type">{column.type}</td>
+                        <td
+                            class="name"
+                            class:no-column-value-text={!column.name}
+                            >{column.name || 'No name'}</td
+                        >
+                        <td
+                            class="type"
+                            class:no-column-value-text={!column.type}
+                            >{column.type || 'No type'}</td
+                        >
                         <td class="constraints nullable">
                             {#if column.isNullable}
                                 <span title="Nullable"
@@ -210,5 +220,9 @@
     .table .no-description-text {
         color: #b3b3b3;
         text-align: center;
+    }
+
+    .table .no-column-value-text {
+        color: #b3b3b3;
     }
 </style>

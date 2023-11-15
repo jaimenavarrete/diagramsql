@@ -123,29 +123,55 @@
             {#each selectedTable.columns as column}
                 <article class="column-control">
                     <input
-                        bind:value={column.name}
+                        on:input={(e) => {
+                            column.name = e.currentTarget.value;
+                            tables = tables;
+                        }}
                         type="text"
                         placeholder="Name"
+                        value={column.name || null}
                     />
                     <input
-                        bind:value={column.type}
+                        on:input={(e) => {
+                            column.type = e.currentTarget.value;
+                            tables = tables;
+                        }}
                         type="text"
                         id="column-type"
                         placeholder="Type"
+                        value={column.type || null}
                     />
                     <label class="checkbox is-primary-key" title="Primary Key">
                         <input
+                            on:change={(e) => {
+                                column.isPrimaryKey = e.currentTarget.checked;
+                                tables = tables;
+                            }}
                             type="checkbox"
-                            bind:value={column.isPrimaryKey}
+                            value={column.isPrimaryKey}
                         />
                         <button type="button"><IconKey /></button>
                     </label>
                     <label class="checkbox is-nullable" title="Nullable">
-                        <input type="checkbox" bind:value={column.isNullable} />
+                        <input
+                            on:change={(e) => {
+                                column.isNullable = e.currentTarget.checked;
+                                tables = tables;
+                            }}
+                            type="checkbox"
+                            value={column.isNullable}
+                        />
                         <button type="button"><IconCircleLetterN /></button>
                     </label>
                     <label class="checkbox is-unique" title="Unique">
-                        <input type="checkbox" bind:value={column.isUnique} />
+                        <input
+                            on:change={(e) => {
+                                column.isUnique = e.currentTarget.checked;
+                                tables = tables;
+                            }}
+                            type="checkbox"
+                            value={column.isUnique}
+                        />
                         <button type="button"><IconCircleLetterU /></button>
                     </label>
                 </article>
@@ -175,8 +201,10 @@
         box-shadow: 0 0 25px #21212120;
         position: absolute;
         height: 100%;
-        top: 0;
+        overflow: auto;
         right: 0;
+        padding-bottom: 100px;
+        top: 0;
         width: 500px;
         z-index: 1;
     }
@@ -332,13 +360,11 @@
     }
 
     .column-control .is-primary-key input:checked ~ button {
-        border-color: #ed991d;
         color: #ed991d;
     }
 
     .column-control .is-nullable input:checked ~ button,
     .column-control .is-unique input:checked ~ button {
-        border-color: #5865f2;
         color: #5865f2;
     }
 
