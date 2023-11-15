@@ -38,7 +38,8 @@
 
     {#if !selectedTable?.columns || selectedTable.columns.length === 0}
         <p class="no-columns-text">
-            <IconColumnsOff size={32} /><span>You have no columns here.</span>
+            <span class="icon"><IconColumnsOff size={32} /></span>
+            <span>You have no columns here.</span>
         </p>
     {:else}
         {#each selectedTable.columns as column}
@@ -116,8 +117,13 @@
         {/each}
     {/if}
 
+    <!-- Add column button -->
     <div class="form-control add-column-button">
-        <span>N° of columns: {selectedTable?.columns.length}</span>
+        <span>
+            {#if selectedTable?.columns.length > 0}
+                N° of columns: {selectedTable?.columns.length}
+            {/if}
+        </span>
         <button on:click={addColumn}><IconPlus size={22} /> Add column</button>
     </div>
 </section>
@@ -173,6 +179,7 @@
     }
 
     /* Empty columns text */
+
     .no-columns-text {
         color: #4e4e4e;
         font-size: 0.9em;
@@ -181,6 +188,15 @@
 
     .no-columns-text span {
         display: block;
+    }
+
+    .no-columns-text .icon {
+        background: #4752c720;
+        border-radius: 100%;
+        color: #4752c7;
+        display: inline-block;
+        margin: 0 auto 10px auto;
+        padding: 7px 10px;
     }
 
     /*** COLUMNS STYLES ***/

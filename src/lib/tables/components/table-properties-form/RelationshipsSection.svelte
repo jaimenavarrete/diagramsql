@@ -37,8 +37,8 @@
 
     {#if !selectedTable?.relationships || selectedTable.relationships.length === 0}
         <p class="no-relationships-text">
-            <span><IconRouteOff size={32} /></span>
-            You have no relationships here.
+            <span class="icon"><IconRouteOff size={32} /></span>
+            <span>You have no relationships here.</span>
         </p>
     {:else}
         {#each selectedTable.relationships as relation}
@@ -82,8 +82,13 @@
         {/each}
     {/if}
 
+    <!-- Add relationship button -->
     <div class="form-control add-relationship-button">
-        <span>N° of relationships: {selectedTable?.relationships.length}</span>
+        <span>
+            {#if selectedTable?.relationships.length > 0}
+                N° of relationships: {selectedTable?.relationships.length}
+            {/if}
+        </span>
         <button on:click={addRelationship}
             ><IconPlus size={22} /> Add relationship</button
         >
@@ -151,6 +156,15 @@
 
     .no-relationships-text span {
         display: block;
+    }
+
+    .no-relationships-text .icon {
+        background: #4752c720;
+        border-radius: 100%;
+        color: #4752c7;
+        display: inline-block;
+        margin: 0 auto 10px auto;
+        padding: 7px 10px;
     }
 
     /*** RELATIONSHIPS STYLES ***/
