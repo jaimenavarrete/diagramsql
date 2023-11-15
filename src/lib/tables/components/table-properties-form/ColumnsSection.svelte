@@ -11,7 +11,6 @@
     } from '@tabler/icons-svelte';
 
     // Props
-    export let tables;
     export let selectedTable;
 
     // Event handlers
@@ -25,14 +24,12 @@
         };
 
         selectedTable.columns = [...selectedTable.columns, newColumn];
-        tables = tables;
     };
 
     const deleteColumn = (id) => {
         selectedTable.columns = selectedTable.columns.filter(
             (column) => column.id !== id
         );
-        tables = tables;
     };
 </script>
 
@@ -49,7 +46,6 @@
                 <input
                     on:input={(e) => {
                         column.name = e.currentTarget.value;
-                        tables = tables;
                     }}
                     type="text"
                     placeholder="Name"
@@ -58,7 +54,6 @@
                 <input
                     on:input={(e) => {
                         column.type = e.currentTarget.value;
-                        tables = tables;
                     }}
                     type="text"
                     id="column-type"
@@ -69,7 +64,6 @@
                     <input
                         on:change={(e) => {
                             column.isPrimaryKey = e.currentTarget.checked;
-                            tables = tables;
                         }}
                         type="checkbox"
                         value={column.isPrimaryKey}
@@ -87,7 +81,6 @@
                             <input
                                 on:change={(e) => {
                                     column.isNullable = e.currentTarget.checked;
-                                    tables = tables;
                                 }}
                                 type="checkbox"
                                 value={column.isNullable}
@@ -98,7 +91,6 @@
                             <input
                                 on:change={(e) => {
                                     column.isUnique = e.currentTarget.checked;
-                                    tables = tables;
                                 }}
                                 type="checkbox"
                                 value={column.isUnique}
@@ -113,8 +105,11 @@
                     class="checkbox delete-column-button"
                     title="Delete column"
                 >
-                    <button on:click={() => deleteColumn(column.id)}
-                        ><IconTrash /></button
+                    <button
+                        on:click={() => deleteColumn(column.id)}
+                        type="button"
+                    >
+                        <IconTrash /></button
                     >
                 </div>
             </article>

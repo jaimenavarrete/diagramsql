@@ -10,6 +10,9 @@
     export let tables;
     export let selectedTable;
 
+    // Call tables state change
+    $: selectedTable, (tables = tables);
+
     // Element references
     let formRef;
     let focusedElementRef;
@@ -55,7 +58,6 @@
                 bind:this={focusedElementRef}
                 on:input={(e) => {
                     selectedTable.name = e.currentTarget.value;
-                    tables = tables;
                 }}
                 type="text"
                 id="name"
@@ -68,7 +70,6 @@
             <textarea
                 on:input={(e) => {
                     selectedTable.description = e.currentTarget.value;
-                    tables = tables;
                 }}
                 id="description"
                 name="description"
@@ -83,7 +84,6 @@
             <input
                 on:input={(e) => {
                     selectedTable.color = e.currentTarget.value;
-                    tables = tables;
                 }}
                 type="color"
                 id="color"
@@ -92,7 +92,7 @@
             />
         </div>
     </section>
-    <ColumnsSection bind:tables bind:selectedTable />
+    <ColumnsSection bind:selectedTable />
 
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div on:mousedown={() => (isResizeBarGrabbed = true)} class="resize-bar" />

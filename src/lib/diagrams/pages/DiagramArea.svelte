@@ -2,16 +2,7 @@
     import Toasts from '../../shared/components/Toasts.svelte';
     import Canvas from '../components/canvas/Canvas.svelte';
 
-    let tables = [
-        {
-            id: '2e2b5f22-4149-4410-8691-93844dd2dc4e',
-            name: 'Testing table title',
-            description: '[No description]',
-            color: '#3C90D1',
-            columns: [],
-            parentId: null,
-        },
-    ];
+    let tables = [];
 
     let notes = [
         {
