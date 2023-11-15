@@ -6,6 +6,7 @@
     import { IconInfoCircle, IconX } from '@tabler/icons-svelte';
 
     import ColumnsSection from './ColumnsSection.svelte';
+    import RelationshipsSection from './RelationshipsSection.svelte';
 
     export let tables;
     export let selectedTable;
@@ -93,6 +94,7 @@
         </div>
     </section>
     <ColumnsSection bind:selectedTable />
+    <RelationshipsSection bind:selectedTable />
 
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div on:mousedown={() => (isResizeBarGrabbed = true)} class="resize-bar" />
