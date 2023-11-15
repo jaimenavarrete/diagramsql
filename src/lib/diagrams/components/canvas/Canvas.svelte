@@ -7,7 +7,7 @@
     import ToolbarButtons from './canvas-buttons/ToolbarButtons.svelte';
     import ZoomButtons from './canvas-buttons/ZoomButtons.svelte';
 
-    import TableCreationForm from '../../../tables/components/TableCreationForm.svelte';
+    import TablePropertiesForm from '../../../tables/components/table-properties-form/TablePropertiesForm.svelte';
 
     export let tables = [];
     export let notes = [];
@@ -80,7 +80,7 @@
 
 <div id="canvas-container" bind:this={containerRef} class="canvas-container">
     {#if selectedTable}
-        <TableCreationForm bind:tables bind:selectedTable />
+        <TablePropertiesForm bind:tables bind:selectedTable />
     {/if}
 
     <div
