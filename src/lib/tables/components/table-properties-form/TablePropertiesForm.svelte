@@ -94,7 +94,7 @@
         </div>
     </section>
     <ColumnsSection bind:selectedTable />
-    <RelationshipsSection bind:selectedTable />
+    <RelationshipsSection bind:tables bind:selectedTable />
 
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div on:mousedown={() => (isResizeBarGrabbed = true)} class="resize-bar" />

@@ -7,6 +7,7 @@
     } from '@tabler/icons-svelte';
 
     // Props
+    export let tables;
     export let selectedTable;
 
     // Event handlers
@@ -15,8 +16,8 @@
         const newRelationship = {
             id: crypto.randomUUID(),
             foreignKeyFieldId: null,
-            referencedTableId: null,
-            referencedFieldId: null,
+            primaryKeyTableId: null,
+            primaryKeyFieldId: null,
         };
 
         selectedTable.relationships = [
@@ -45,26 +46,44 @@
             <article class="relationship-control">
                 <select
                     on:change={(e) => {
-                        relation.name = e.currentTarget.value;
+                        relation.foreignKeyFieldId = e.currentTarget.value;
                     }}
                 >
                     <option>FK Field</option>
+
+                    {#each selectedTable.columns as column}
+                        {#if column.name}
+                            <option value={column.id}>{column.name}</option>
+                        {/if}
+                    {/each}
                 </select>
                 <select
                     on:change={(e) => {
-                        relation.type = e.currentTarget.value;
+                        relation.primaryKeyTableId = e.currentTarget.value;
                     }}
-                    id="relationship-type"
                 >
-                    <option>PK Field</option>
+                    <option>PK Table</option>
+
+                    {#each tables as table}
+                        {#if table.name && table.id !== selectedTable.id}
+                            <option value={table.id}>{table.name}</option>
+                        {/if}
+                    {/each}
                 </select>
                 <select
                     on:change={(e) => {
-                        relation.type = e.currentTarget.value;
+                        relation.primaryKeyFieldId = e.currentTarget.value;
                     }}
-                    id="relationship-type"
                 >
                     <option>PK Field</option>
+
+                    {#if relation.primaryKeyTableId}
+                        {#each tables.find((table) => table.id === relation.primaryKeyTableId)?.columns as column}
+                            {#if column.name}
+                                <option value={column.id}>{column.name}</option>
+                            {/if}
+                        {/each}
+                    {/if}
                 </select>
                 <!-- Delete button -->
                 <div
