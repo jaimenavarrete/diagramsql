@@ -10,6 +10,7 @@
         IconInfoCircle,
         IconKey,
         IconPlus,
+        IconTrash,
         IconX,
     } from '@tabler/icons-svelte';
     import { onMount } from 'svelte';
@@ -39,6 +40,13 @@
         };
 
         selectedTable.columns = [...selectedTable.columns, newColumn];
+        tables = tables;
+    };
+
+    const deleteColumn = (id) => {
+        selectedTable.columns = selectedTable.columns.filter(
+            (column) => column.id !== id
+        );
         tables = tables;
     };
 
@@ -154,6 +162,7 @@
                         <button type="button"><IconKey /></button>
                     </label>
 
+                    <!-- Show constraints button -->
                     <label
                         class="checkbox constraints-button"
                         title="Constraints"
@@ -195,6 +204,16 @@
                             </label>
                         </div>
                     </label>
+
+                    <!-- Delete button -->
+                    <div
+                        class="checkbox delete-column-button"
+                        title="Delete column"
+                    >
+                        <button on:click={() => deleteColumn(column.id)}
+                            ><IconTrash /></button
+                        >
+                    </div>
                 </article>
             {/each}
         {/if}
@@ -420,6 +439,16 @@
     .column-control .constraints-button > input:checked ~ button {
         background: #f2f2f2;
         color: #4e4e4e;
+    }
+
+    .column-control .delete-column-button button {
+        color: #db3b21;
+    }
+
+    .column-control .delete-column-button:hover button {
+        background: #db3b2120;
+        color: #db3b21;
+        pointer-events: initial;
     }
 
     /*** RESIZE BAR STYLES ***/
