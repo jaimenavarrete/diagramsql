@@ -13,10 +13,17 @@
     export let zoomRatio;
 
     let tableRef;
+    let tableStyles;
 
     let isTableGrabbed = false;
 
     $: isTableSelected = table === selectedTable;
+    $: selectedTable, (table.width = getStyleValue('width'));
+    $: selectedTable, (table.height = getStyleValue('height'));
+
+    // Utility functions
+    const getStyleValue = (property) =>
+        parseFloat(tableStyles?.getPropertyValue(property));
 
     // Event handler
 
@@ -34,12 +41,10 @@
     // Lifecycle hook
 
     onMount(() => {
-        const tableStyles = window.getComputedStyle(tableRef);
+        tableStyles = window.getComputedStyle(tableRef);
 
         table.positionY = canvasHeight / 2;
         table.positionX = canvasWidth / 2;
-        table.width = parseFloat(tableStyles.getPropertyValue('width'));
-        table.height = parseFloat(tableStyles.getPropertyValue('height'));
     });
 </script>
 

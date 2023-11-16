@@ -48,8 +48,9 @@
                     on:change={(e) => {
                         relation.foreignKeyFieldId = e.currentTarget.value;
                     }}
+                    value={relation.foreignKeyFieldId || ''}
                 >
-                    <option>FK Field</option>
+                    <option value="">FK Field</option>
 
                     {#each selectedTable.columns as column}
                         {#if column.name}
@@ -60,9 +61,11 @@
                 <select
                     on:change={(e) => {
                         relation.primaryKeyTableId = e.currentTarget.value;
+                        relation.primaryKeyFieldId = null;
                     }}
+                    value={relation.primaryKeyTableId || ''}
                 >
-                    <option>PK Table</option>
+                    <option value="">PK Table</option>
 
                     {#each tables as table}
                         {#if table.name && table.id !== selectedTable.id}
@@ -74,8 +77,9 @@
                     on:change={(e) => {
                         relation.primaryKeyFieldId = e.currentTarget.value;
                     }}
+                    value={relation.primaryKeyFieldId || ''}
                 >
-                    <option>PK Field</option>
+                    <option value="">PK Field</option>
 
                     {#if relation.primaryKeyTableId}
                         {#each tables.find((table) => table.id === relation.primaryKeyTableId)?.columns as column}

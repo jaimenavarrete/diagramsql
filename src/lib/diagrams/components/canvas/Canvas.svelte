@@ -116,9 +116,16 @@
                 {zoomRatio}
             />
 
-            {#if table.parentId}
-                <ConnectionArrow parentTable={tables[0]} childTable={table} />
-            {/if}
+            {#each table.relationships as relation}
+                {#if relation.foreignKeyFieldId && relation.primaryKeyFieldId}
+                    <ConnectionArrow
+                        parentTable={tables.find(
+                            (table) => table.id === relation.primaryKeyTableId
+                        )}
+                        childTable={table}
+                    />
+                {/if}
+            {/each}
         {/each}
 
         {#each notes as note}
