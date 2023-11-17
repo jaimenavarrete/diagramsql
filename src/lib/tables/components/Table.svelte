@@ -7,7 +7,9 @@
     } from '@tabler/icons-svelte';
 
     export let table;
+    export let hoveredTable;
     export let selectedTable;
+
     export let canvasHeight;
     export let canvasWidth;
     export let zoomRatio;
@@ -16,8 +18,6 @@
     let tableStyles;
 
     let isTableGrabbed = false;
-
-    $: isTableSelected = table === selectedTable;
     $: selectedTable, (table.width = getStyleValue('width'));
     $: selectedTable, (table.height = getStyleValue('height'));
 
@@ -50,11 +50,14 @@
 
 <div
     bind:this={tableRef}
+    on:mouseenter={() => (hoveredTable = table)}
+    on:mouseleave={() => (hoveredTable = null)}
     class="table"
     style:--table-color={table.color}
     style:top={`${table.positionY}px`}
     style:left={`${table.positionX}px`}
-    class:selected-table={isTableSelected}
+    class:selected-table={table === selectedTable}
+    role="table"
 >
     <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
     {#if !table.name}
@@ -143,8 +146,8 @@
     }
 
     .table:hover h3 {
-        background: rgba(88, 101, 242, 0.3);
-        color: #4752c7;
+        background: rgba(88, 101, 242, 1);
+        color: #fff;
     }
 
     .selected-table {
@@ -154,8 +157,8 @@
     }
 
     .selected-table h3 {
-        background: rgba(88, 101, 242, 0.3);
-        color: #4752c7;
+        background: rgba(88, 101, 242, 1);
+        color: #fff;
     }
 
     h3 {
@@ -218,7 +221,7 @@
 
     .table:hover .no-name-text,
     .selected-table .no-name-text {
-        color: #4752c780;
+        color: #ffffff40;
     }
 
     .table .no-columns-text,

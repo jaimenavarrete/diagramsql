@@ -6,9 +6,17 @@
 
     export let parentTable;
     export let childTable;
+    export let hoveredTable;
+    export let selectedTable;
 
     let arrowGap = 60;
-    let color = '#4e4e4e';
+
+    $: hasHoveredTable =
+        parentTable === hoveredTable || childTable === hoveredTable;
+    $: hasSelectedTable =
+        parentTable === selectedTable || childTable === selectedTable;
+    $: isActive = hasHoveredTable || hasSelectedTable;
+    $: color = isActive ? '#5865F2' : '#4e4e4e';
 
     $: parentPoints = {
         top: parentTable.positionY,
@@ -37,19 +45,19 @@
 </script>
 
 {#if isUp}
-    <ArrowUp {parentTable} {childTable} {color} />
+    <ArrowUp {parentTable} {childTable} {color} {isActive} />
 {:else if isDown}
-    <ArrowDown {parentTable} {childTable} {color} />
+    <ArrowDown {parentTable} {childTable} {color} {isActive} />
 {:else if isLeft}
-    <ArrowLeft {parentTable} {childTable} {color} />
+    <ArrowLeft {parentTable} {childTable} {color} {isActive} />
 {:else if isRight}
-    <ArrowRight {parentTable} {childTable} {color} />
+    <ArrowRight {parentTable} {childTable} {color} {isActive} />
 {:else if isNearUp}
-    <ArrowUp {parentTable} {childTable} isNear={true} {color} />
+    <ArrowUp {parentTable} {childTable} isNear={true} {color} {isActive} />
 {:else if isNearDown}
-    <ArrowDown {parentTable} {childTable} isNear={true} {color} />
+    <ArrowDown {parentTable} {childTable} isNear={true} {color} {isActive} />
 {:else if isNearLeft}
-    <ArrowLeft {parentTable} {childTable} isNear={true} {color} />
+    <ArrowLeft {parentTable} {childTable} isNear={true} {color} {isActive} />
 {:else if isNearRight}
-    <ArrowRight {parentTable} {childTable} isNear={true} {color} />
+    <ArrowRight {parentTable} {childTable} isNear={true} {color} {isActive} />
 {/if}

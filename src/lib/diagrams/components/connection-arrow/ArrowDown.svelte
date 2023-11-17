@@ -3,6 +3,7 @@
     export let childTable;
     export let isNear = false;
     export let color = '#4e4e4e';
+    export let isActive = false;
 
     $: lowestX = Math.min(parentTable.positionX, childTable.positionX);
     $: highestX = Math.max(
@@ -29,6 +30,7 @@
 
 <svg
     xmlns="http://www.w3.org/2000/svg"
+    class:is-active={isActive}
     style:top={`${parentTable.positionY + parentTable.height}px`}
     style:left={`${lowestX}px`}
     style:height={`${arrowHeight}px`}
@@ -83,5 +85,9 @@
 <style>
     svg {
         position: absolute;
+    }
+
+    .is-active {
+        filter: drop-shadow(0 0 25px #5865f2);
     }
 </style>

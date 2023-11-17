@@ -27,6 +27,7 @@
         isSpecialKeyPressed = false,
         isCanvasGrabbed = false,
         isGridActive,
+        hoveredTable,
         selectedTable;
 
     // Reactive variables
@@ -43,6 +44,8 @@
     // Utility functions
     const getContainerStyle = (propertyName) =>
         parseFloat(containerStyles.getPropertyValue(propertyName));
+
+    const findTable = (tableId) => tables.find((table) => table.id === tableId);
 
     let showResetPositionButton;
 
@@ -110,6 +113,7 @@
         {#each tables as table}
             <Table
                 bind:table
+                bind:hoveredTable
                 bind:selectedTable
                 {canvasHeight}
                 {canvasWidth}
@@ -119,10 +123,10 @@
             {#each table.relationships as relation}
                 {#if relation.foreignKeyFieldId && relation.primaryKeyFieldId}
                     <ConnectionArrow
-                        parentTable={tables.find(
-                            (table) => table.id === relation.primaryKeyTableId
-                        )}
+                        parentTable={findTable(relation.primaryKeyTableId)}
                         childTable={table}
+                        {hoveredTable}
+                        {selectedTable}
                     />
                 {/if}
             {/each}
