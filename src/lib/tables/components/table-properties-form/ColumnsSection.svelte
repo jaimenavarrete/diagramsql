@@ -43,63 +43,61 @@
         </p>
     {:else}
         {#each selectedTable.columns as column}
+            <!-- svelte-ignore a11y-autofocus -->
             <article class="column-control">
                 <input
-                    on:input={(e) => {
-                        column.name = e.currentTarget.value;
-                    }}
+                    bind:value={column.name}
                     type="text"
                     placeholder="Name"
-                    value={column.name || null}
+                    autofocus
                 />
                 <input
-                    on:input={(e) => {
-                        column.type = e.currentTarget.value;
-                    }}
+                    bind:value={column.type}
                     type="text"
-                    id="column-type"
                     placeholder="Type"
-                    value={column.type || null}
                 />
                 <label class="checkbox is-primary-key" title="Primary Key">
-                    <input
-                        on:change={(e) => {
-                            column.isPrimaryKey = e.currentTarget.checked;
-                        }}
-                        type="checkbox"
-                        value={column.isPrimaryKey}
-                    />
-                    <button type="button"><IconKey /></button>
+                    <input bind:checked={column.isPrimaryKey} type="checkbox" />
+                    <button
+                        on:click={() =>
+                            (column.isPrimaryKey = !column.isPrimaryKey)}
+                        type="button"><IconKey /></button
+                    >
                 </label>
 
                 <!-- Show constraints button -->
-                <label class="checkbox constraints-button" title="Constraints">
-                    <input type="checkbox" />
+                <div
+                    class="checkbox constraints-button"
+                    class:has-constraints={column.isNullable || column.isUnique}
+                    title="Constraints"
+                >
                     <button type="button"><IconCircleLetterC /></button>
 
-                    <div class="constraints-container">
+                    <div class="constraints">
                         <label class="checkbox is-nullable" title="Nullable">
                             <input
-                                on:change={(e) => {
-                                    column.isNullable = e.currentTarget.checked;
-                                }}
+                                bind:checked={column.isNullable}
                                 type="checkbox"
-                                value={column.isNullable}
                             />
-                            <button type="button"><IconCircleLetterN /></button>
+                            <button
+                                on:click={() =>
+                                    (column.isNullable = !column.isNullable)}
+                                type="button"><IconCircleLetterN /></button
+                            >
                         </label>
                         <label class="checkbox is-unique" title="Unique">
                             <input
-                                on:change={(e) => {
-                                    column.isUnique = e.currentTarget.checked;
-                                }}
+                                bind:checked={column.isUnique}
                                 type="checkbox"
-                                value={column.isUnique}
                             />
-                            <button type="button"><IconCircleLetterU /></button>
+                            <button
+                                on:click={() =>
+                                    (column.isUnique = !column.isUnique)}
+                                type="button"><IconCircleLetterU /></button
+                            >
                         </label>
                     </div>
-                </label>
+                </div>
 
                 <!-- Delete button -->
                 <div
@@ -245,7 +243,11 @@
         position: relative;
     }
 
-    .column-control .constraints-container {
+    .column-control .constraints-button.has-constraints > button {
+        color: #4e4e4e;
+    }
+
+    .column-control .constraints {
         background: #fff;
         border-radius: 5px;
         box-shadow: 0 0 15px #21212140;
@@ -254,16 +256,8 @@
         z-index: 1;
     }
 
-    .column-control
-        .constraints-button
-        > input:checked
-        ~ .constraints-container {
+    .column-control .constraints-button:hover .constraints {
         display: block;
-    }
-
-    .column-control .constraints-button > input:checked ~ button {
-        background: #f2f2f2;
-        color: #4e4e4e;
     }
 
     .column-control .delete-column-button button {
