@@ -44,11 +44,13 @@
     {:else}
         {#each selectedTable.relationships as relation}
             <article class="relationship-control">
+                <!-- svelte-ignore a11y-autofocus -->
                 <select
                     on:change={(e) => {
                         relation.foreignKeyFieldId = e.currentTarget.value;
                     }}
                     value={relation.foreignKeyFieldId || ''}
+                    autofocus
                 >
                     <option value="">FK Field</option>
 

@@ -17,6 +17,7 @@
 
     // Element references
     let containerRef;
+    let canvasRef;
 
     // States
     let zoomRatio = 1,
@@ -81,7 +82,7 @@
     let changeCanvasZoomMouseWheel;
 </script>
 
-<div id="canvas-container" bind:this={containerRef} class="canvas-container">
+<div bind:this={containerRef} class="canvas-container">
     {#if selectedTable}
         <TablePropertiesForm bind:tables bind:selectedTable />
     {/if}
@@ -101,10 +102,12 @@
     />
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div
-        class="canvas"
+        id="canvas"
+        bind:this={canvasRef}
         on:mousedown={() => (isCanvasGrabbed = isSpecialKeyPressed)}
         on:mousemove={moveCanvas}
         on:wheel={changeCanvasZoomMouseWheel}
+        class="canvas"
         style:transform={`scale(${zoomRatio})`}
         style:top={canvasTop ? `${canvasTop}px` : null}
         style:left={canvasLeft ? `${canvasLeft}px` : null}

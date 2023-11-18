@@ -18,8 +18,8 @@
     let tableStyles;
 
     let isTableGrabbed = false;
-    $: selectedTable, (table.width = getStyleValue('width'));
-    $: selectedTable, (table.height = getStyleValue('height'));
+    $: table, (table.width = getStyleValue('width'));
+    $: table, (table.height = getStyleValue('height'));
 
     // Utility functions
     const getStyleValue = (property) =>

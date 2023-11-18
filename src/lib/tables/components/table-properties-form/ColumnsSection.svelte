@@ -43,8 +43,8 @@
         </p>
     {:else}
         {#each selectedTable.columns as column}
-            <!-- svelte-ignore a11y-autofocus -->
             <article class="column-control">
+                <!-- svelte-ignore a11y-autofocus -->
                 <input
                     bind:value={column.name}
                     type="text"
