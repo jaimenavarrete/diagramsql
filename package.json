@@ -19,6 +19,7 @@
     },
     "dependencies": {
         "@tabler/icons-svelte": "2.40.0",
+        "html2canvas": "1.4.1",
         "svelte-french-toast": "1.2.0"
     }
 }
