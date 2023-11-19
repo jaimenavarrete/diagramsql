@@ -64,7 +64,10 @@
         />
     {/if}
 
-    <h3>{note.title}</h3>
+    {#if note.title}
+        <h3>{note.title}</h3>
+    {/if}
+
     <p>{note.description}</p>
 </div>
 
@@ -75,12 +78,12 @@
 
 <style>
     .note {
-        background-color: #fff;
+        background-color: #f7f18e;
         border-radius: 5px;
-        border: 1px solid var(--note-color);
-        border-right-width: 3px;
-        border-bottom-width: 3px;
+        border: 1px solid #ed991d;
+        box-shadow: 0 0 25px #21212120;
         color: #4e4e4e;
+        cursor: auto;
         max-width: 350px;
         padding: 15px;
         position: absolute;
@@ -96,12 +99,10 @@
     }
 
     h3 {
-        cursor: auto;
         padding-bottom: 15px;
     }
 
     p {
-        cursor: auto;
         margin: 0;
     }
 </style>
