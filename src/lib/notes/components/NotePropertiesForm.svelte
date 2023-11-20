@@ -1,135 +1,113 @@
 <script>
-    import { showToast } from '../../shared/components/Toasts.svelte';
+    import { IconInfoCircle } from '@tabler/icons-svelte';
+    import ElementPropertiesForm from '../../shared/components/element-properties-form/ElementPropertiesForm.svelte';
 
     // Props
     export let notes;
+    export let selectedNote;
 
-    // Element references
-    let formRef;
-
-    // States
-    let formWidth,
-        isResizeBarGrabbed = false;
-
-    // Reactive variables
-    $: formStyles = formRef ? window.getComputedStyle(formRef) : null;
-
-    // Utility functions
-    const createNote = (formData) => ({
-        id: crypto.randomUUID(),
-        title: formData.get('title'),
-        description: formData.get('description') || '[No description]',
-        image: formData.get('image'),
-        color: formData.get('color'),
-        parentId: '2e2b5f22-4149-4410-8691-93844dd2dc4e',
-    });
-
-    // Event handlers
-    const resizeForm = (e) => {
-        if (!isResizeBarGrabbed) return;
-
-        formWidth ??= parseFloat(formStyles.getPropertyValue('width'));
-        formWidth += e.movementX;
-    };
-
-    const submitForm = (e) => {
-        const formData = new FormData(e.target);
-        const note = createNote(formData);
-
-        notes = [...notes, note];
-
-        showToast('success', 'The note was created successfully');
-    };
+    // Call tables state change
+    $: selectedNote, (notes = notes);
 </script>
 
-<form
-    bind:this={formRef}
-    on:submit|preventDefault={submitForm}
-    style:width={formWidth ? `${formWidth}px` : null}
->
-    <h2>Add a new note</h2>
-    <input type="text" name="title" placeholder="Title" />
-    <textarea
-        name="description"
-        cols="30"
-        rows="10"
-        placeholder="Description"
-    />
-    <input type="file" name="image" />
-    <input type="color" name="color" />
-    <button>Add note</button>
+<ElementPropertiesForm bind:selectedElement={selectedNote}>
+    <svelte:fragment slot="title">Note properties</svelte:fragment>
 
-    <!-- svelte-ignore a11y-no-static-element-interactions -->
-    <div on:mousedown={() => (isResizeBarGrabbed = true)} class="resize-bar" />
-</form>
-
-<svelte:document
-    on:mouseup={() => (isResizeBarGrabbed = false)}
-    on:mousemove={resizeForm}
-/>
+    <svelte:fragment>
+        <section class="form-section">
+            <h3><IconInfoCircle /> <span>Information</span></h3>
+            <div class="form-control">
+                <label for="title">title</label>
+                <input
+                    on:input={(e) => {
+                        selectedNote.title = e.currentTarget.value;
+                    }}
+                    type="text"
+                    id="title"
+                    placeholder="To Do"
+                    value={selectedNote?.title || null}
+                />
+            </div>
+            <div class="form-control">
+                <label for="description">Description</label>
+                <textarea
+                    on:input={(e) => {
+                        selectedNote.description = e.currentTarget.value;
+                    }}
+                    id="description"
+                    name="description"
+                    cols="30"
+                    rows="5"
+                    placeholder="Assign relationships"
+                    value={selectedNote?.description || null}
+                />
+            </div>
+            <div class="form-control">
+                <label for="image">Add image</label>
+                <input
+                    on:input={(e) => {
+                        selectedNote.image = e.currentTarget.value;
+                    }}
+                    type="file"
+                    id="image"
+                    name="image"
+                    value={selectedNote?.image || null}
+                />
+            </div>
+            <div class="form-control">
+                <label for="color">Pick a color</label>
+                <input
+                    on:input={(e) => {
+                        selectedNote.color = e.currentTarget.value;
+                    }}
+                    type="color"
+                    id="color"
+                    name="color"
+                    value={selectedNote?.color || null}
+                />
+            </div>
+        </section>
+    </svelte:fragment>
+</ElementPropertiesForm>
 
 <style>
-    form {
-        box-shadow: 0 0 3px #7c7c7c;
-        padding: 20px;
-        position: relative;
-        width: 20%;
-        z-index: 1;
+    label {
+        color: #4752c7;
+        display: block;
+        font-weight: bold;
+        font-size: 0.85em;
+        margin-bottom: 5px;
     }
 
-    form input,
-    form textarea {
-        border: 1px solid #5865f2;
+    input,
+    textarea {
+        background: #f2f2f2;
+        border: 1px solid #e4e4e4;
         border-radius: 5px;
-        box-sizing: border-box;
         display: block;
-        font-family: 'Poppins', sans-serif, Arial, Helvetica;
         font-size: 15px;
-        margin-bottom: 1rem;
+        margin-bottom: 20px;
         padding: 10px;
         width: 100%;
     }
 
-    form textarea {
+    input:focus,
+    textarea:focus {
+        outline-color: #4752c7;
+    }
+
+    textarea {
         resize: vertical;
     }
 
-    form input[type='file'] {
+    input[type='file'] {
         border-style: dashed;
         cursor: pointer;
     }
 
-    form input[type='color'] {
+    input[type='color'] {
         background-color: transparent;
         cursor: pointer;
         padding: 0;
-    }
-
-    form button {
-        background-color: #5865f2;
-        border: none;
-        border-radius: 5px;
-        color: #fff;
-        cursor: pointer;
-        font-family: 'Poppins', sans-serif, Arial, Helvetica;
-        font-size: 15px;
-        font-weight: bold;
-        padding: 10px 15px;
-        width: 100%;
-    }
-
-    form button:hover {
-        background-color: #4752c7;
-    }
-
-    /*** RESIZE BAR STYLES ***/
-
-    .resize-bar {
-        cursor: col-resize;
-        position: absolute;
-        right: -3px;
-        top: 0;
-        width: 6px;
-        height: 100%;
     }
 </style>
