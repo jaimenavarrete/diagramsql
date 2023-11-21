@@ -3,11 +3,13 @@
     import Header from '../../shared/components/header/Header.svelte';
     import Canvas from '../components/canvas/Canvas.svelte';
 
+    let title = 'Untitled diagram';
+    let description = 'No description';
     let tables = [];
     let notes = [];
 </script>
 
-<Header />
+<Header {title} {description} />
 
 <main>
     <Canvas bind:tables bind:notes />
