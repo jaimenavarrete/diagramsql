@@ -25,6 +25,11 @@
     const getStyleValue = (property) =>
         parseFloat(tableStyles?.getPropertyValue(property));
 
+    const isForeignKey = (columnId) =>
+        table.relationships.some(
+            (relation) => relation.foreignKeyFieldId === columnId
+        );
+
     // Event handler
 
     const selectTable = () => (selectedElement = table);
@@ -84,7 +89,7 @@
                             class:pk-key={column.isPrimaryKey}
                             title="Primary Key"
                         >
-                            {#if column.isPrimaryKey}
+                            {#if column.isPrimaryKey || isForeignKey(column.id)}
                                 <IconKey size={22} />
                             {/if}
                         </td>
