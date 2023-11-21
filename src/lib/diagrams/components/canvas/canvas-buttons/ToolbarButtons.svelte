@@ -9,6 +9,7 @@
     import { ElementTypes } from '../../../../shared/constants/element-types';
 
     export let tables;
+    export let notes;
     export let selectedElement;
 
     // Utility functions
@@ -16,11 +17,15 @@
     const createTable = () => ({
         id: crypto.randomUUID(),
         type: ElementTypes.Table,
-        name: null,
-        description: null,
         color: '#000000',
         columns: [],
         relationships: [],
+    });
+
+    const createNote = () => ({
+        id: crypto.randomUUID(),
+        type: ElementTypes.Note,
+        color: '#F8F097',
     });
 
     // Event Handlers
@@ -31,7 +36,16 @@
 
         selectedElement = table;
 
-        showToast('success', 'The table was created successfully');
+        showToast('success', 'Table created successfully');
+    };
+
+    const addNote = () => {
+        const note = createNote();
+        notes = [...notes, note];
+
+        selectedElement = note;
+
+        showToast('success', 'Note created successfully');
     };
 </script>
 
@@ -48,7 +62,7 @@
         <button on:click={addTable} class="add-table-button" title="Add table"
             ><IconTablePlus size={20} /></button
         >
-        <button class="add-note-button" title="Add note"
+        <button on:click={addNote} class="add-note-button" title="Add note"
             ><IconNote size={20} /></button
         >
     </div>

@@ -150,7 +150,7 @@
         {/each}
     </div>
 
-    <ToolbarButtons bind:tables bind:selectedElement />
+    <ToolbarButtons bind:tables bind:notes bind:selectedElement />
 
     <ZoomButtons
         bind:zoomRatio
