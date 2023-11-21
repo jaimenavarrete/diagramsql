@@ -43,18 +43,6 @@
                 />
             </div>
             <div class="form-control">
-                <label for="image">Add image</label>
-                <input
-                    on:input={(e) => {
-                        selectedNote.image = e.currentTarget.value;
-                    }}
-                    type="file"
-                    id="image"
-                    name="image"
-                    value={selectedNote?.image || null}
-                />
-            </div>
-            <div class="form-control">
                 <label for="color">Pick a color</label>
                 <input
                     on:input={(e) => {
@@ -98,11 +86,6 @@
 
     textarea {
         resize: vertical;
-    }
-
-    input[type='file'] {
-        border-style: dashed;
-        cursor: pointer;
     }
 
     input[type='color'] {

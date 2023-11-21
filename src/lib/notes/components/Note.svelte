@@ -7,7 +7,6 @@
     export let zoomRatio;
 
     let noteRef;
-    let imageRef;
 
     let isNoteGrabbed = false;
 
@@ -37,11 +36,6 @@
         note.positionY = canvasHeight / 2;
         note.positionX = canvasWidth / 2;
 
-        if (note.image.size > 0) {
-            imageRef.onload = getNoteSize;
-            return;
-        }
-
         getNoteSize();
     });
 </script>
@@ -55,15 +49,6 @@
     style:top={`${note.positionY}px`}
     style:left={`${note.positionX}px`}
 >
-    {#if note.image.size > 0}
-        <img
-            src={URL.createObjectURL(note.image)}
-            bind:this={imageRef}
-            alt="Note"
-            draggable="false"
-        />
-    {/if}
-
     {#if note.title}
         <h3>{note.title}</h3>
     {/if}
@@ -88,14 +73,6 @@
         padding: 15px;
         position: absolute;
         z-index: 2;
-    }
-
-    img {
-        background-color: #fcfcfc;
-        border-radius: 5px 5px 0 0;
-        height: auto;
-        margin-bottom: 15px;
-        width: 100%;
     }
 
     h3 {
