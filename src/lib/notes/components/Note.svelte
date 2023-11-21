@@ -1,5 +1,6 @@
 <script>
     import { onMount } from 'svelte';
+    import { contrastBackgroundColor } from '../../shared/utilities/text-utilities';
 
     export let note;
     export let canvasHeight;
@@ -35,6 +36,7 @@
     on:mousedown|self={() => (isNoteGrabbed = true)}
     class="note"
     style:--note-color={note.color}
+    style:--text-color={contrastBackgroundColor(note.color)}
     style:top={`${note.positionY}px`}
     style:left={`${note.positionX}px`}
     class:selected-note={note === selectedNote}
@@ -58,11 +60,11 @@
 
 <style>
     .note {
-        background-color: #f7f18e;
+        background-color: var(--note-color);
         border-radius: 5px;
         box-shadow: 0 0 25px #21212120;
-        border: 1px solid #21212120;
-        color: #4e4e4e;
+        border: 1px solid #212121;
+        color: var(--text-color);
         cursor: move;
         max-width: 350px;
         padding: 20px;
