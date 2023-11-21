@@ -6,13 +6,13 @@
     export let canvasHeight;
     export let canvasWidth;
     export let zoomRatio;
-    export let selectedNote;
+    export let selectedElement;
 
     let isNoteGrabbed = false;
 
     // Event handler
 
-    const selectNote = () => (selectedNote = note);
+    const selectNote = () => (selectedElement = note);
 
     const moveNote = (e) => {
         if (!isNoteGrabbed) return;
@@ -39,7 +39,7 @@
     style:--text-color={contrastBackgroundColor(note.color)}
     style:top={`${note.positionY}px`}
     style:left={`${note.positionX}px`}
-    class:selected-note={note === selectedNote}
+    class:selected-note={note === selectedElement}
 >
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div on:click={selectNote}>

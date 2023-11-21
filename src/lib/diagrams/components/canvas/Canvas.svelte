@@ -9,6 +9,7 @@
 
     import TablePropertiesForm from '../../../tables/components/table-properties-form/TablePropertiesForm.svelte';
     import NotePropertiesForm from '../../../notes/components/NotePropertiesForm.svelte';
+    import { ElementTypes } from '../../../shared/constants/element-types';
 
     export let tables = [];
     export let notes = [];
@@ -30,8 +31,7 @@
         isCanvasGrabbed = false,
         isGridActive,
         hoveredTable,
-        selectedTable,
-        selectedNote;
+        selectedElement;
 
     // Reactive variables
     $: gridHeight = canvasHeight * zoomRatio;
@@ -85,11 +85,10 @@
 </script>
 
 <div bind:this={containerRef} class="canvas-container">
-    {#if selectedTable}
-        <TablePropertiesForm bind:tables bind:selectedTable />
-    {/if}
-    {#if selectedNote}
-        <NotePropertiesForm bind:notes bind:selectedNote />
+    {#if selectedElement?.type === ElementTypes.Table}
+        <TablePropertiesForm bind:tables bind:selectedTable={selectedElement} />
+    {:else if selectedElement?.type === ElementTypes.Note}
+        <NotePropertiesForm bind:notes bind:selectedNote={selectedElement} />
     {/if}
 
     <div
@@ -122,7 +121,7 @@
             <Table
                 bind:table
                 bind:hoveredTable
-                bind:selectedTable
+                bind:selectedElement
                 {canvasHeight}
                 {canvasWidth}
                 {zoomRatio}
@@ -133,8 +132,8 @@
                     <ConnectionArrow
                         parentTable={findTable(relation.primaryKeyTableId)}
                         childTable={table}
+                        {selectedElement}
                         {hoveredTable}
-                        {selectedTable}
                     />
                 {/if}
             {/each}
@@ -143,7 +142,7 @@
         {#each notes as note}
             <Note
                 bind:note
-                bind:selectedNote
+                bind:selectedElement
                 {canvasHeight}
                 {canvasWidth}
                 {zoomRatio}
@@ -151,7 +150,7 @@
         {/each}
     </div>
 
-    <ToolbarButtons bind:tables bind:selectedTable />
+    <ToolbarButtons bind:tables bind:selectedElement />
 
     <ZoomButtons
         bind:zoomRatio

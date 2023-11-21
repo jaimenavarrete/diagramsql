@@ -7,6 +7,7 @@
     let notes = [
         {
             id: '2e2b5f22-4149-4410-8691-93844dd2dc4e',
+            type: 2,
             title: 'Testing title',
             description: '[No description]',
             color: '#E14D45',

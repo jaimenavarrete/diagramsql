@@ -8,7 +8,7 @@
 
     export let table;
     export let hoveredTable;
-    export let selectedTable;
+    export let selectedElement;
 
     export let canvasHeight;
     export let canvasWidth;
@@ -27,7 +27,7 @@
 
     // Event handler
 
-    const selectTable = () => (selectedTable = table);
+    const selectTable = () => (selectedElement = table);
 
     const moveTable = (e) => {
         if (!isTableGrabbed) return;
@@ -56,7 +56,7 @@
     style:--table-color={table.color}
     style:top={`${table.positionY}px`}
     style:left={`${table.positionX}px`}
-    class:selected-table={table === selectedTable}
+    class:selected-table={table === selectedElement}
     role="table"
 >
     <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->

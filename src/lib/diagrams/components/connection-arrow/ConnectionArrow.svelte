@@ -7,14 +7,14 @@
     export let parentTable;
     export let childTable;
     export let hoveredTable;
-    export let selectedTable;
+    export let selectedElement;
 
     let arrowGap = 60;
 
     $: hasHoveredTable =
         parentTable === hoveredTable || childTable === hoveredTable;
     $: hasSelectedTable =
-        parentTable === selectedTable || childTable === selectedTable;
+        parentTable === selectedElement || childTable === selectedElement;
     $: isActive = hasHoveredTable || hasSelectedTable;
     $: color = isActive ? '#5865F2' : '#4e4e4e';
 

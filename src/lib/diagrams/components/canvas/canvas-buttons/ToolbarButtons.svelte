@@ -6,14 +6,16 @@
         IconNote,
         IconTablePlus,
     } from '@tabler/icons-svelte';
+    import { ElementTypes } from '../../../../shared/constants/element-types';
 
     export let tables;
-    export let selectedTable;
+    export let selectedElement;
 
     // Utility functions
 
     const createTable = () => ({
         id: crypto.randomUUID(),
+        type: ElementTypes.Table,
         name: null,
         description: null,
         color: '#000000',
@@ -27,7 +29,7 @@
         const table = createTable();
         tables = [...tables, table];
 
-        selectedTable = table;
+        selectedElement = table;
 
         showToast('success', 'The table was created successfully');
     };
