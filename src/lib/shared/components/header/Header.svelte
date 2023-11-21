@@ -1,5 +1,5 @@
 <script>
-    import Logo from './../../../../assets/images/logo-dark.png';
+    import Logo from './../../../../assets/images/logo.svg';
 </script>
 
 <header>
@@ -18,7 +18,7 @@
 <style>
     header {
         border-bottom: 1px solid #e4e4e4;
-        height: 5vh;
+        height: 65px;
     }
 
     .left-content {
@@ -31,7 +31,7 @@
         background-color: #5865f2;
         margin-right: 15px;
         max-width: 300px;
-        padding: 15px;
+        padding: 0 20px;
         text-decoration: none;
 
         display: flex;
@@ -51,7 +51,7 @@
     h1 {
         color: #fff;
         font-weight: normal;
-        font-size: 1.75em;
+        font-size: 1.65em;
     }
 
     h1 span {
@@ -60,18 +60,20 @@
     }
 
     .diagram-info {
-        margin: 7px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     h2 {
-        font-size: 1.25em;
+        font-size: 1.2em;
         margin: 0;
-        margin-bottom: 3px;
+        margin-bottom: 5px;
         text-transform: none;
     }
 
     p {
         color: #4e4e4e;
-        font-size: 0.9em;
+        font-size: 0.85em;
     }
 </style>
