@@ -10,6 +10,7 @@
     import TablePropertiesForm from '../../../tables/components/table-properties-form/TablePropertiesForm.svelte';
     import NotePropertiesForm from '../../../notes/components/NotePropertiesForm.svelte';
     import { ElementTypes } from '../../../shared/constants/element-types';
+    import CanvasGrid from './CanvasGrid.svelte';
 
     export let tables = [];
     export let notes = [];
@@ -34,12 +35,6 @@
         selectedElement;
 
     // Reactive variables
-    $: gridHeight = canvasHeight * zoomRatio;
-    $: gridWidth = canvasWidth * zoomRatio;
-    $: gridSize = 100 * zoomRatio;
-    $: subGridSize = 20 * zoomRatio;
-    $: gridMarginTop = (-1 * gridHeight) / 2;
-    $: gridMarginLeft = (-1 * gridWidth) / 2;
     $: containerStyles = containerRef
         ? window.getComputedStyle(containerRef)
         : null;
@@ -85,25 +80,22 @@
 </script>
 
 <div bind:this={containerRef} class="canvas-container">
+    <!-- Canvas Grid -->
+    <CanvasGrid
+        {canvasHeight}
+        {canvasWidth}
+        {canvasTop}
+        {canvasLeft}
+        {zoomRatio}
+        {isGridActive}
+    />
+
     {#if selectedElement?.type === ElementTypes.Table}
         <TablePropertiesForm bind:tables bind:selectedTable={selectedElement} />
     {:else if selectedElement?.type === ElementTypes.Note}
         <NotePropertiesForm bind:notes bind:selectedNote={selectedElement} />
     {/if}
 
-    <div
-        class="canvas-grid-layer"
-        style:--grid-size={`${gridSize}px`}
-        style:--sub-grid-size={`${subGridSize}px`}
-        style:--grid-color={`${isGridActive ? '#e0e0e0' : 'transparent'}`}
-        style:--sub-grid-color={`${isGridActive ? '#ebebeb' : 'transparent'}`}
-        style:top={canvasTop ? `${canvasTop}px` : null}
-        style:left={canvasLeft ? `${canvasLeft}px` : null}
-        style:width="{gridWidth}px"
-        style:height="{gridHeight}px"
-        style:margin-top="{gridMarginTop}px"
-        style:margin-left="{gridMarginLeft}px"
-    />
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div
         id="canvas"
@@ -189,39 +181,5 @@
         width: 100000px;
 
         transition: transform 0.05s linear;
-    }
-
-    .canvas-container .canvas-grid-layer {
-        background: repeating-linear-gradient(
-                0deg,
-                transparent 0px,
-                transparent calc(var(--grid-size) - 1px),
-                var(--grid-color) calc(var(--grid-size) - 1px),
-                var(--grid-color) var(--grid-size)
-            ),
-            repeating-linear-gradient(
-                0deg,
-                transparent 0px,
-                transparent calc(var(--sub-grid-size) - 1px),
-                var(--sub-grid-color) calc(var(--sub-grid-size) - 1px),
-                var(--sub-grid-color) var(--sub-grid-size)
-            ),
-            repeating-linear-gradient(
-                90deg,
-                transparent 0px,
-                transparent calc(var(--grid-size) - 1px),
-                var(--grid-color) calc(var(--grid-size) - 1px),
-                var(--grid-color) var(--grid-size)
-            ),
-            repeating-linear-gradient(
-                90deg,
-                transparent 0px,
-                transparent calc(var(--sub-grid-size) - 1px),
-                var(--sub-grid-color) calc(var(--sub-grid-size) - 1px),
-                var(--sub-grid-color) var(--sub-grid-size)
-            );
-        position: absolute;
-        top: 50%;
-        left: 50%;
     }
 </style>
