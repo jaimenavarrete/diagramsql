@@ -5,21 +5,13 @@
     export let canvasHeight;
     export let canvasWidth;
     export let zoomRatio;
-
-    let noteRef;
+    export let selectedNote;
 
     let isNoteGrabbed = false;
 
-    // Utility functions
-
-    const getNoteSize = () => {
-        const noteStyles = window.getComputedStyle(noteRef);
-
-        note.width = parseFloat(noteStyles.getPropertyValue('width'));
-        note.height = parseFloat(noteStyles.getPropertyValue('height'));
-    };
-
     // Event handler
+
+    const selectNote = () => (selectedNote = note);
 
     const moveNote = (e) => {
         if (!isNoteGrabbed) return;
@@ -35,25 +27,28 @@
     onMount(() => {
         note.positionY = canvasHeight / 2;
         note.positionX = canvasWidth / 2;
-
-        getNoteSize();
     });
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
-    bind:this={noteRef}
     on:mousedown|self={() => (isNoteGrabbed = true)}
     class="note"
     style:--note-color={note.color}
     style:top={`${note.positionY}px`}
     style:left={`${note.positionX}px`}
+    class:selected-note={note === selectedNote}
 >
-    {#if note.title}
-        <h3>{note.title}</h3>
-    {/if}
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <div on:click={selectNote}>
+        {#if note.title}
+            <h3>{note.title}</h3>
+        {/if}
 
-    <p>{note.description}</p>
+        <p class:no-description-text={!note.description}>
+            {note.description || 'No description'}
+        </p>
+    </div>
 </div>
 
 <svelte:document
@@ -65,21 +60,32 @@
     .note {
         background-color: #f7f18e;
         border-radius: 5px;
-        border: 1px solid #ed991d;
         box-shadow: 0 0 25px #21212120;
+        border: 1px solid #21212120;
         color: #4e4e4e;
-        cursor: auto;
+        cursor: move;
         max-width: 350px;
-        padding: 15px;
+        padding: 20px;
         position: absolute;
         z-index: 2;
     }
 
+    .selected-note {
+        border-color: #4752c7;
+        box-shadow: 0 0 25px #4752c775;
+    }
+
     h3 {
+        cursor: pointer;
         padding-bottom: 15px;
     }
 
     p {
+        cursor: pointer;
         margin: 0;
+    }
+
+    .no-description-text {
+        color: #b3b3b3;
     }
 </style>

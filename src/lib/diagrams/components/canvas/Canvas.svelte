@@ -8,6 +8,7 @@
     import ZoomButtons from './canvas-buttons/ZoomButtons.svelte';
 
     import TablePropertiesForm from '../../../tables/components/table-properties-form/TablePropertiesForm.svelte';
+    import NotePropertiesForm from '../../../notes/components/NotePropertiesForm.svelte';
 
     export let tables = [];
     export let notes = [];
@@ -29,7 +30,8 @@
         isCanvasGrabbed = false,
         isGridActive,
         hoveredTable,
-        selectedTable;
+        selectedTable,
+        selectedNote;
 
     // Reactive variables
     $: gridHeight = canvasHeight * zoomRatio;
@@ -86,6 +88,9 @@
     {#if selectedTable}
         <TablePropertiesForm bind:tables bind:selectedTable />
     {/if}
+    {#if selectedNote}
+        <NotePropertiesForm bind:notes bind:selectedNote />
+    {/if}
 
     <div
         class="canvas-grid-layer"
@@ -136,7 +141,13 @@
         {/each}
 
         {#each notes as note}
-            <Note bind:note {canvasHeight} {canvasWidth} {zoomRatio} />
+            <Note
+                bind:note
+                bind:selectedNote
+                {canvasHeight}
+                {canvasWidth}
+                {zoomRatio}
+            />
         {/each}
     </div>
 
