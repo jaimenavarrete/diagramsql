@@ -2,10 +2,7 @@
     import './../../../../assets/css/properties-form-section.css';
 
     import { onMount } from 'svelte';
-    import { fade } from 'svelte/transition';
-    import { IconX } from '@tabler/icons-svelte';
-
-    export let selectedElement;
+    import { IconChevronLeft } from '@tabler/icons-svelte';
 
     // Element references
     let formRef;
@@ -18,7 +15,7 @@
 
     const resizeForm = (e) => {
         if (!isResizeBarGrabbed) return;
-        formWidth -= e.movementX;
+        formWidth += e.movementX;
     };
 
     // Life cycle
@@ -29,20 +26,16 @@
 </script>
 
 <form
-    transition:fade={{ duration: 100 }}
     bind:this={formRef}
     on:submit|preventDefault
     style:width={formWidth ? `${formWidth}px` : null}
 >
     <header>
-        <h2><slot name="title">Element properties</slot></h2>
-        <button on:click={() => (selectedElement = null)} type="button"
-            ><IconX /></button
-        >
+        <h2>Diagram Explorer</h2>
+        <button type="button"><IconChevronLeft /></button>
     </header>
 
     <!-- Content -->
-    <slot />
 
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div
@@ -59,16 +52,11 @@
 <style>
     form {
         background: #fff;
-        border-left: 1px solid #e4e4e4;
-        box-shadow: 0 0 25px #21212120;
-        position: absolute;
-        height: 100%;
+        border-right: 1px solid #e4e4e4;
         overflow: auto;
-        right: 0;
         padding-bottom: 100px;
-        top: 0;
-        width: 500px;
-        z-index: 1;
+        position: relative;
+        width: 450px;
     }
 
     header {
@@ -105,7 +93,7 @@
     .resize-bar {
         cursor: col-resize;
         position: absolute;
-        left: 0;
+        right: 0;
         top: 0;
         width: 6px;
         height: 100%;
