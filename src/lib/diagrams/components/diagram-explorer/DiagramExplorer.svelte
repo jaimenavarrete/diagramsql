@@ -1,8 +1,10 @@
 <script>
-    import './../../../../assets/css/properties-form-section.css';
-
     import { onMount } from 'svelte';
-    import { IconChevronLeft } from '@tabler/icons-svelte';
+    import {
+        IconCaretRightFilled,
+        IconChevronLeft,
+        IconTable,
+    } from '@tabler/icons-svelte';
 
     // Element references
     let formRef;
@@ -36,6 +38,24 @@
     </header>
 
     <!-- Content -->
+    <section class="form-section">
+        <ul class="menu-items">
+            <li class="dropdown">
+                <label class="dropdown-button">
+                    <input type="checkbox" class="dropdown-check" />
+                    <span class="arrow"><IconCaretRightFilled /></span>
+                    <IconTable />
+                    <span class="text">Tables</span>
+                </label>
+
+                <div class="dropdown-content">
+                    <ul>
+                        <li class="dropdown-item">Table 1</li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </section>
 
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div
@@ -56,7 +76,7 @@
         overflow: auto;
         padding-bottom: 100px;
         position: relative;
-        width: 450px;
+        width: 350px;
     }
 
     header {
@@ -75,7 +95,7 @@
         text-transform: uppercase;
     }
 
-    form button {
+    form header button {
         background: transparent;
         border: none;
         border-radius: 5px;
@@ -84,8 +104,78 @@
         padding: 10px 20px;
     }
 
-    form button:hover {
+    form header button:hover {
         color: #5865f2;
+    }
+
+    .menu-items,
+    .dropdown .dropdown-content ul {
+        list-style-type: none;
+    }
+
+    .dropdown {
+        margin-bottom: 10px;
+    }
+
+    .dropdown:has(:checked) {
+        --rows: 1fr;
+    }
+
+    .dropdown .dropdown-button {
+        border: 1px solid transparent;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.2s ease-out;
+
+        display: flex;
+        justify-content: start;
+        padding: 10px;
+    }
+
+    .dropdown .dropdown-button:hover,
+    .dropdown .dropdown-button:has(:checked) {
+        background-color: #5865f220;
+        border-color: #4752c7;
+        color: #4752c7;
+    }
+
+    .dropdown .dropdown-button .text span {
+        margin-left: 7px;
+    }
+
+    .dropdown .dropdown-button .dropdown-check {
+        display: none;
+    }
+
+    .dropdown .dropdown-button .arrow {
+        margin-right: 10px;
+
+        display: flex;
+        transition: transform 0.2s ease-out;
+    }
+
+    .dropdown .dropdown-check:checked ~ .arrow {
+        transform: rotate(90deg);
+    }
+
+    .dropdown .dropdown-button .text {
+        margin-left: 5px;
+    }
+
+    .dropdown .dropdown-content ul {
+        background: red;
+        margin-top: 5px;
+        overflow: hidden;
+    }
+
+    .dropdown-content {
+        display: grid;
+        grid-template-rows: var(--rows, 0fr);
+        transition: grid-template-rows 0.2s ease-out;
+    }
+
+    .dropdown .dropdown-content li {
+        padding: 15px 10px;
     }
 
     /*** RESIZE BAR STYLES ***/
