@@ -45,7 +45,8 @@
             <li class="dropdown">
                 <label class="dropdown-button">
                     <input type="checkbox" class="dropdown-check" checked />
-                    <span class="arrow"><IconCaretRightFilled /></span>
+                    <span class="arrow"><IconCaretRightFilled size={20} /></span
+                    >
                     <IconTable />
                     <span class="text">Tables</span>
                 </label>
@@ -53,20 +54,25 @@
                 <div class="dropdown-content">
                     <ul>
                         <li class="dropdown-item">Table 1</li>
+                        <li class="dropdown-item">Table 2</li>
+                        <li class="dropdown-item">Table 3</li>
                     </ul>
                 </div>
             </li>
             <li class="dropdown">
                 <label class="dropdown-button">
                     <input type="checkbox" class="dropdown-check" />
-                    <span class="arrow"><IconCaretRightFilled /></span>
+                    <span class="arrow"><IconCaretRightFilled size={20} /></span
+                    >
                     <IconNote />
                     <span class="text">Notes</span>
                 </label>
 
                 <div class="dropdown-content">
                     <ul>
-                        <li class="dropdown-item">Table 1</li>
+                        <li class="dropdown-item">Note 1</li>
+                        <li class="dropdown-item">Note 2</li>
+                        <li class="dropdown-item">Note 3</li>
                     </ul>
                 </div>
             </li>
@@ -127,8 +133,8 @@
     .form-section h3 {
         border-top: 1px solid #f2f2f2;
         border-bottom: none;
-        color: #4e4e4e;
-        font-size: 15px;
+        color: #b3b3b3;
+        font-size: 0.9em;
         margin-bottom: 0;
         padding-top: 20px;
         text-transform: uppercase;
@@ -181,9 +187,10 @@
 
     .dropdown .dropdown-button .arrow {
         margin-right: 10px;
+        transition: transform 0.2s ease-out;
 
         display: flex;
-        transition: transform 0.2s ease-out;
+        align-items: center;
     }
 
     .dropdown .dropdown-check:checked ~ .arrow {
@@ -201,13 +208,30 @@
     }
 
     .dropdown .dropdown-content ul {
-        background: red;
         overflow: hidden;
-        margin-left: 20px;
     }
 
     .dropdown .dropdown-content li {
-        padding: 15px 10px;
+        border-left: 3px solid #5865f2;
+        margin-left: 10px;
+        padding: 10px;
+        padding-left: 15px;
+        position: relative;
+    }
+
+    .dropdown .dropdown-content li::before {
+        content: '';
+
+        background-color: #fff;
+        border: 2px solid #5865f2;
+        border-radius: 100%;
+        display: inline-block;
+        height: 10px;
+        left: 0;
+        position: absolute;
+        top: 50%;
+        transform: translate(-60%, -50%);
+        width: 10px;
     }
 
     /*** RESIZE BAR STYLES ***/
