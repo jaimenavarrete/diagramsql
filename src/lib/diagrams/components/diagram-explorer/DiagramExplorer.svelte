@@ -7,6 +7,10 @@
         IconTable,
     } from '@tabler/icons-svelte';
 
+    // Props
+    export let tables;
+    export let notes;
+
     // Element references
     let formRef;
 
@@ -52,11 +56,20 @@
                 </label>
 
                 <div class="dropdown-content">
-                    <ul>
-                        <li class="dropdown-item">Table 1</li>
-                        <li class="dropdown-item">Table 2</li>
-                        <li class="dropdown-item">Table 3</li>
-                    </ul>
+                    {#if !tables || tables.length === 0}
+                        <p class="no-elements-text">There are no tables</p>
+                    {:else}
+                        <ul>
+                            {#each tables as table}
+                                <li
+                                    style:--color={table.color}
+                                    class="dropdown-item"
+                                >
+                                    {table.name || 'No name'}
+                                </li>
+                            {/each}
+                        </ul>
+                    {/if}
                 </div>
             </li>
             <li class="dropdown">
@@ -69,11 +82,20 @@
                 </label>
 
                 <div class="dropdown-content">
-                    <ul>
-                        <li class="dropdown-item">Note 1</li>
-                        <li class="dropdown-item">Note 2</li>
-                        <li class="dropdown-item">Note 3</li>
-                    </ul>
+                    {#if !notes || notes.length === 0}
+                        <p class="no-elements-text">There are no notes</p>
+                    {:else}
+                        <ul>
+                            {#each notes as note}
+                                <li
+                                    style:--color={note.color}
+                                    class="dropdown-item"
+                                >
+                                    {note.name || 'No name'}
+                                </li>
+                            {/each}
+                        </ul>
+                    {/if}
                 </div>
             </li>
         </ul>
@@ -135,7 +157,7 @@
         border-bottom: none;
         color: #b3b3b3;
         font-size: 0.9em;
-        margin-bottom: 0;
+        margin-bottom: 10px;
         padding-top: 20px;
         text-transform: uppercase;
     }
@@ -207,31 +229,47 @@
         transition: grid-template-rows 0.2s ease-out;
     }
 
-    .dropdown .dropdown-content ul {
+    .dropdown .dropdown-content ul,
+    .dropdown .dropdown-content .no-elements-text {
         overflow: hidden;
     }
 
     .dropdown .dropdown-content li {
-        border-left: 3px solid #5865f2;
+        border-left: 3px solid var(--color);
+        font-size: 0.95em;
         margin-left: 10px;
         padding: 10px;
         padding-left: 15px;
         position: relative;
     }
 
+    .dropdown .dropdown-content li:hover {
+        background-color: #5865f220;
+        color: #4752c7;
+    }
+
     .dropdown .dropdown-content li::before {
         content: '';
 
-        background-color: #fff;
-        border: 2px solid #5865f2;
+        background-color: var(--color);
         border-radius: 100%;
         display: inline-block;
-        height: 10px;
+        height: 13px;
         left: 0;
         position: absolute;
         top: 50%;
         transform: translate(-60%, -50%);
-        width: 10px;
+        width: 13px;
+    }
+
+    /* No elements text */
+
+    .dropdown .dropdown-content .no-elements-text {
+        background-color: #f2f2f2;
+        border-radius: 5px;
+        color: #4e4e4e;
+        font-size: 0.9em;
+        text-align: center;
     }
 
     /*** RESIZE BAR STYLES ***/

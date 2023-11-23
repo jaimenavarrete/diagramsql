@@ -4,18 +4,20 @@
     import Canvas from '../components/canvas/Canvas.svelte';
     import DiagramExplorer from '../components/diagram-explorer/DiagramExplorer.svelte';
 
-    let title = 'Untitled diagram';
-    let description = 'No description';
-    let tables = [];
-    let notes = [];
+    let diagram = {
+        title: 'Untitled diagram',
+        description: 'No description',
+        tables: [],
+        notes: [],
+    };
 </script>
 
-<Header {title} {description} />
+<Header title={diagram.title} description={diagram.description} />
 
 <main>
-    <DiagramExplorer />
+    <DiagramExplorer tables={diagram.tables} notes={diagram.notes} />
     <div class="container">
-        <Canvas bind:tables bind:notes />
+        <Canvas bind:tables={diagram.tables} bind:notes={diagram.notes} />
     </div>
 </main>
 
