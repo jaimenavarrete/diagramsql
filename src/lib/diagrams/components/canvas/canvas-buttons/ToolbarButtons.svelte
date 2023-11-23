@@ -1,52 +1,19 @@
 <script>
-    import { showToast } from '../../../../shared/components/Toasts.svelte';
+    import { createEventDispatcher } from 'svelte';
     import {
         IconArrowBackUp,
         IconArrowForwardUp,
         IconNote,
         IconTablePlus,
     } from '@tabler/icons-svelte';
-    import { ElementTypes } from '../../../../shared/constants/element-types';
 
-    export let tables;
-    export let notes;
-    export let selectedElement;
-
-    // Utility functions
-
-    const createTable = () => ({
-        id: crypto.randomUUID(),
-        type: ElementTypes.Table,
-        color: '#000000',
-        columns: [],
-        relationships: [],
-    });
-
-    const createNote = () => ({
-        id: crypto.randomUUID(),
-        type: ElementTypes.Note,
-        color: '#F8F097',
-    });
+    const dispatch = createEventDispatcher();
 
     // Event Handlers
 
-    const addTable = () => {
-        const table = createTable();
-        tables = [...tables, table];
+    const addTable = () => dispatch('addTable', {});
 
-        selectedElement = table;
-
-        showToast('success', 'Table created successfully');
-    };
-
-    const addNote = () => {
-        const note = createNote();
-        notes = [...notes, note];
-
-        selectedElement = note;
-
-        showToast('success', 'Note created successfully');
-    };
+    const addNote = () => dispatch('addNote', {});
 </script>
 
 <section class="canvas-buttons">

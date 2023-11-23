@@ -14,6 +14,7 @@
 
     export let tables = [];
     export let notes = [];
+    export let selectedElement;
 
     // Canvas interaction
     let specialKey = ' ';
@@ -31,8 +32,7 @@
         isSpecialKeyPressed = false,
         isCanvasGrabbed = false,
         isGridActive,
-        hoveredTable,
-        selectedElement;
+        hoveredTable;
 
     // Reactive variables
     $: containerStyles = containerRef
@@ -142,7 +142,7 @@
         {/each}
     </div>
 
-    <ToolbarButtons bind:tables bind:notes bind:selectedElement />
+    <ToolbarButtons on:addTable on:addNote />
 
     <ZoomButtons
         bind:zoomRatio
