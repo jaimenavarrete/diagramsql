@@ -3,6 +3,8 @@
     import {
         IconCaretRightFilled,
         IconChevronLeft,
+        IconCurrentLocation,
+        IconDotsVertical,
         IconNote,
         IconTable,
     } from '@tabler/icons-svelte';
@@ -49,9 +51,9 @@
             <li class="dropdown">
                 <label class="dropdown-button">
                     <input type="checkbox" class="dropdown-check" checked />
-                    <span class="arrow"><IconCaretRightFilled size={20} /></span
+                    <span class="arrow"><IconCaretRightFilled size={18} /></span
                     >
-                    <IconTable />
+                    <IconTable size={20} />
                     <span class="text">Tables</span>
                 </label>
 
@@ -65,7 +67,17 @@
                                     style:--color={table.color}
                                     class="dropdown-item"
                                 >
-                                    {table.name || 'No name'}
+                                    <span class="left-content">
+                                        {table.name || 'No name'}
+                                    </span>
+                                    <span class="right-content">
+                                        <button class="action-button">
+                                            <IconCurrentLocation size={20} />
+                                        </button>
+                                        <button class="action-button">
+                                            <IconDotsVertical size={20} />
+                                        </button>
+                                    </span>
                                 </li>
                             {/each}
                         </ul>
@@ -75,9 +87,9 @@
             <li class="dropdown">
                 <label class="dropdown-button">
                     <input type="checkbox" class="dropdown-check" />
-                    <span class="arrow"><IconCaretRightFilled size={20} /></span
+                    <span class="arrow"><IconCaretRightFilled size={18} /></span
                     >
-                    <IconNote />
+                    <IconNote size={20} />
                     <span class="text">Notes</span>
                 </label>
 
@@ -91,7 +103,17 @@
                                     style:--color={note.color}
                                     class="dropdown-item"
                                 >
-                                    {note.name || 'No name'}
+                                    <span class="left-content">
+                                        {note.title || 'No name'}
+                                    </span>
+                                    <span class="right-content">
+                                        <button class="action-button">
+                                            <IconCurrentLocation size={20} />
+                                        </button>
+                                        <button class="action-button">
+                                            <IconDotsVertical size={20} />
+                                        </button>
+                                    </span>
                                 </li>
                             {/each}
                         </ul>
@@ -185,16 +207,30 @@
         margin: 5px 0 10px 0;
     }
 
+    .dropdown .action-button {
+        background-color: transparent;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        padding: 3px;
+    }
+
+    .dropdown .action-button:hover {
+        background-color: #5865f220;
+        color: #4752c7;
+    }
+
     .dropdown .dropdown-button {
         border: 1px solid transparent;
         border-radius: 5px;
         cursor: pointer;
+        font-size: 0.95em;
+        padding: 5px;
         transition: all 0.2s ease-out;
 
         display: flex;
         justify-content: start;
         align-items: center;
-        padding: 10px 5px;
     }
 
     .dropdown .dropdown-button:hover {
@@ -239,9 +275,9 @@
 
     .dropdown .dropdown-content li {
         border-left: 3px solid var(--color);
-        font-size: 0.9em;
+        font-size: 0.85em;
         margin-left: 30px;
-        padding: 10px;
+        padding: 5px 10px;
         padding-left: 15px;
         position: relative;
     }
@@ -258,12 +294,23 @@
         border: 3px solid var(--color);
         border-radius: 100%;
         display: inline-block;
-        height: 10px;
+        height: 7px;
         left: 0;
         position: absolute;
         top: 50%;
         transform: translate(-60%, -50%);
-        width: 10px;
+        width: 7px;
+    }
+
+    .dropdown .dropdown-content li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .dropdown .dropdown-content li .right-content {
+        display: flex;
+        justify-content: center;
     }
 
     /* No elements text */
