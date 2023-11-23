@@ -72,8 +72,7 @@
     }
 
     header {
-        background: #e4e4e4;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
 
         display: flex;
         align-items: center;
@@ -82,9 +81,8 @@
 
     form h2 {
         color: #212121;
-        font-size: 1em;
+        font-size: 1.2em;
         padding: 10px 20px;
-        text-transform: uppercase;
     }
 
     form button {

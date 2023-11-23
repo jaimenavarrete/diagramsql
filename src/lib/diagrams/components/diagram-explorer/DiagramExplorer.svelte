@@ -4,9 +4,10 @@
         IconCaretRightFilled,
         IconChevronLeft,
         IconCurrentLocation,
-        IconDotsVertical,
         IconNote,
+        IconPackages,
         IconTable,
+        IconTrash,
     } from '@tabler/icons-svelte';
 
     // Props
@@ -46,7 +47,7 @@
 
     <!-- Content -->
     <section class="form-section">
-        <h3>Elements</h3>
+        <h3><IconPackages /> <span>Elements</span></h3>
         <ul class="menu-items">
             <li class="dropdown">
                 <label class="dropdown-button">
@@ -74,8 +75,11 @@
                                         <button class="action-button">
                                             <IconCurrentLocation size={20} />
                                         </button>
-                                        <button class="action-button">
-                                            <IconDotsVertical size={20} />
+                                        <button
+                                            class="action-button delete-button"
+                                            title="Delete table"
+                                        >
+                                            <IconTrash size={20} />
                                         </button>
                                     </span>
                                 </li>
@@ -110,8 +114,11 @@
                                         <button class="action-button">
                                             <IconCurrentLocation size={20} />
                                         </button>
-                                        <button class="action-button">
-                                            <IconDotsVertical size={20} />
+                                        <button
+                                            class="action-button delete-button"
+                                            title="Delete note"
+                                        >
+                                            <IconTrash size={20} />
                                         </button>
                                     </span>
                                 </li>
@@ -146,8 +153,7 @@
     }
 
     header {
-        background: #e4e4e4;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
 
         display: flex;
         align-items: center;
@@ -156,9 +162,8 @@
 
     header h2 {
         color: #212121;
-        font-size: 1em;
-        padding: 10px 20px;
-        text-transform: uppercase;
+        font-size: 1.2em;
+        padding: 10px;
     }
 
     header button {
@@ -167,7 +172,7 @@
         border-radius: 5px;
         color: #212121;
         cursor: pointer;
-        padding: 10px 20px;
+        padding: 10px;
     }
 
     header button:hover {
@@ -176,16 +181,6 @@
 
     .form-section {
         padding: 0 10px;
-    }
-
-    .form-section h3 {
-        border-top: 1px solid #f2f2f2;
-        border-bottom: none;
-        color: #b3b3b3;
-        font-size: 0.9em;
-        margin-bottom: 5px;
-        padding-top: 20px;
-        text-transform: uppercase;
     }
 
     /*** DROPDOWN STYLES ***/
@@ -220,7 +215,16 @@
         color: #4752c7;
     }
 
+    .dropdown .action-button.delete-button {
+        color: #de3a2b;
+    }
+
+    .dropdown .action-button.delete-button:hover {
+        background-color: #de3a2b20;
+    }
+
     .dropdown .dropdown-button {
+        background: #f2f2f2;
         border: 1px solid transparent;
         border-radius: 5px;
         cursor: pointer;
