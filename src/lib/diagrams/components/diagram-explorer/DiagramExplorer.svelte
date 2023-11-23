@@ -152,12 +152,16 @@
         color: #5865f2;
     }
 
+    .form-section {
+        padding: 0 10px;
+    }
+
     .form-section h3 {
         border-top: 1px solid #f2f2f2;
         border-bottom: none;
         color: #b3b3b3;
         font-size: 0.9em;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
         padding-top: 20px;
         text-transform: uppercase;
     }
@@ -189,13 +193,12 @@
 
         display: flex;
         justify-content: start;
-        padding: 10px;
+        align-items: center;
+        padding: 10px 5px;
     }
 
-    .dropdown .dropdown-button:hover,
-    .dropdown .dropdown-button:has(:checked) {
+    .dropdown .dropdown-button:hover {
         background-color: #5865f220;
-        border-color: #4752c7;
         color: #4752c7;
     }
 
@@ -236,8 +239,8 @@
 
     .dropdown .dropdown-content li {
         border-left: 3px solid var(--color);
-        font-size: 0.95em;
-        margin-left: 10px;
+        font-size: 0.9em;
+        margin-left: 30px;
         padding: 10px;
         padding-left: 15px;
         position: relative;
@@ -251,23 +254,22 @@
     .dropdown .dropdown-content li::before {
         content: '';
 
-        background-color: var(--color);
+        background-color: #fff;
+        border: 3px solid var(--color);
         border-radius: 100%;
         display: inline-block;
-        height: 13px;
+        height: 10px;
         left: 0;
         position: absolute;
         top: 50%;
         transform: translate(-60%, -50%);
-        width: 13px;
+        width: 10px;
     }
 
     /* No elements text */
 
     .dropdown .dropdown-content .no-elements-text {
-        background-color: #f2f2f2;
-        border-radius: 5px;
-        color: #4e4e4e;
+        color: #b3b3b3;
         font-size: 0.9em;
         text-align: center;
     }
