@@ -13,6 +13,7 @@
     // Props
     export let tables;
     export let notes;
+    export let selectedElement;
 
     // Element references
     let formRef;
@@ -20,6 +21,27 @@
     // States
     let formWidth,
         isResizeBarGrabbed = false;
+
+    // Utility functions
+
+    const deleteTable = (targetTable) => {
+        if (selectedElement === targetTable) selectedElement = null;
+
+        // Remove relationships to delete arrows related with deleted table
+        tables.forEach((table) => {
+            table.relationships = table.relationships.filter(
+                (relation) => relation.primaryKeyTableId !== targetTable.id
+            );
+        });
+
+        tables = tables.filter((table) => table.id !== targetTable.id);
+    };
+
+    const deleteNote = (targetNote) => {
+        if (selectedElement === targetNote) selectedElement = null;
+
+        notes = notes.filter((note) => note.id !== targetNote.id);
+    };
 
     // Event handlers
 
@@ -72,14 +94,19 @@
                                         {table.name || 'No name'}
                                     </span>
                                     <span class="right-content">
-                                        <button class="action-button">
-                                            <IconCurrentLocation size={20} />
+                                        <button
+                                            on:click={() =>
+                                                (selectedElement = table)}
+                                            class="action-button"
+                                        >
+                                            <IconCurrentLocation size={22} />
                                         </button>
                                         <button
+                                            on:click={() => deleteTable(table)}
                                             class="action-button delete-button"
                                             title="Delete table"
                                         >
-                                            <IconTrash size={20} />
+                                            <IconTrash size={22} />
                                         </button>
                                     </span>
                                 </li>
@@ -111,14 +138,19 @@
                                         {note.title || 'No name'}
                                     </span>
                                     <span class="right-content">
-                                        <button class="action-button">
-                                            <IconCurrentLocation size={20} />
+                                        <button
+                                            on:click={() =>
+                                                (selectedElement = note)}
+                                            class="action-button"
+                                        >
+                                            <IconCurrentLocation size={22} />
                                         </button>
                                         <button
+                                            on:click={() => deleteNote(note)}
                                             class="action-button delete-button"
                                             title="Delete note"
                                         >
-                                            <IconTrash size={20} />
+                                            <IconTrash size={22} />
                                         </button>
                                     </span>
                                 </li>
@@ -207,7 +239,7 @@
         border: none;
         border-radius: 5px;
         cursor: pointer;
-        padding: 3px;
+        padding: 7px;
     }
 
     .dropdown .action-button:hover {

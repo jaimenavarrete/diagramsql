@@ -13,7 +13,7 @@
         notes: [],
     };
 
-    export let selectedElement;
+    export let selectedElement = null;
 
     // Utility functions
 
@@ -55,7 +55,11 @@
 <Header title={diagram.title} description={diagram.description} />
 
 <main>
-    <DiagramExplorer tables={diagram.tables} notes={diagram.notes} />
+    <DiagramExplorer
+        bind:tables={diagram.tables}
+        bind:notes={diagram.notes}
+        bind:selectedElement
+    />
     <div class="container">
         <Canvas
             bind:tables={diagram.tables}
