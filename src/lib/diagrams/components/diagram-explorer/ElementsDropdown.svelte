@@ -1,6 +1,6 @@
 <script>
     import {
-        IconCaretRightFilled,
+        IconChevronRight,
         IconCurrentLocation,
         IconTable,
         IconTrash,
@@ -17,7 +17,7 @@
     <label class="dropdown-button">
         <span class="left-content">
             <input type="checkbox" class="dropdown-check" checked />
-            <span class="arrow"><IconCaretRightFilled size={18} /></span>
+            <span class="arrow"><IconChevronRight size={20} /></span>
             <slot name="icon"><IconTable size={20} /></slot>
             <span class="text">{buttonText}</span>
         </span>
@@ -32,7 +32,11 @@
         {:else}
             <ul>
                 {#each elements as element}
-                    <li style:--color={element.color} class="dropdown-item">
+                    <li
+                        style:--color={element.color}
+                        class="dropdown-item"
+                        class:active={element === selectedElement}
+                    >
                         <span class="left-content">
                             {element.name || 'No name'}
                         </span>
@@ -63,10 +67,6 @@
 
     .dropdown .dropdown-content ul {
         list-style-type: none;
-    }
-
-    .dropdown {
-        margin-bottom: 5px;
     }
 
     .dropdown:has(:checked) {
@@ -110,8 +110,12 @@
         border-radius: 5px;
         cursor: pointer;
         font-size: 0.95em;
-        padding: 5px;
+        padding: 10px;
         transition: all 0.2s ease-out;
+    }
+
+    .dropdown:has(:checked) .dropdown-button {
+        background-color: #f2f2f2;
     }
 
     .dropdown .dropdown-button:hover {
@@ -181,7 +185,8 @@
         position: relative;
     }
 
-    .dropdown .dropdown-content li:hover {
+    .dropdown .dropdown-content li:hover,
+    .dropdown .dropdown-content li.active {
         background-color: #5865f220;
         color: #4752c7;
     }

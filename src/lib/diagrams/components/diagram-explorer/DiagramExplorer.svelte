@@ -1,7 +1,7 @@
 <script>
     import { onMount } from 'svelte';
     import {
-        IconChevronLeft,
+        IconChevronsLeft,
         IconNote,
         IconPackages,
     } from '@tabler/icons-svelte';
@@ -61,7 +61,7 @@
 >
     <header>
         <h2>Diagram explorer</h2>
-        <button type="button"><IconChevronLeft /></button>
+        <button type="button"><IconChevronsLeft /></button>
     </header>
 
     <!-- Content -->
