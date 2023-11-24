@@ -11,8 +11,8 @@
     } from '@tabler/icons-svelte';
 
     // Props
-    export let tables;
-    export let notes;
+    export let tables = [];
+    export let notes = [];
     export let selectedElement;
 
     // Element references
@@ -73,11 +73,17 @@
         <ul class="menu-items">
             <li class="dropdown">
                 <label class="dropdown-button">
-                    <input type="checkbox" class="dropdown-check" checked />
-                    <span class="arrow"><IconCaretRightFilled size={18} /></span
-                    >
-                    <IconTable size={20} />
-                    <span class="text">Tables</span>
+                    <span class="left-content">
+                        <input type="checkbox" class="dropdown-check" checked />
+                        <span class="arrow"
+                            ><IconCaretRightFilled size={18} /></span
+                        >
+                        <IconTable size={20} />
+                        <span class="text">Tables</span>
+                    </span>
+                    <span class="right-content">
+                        <div class="elements-count">{tables.length}</div>
+                    </span>
                 </label>
 
                 <div class="dropdown-content">
@@ -117,11 +123,17 @@
             </li>
             <li class="dropdown">
                 <label class="dropdown-button">
-                    <input type="checkbox" class="dropdown-check" />
-                    <span class="arrow"><IconCaretRightFilled size={18} /></span
-                    >
-                    <IconNote size={20} />
-                    <span class="text">Notes</span>
+                    <span class="left-content">
+                        <input type="checkbox" class="dropdown-check" />
+                        <span class="arrow"
+                            ><IconCaretRightFilled size={18} /></span
+                        >
+                        <IconNote size={20} />
+                        <span class="text">Notes</span>
+                    </span>
+                    <span class="right-content">
+                        <div class="elements-count">{notes.length}</div>
+                    </span>
                 </label>
 
                 <div class="dropdown-content">
@@ -211,10 +223,6 @@
         color: #5865f2;
     }
 
-    .form-section {
-        padding: 0 10px;
-    }
-
     /*** DROPDOWN STYLES ***/
 
     .menu-items,
@@ -255,23 +263,33 @@
         background-color: #de3a2b20;
     }
 
+    .dropdown .dropdown-button,
+    .dropdown .dropdown-content li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
     .dropdown .dropdown-button {
-        background: #f2f2f2;
         border: 1px solid transparent;
         border-radius: 5px;
         cursor: pointer;
         font-size: 0.95em;
         padding: 5px;
         transition: all 0.2s ease-out;
-
-        display: flex;
-        justify-content: start;
-        align-items: center;
     }
 
     .dropdown .dropdown-button:hover {
         background-color: #5865f220;
         color: #4752c7;
+    }
+
+    .dropdown .dropdown-button .left-content {
+        display: flex;
+    }
+
+    .dropdown .dropdown-button .text {
+        margin-left: 5px;
     }
 
     .dropdown .dropdown-button .text span {
@@ -294,8 +312,18 @@
         transform: rotate(90deg);
     }
 
-    .dropdown .dropdown-button .text {
-        margin-left: 5px;
+    .dropdown .dropdown-button .elements-count {
+        background: #5865f2;
+        border-radius: 50%;
+        color: #fff;
+        font-size: 0.75em;
+        font-weight: bold;
+        height: 20px;
+        padding-top: 2px;
+        width: 20px;
+
+        display: grid;
+        place-content: center;
     }
 
     .dropdown .dropdown-content {
@@ -336,12 +364,6 @@
         top: 50%;
         transform: translate(-60%, -50%);
         width: 7px;
-    }
-
-    .dropdown .dropdown-content li {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
     }
 
     .dropdown .dropdown-content li .right-content {
