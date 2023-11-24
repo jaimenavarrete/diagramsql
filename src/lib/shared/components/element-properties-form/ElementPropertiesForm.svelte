@@ -72,7 +72,7 @@
     }
 
     header {
-        margin-bottom: 30px;
+        margin-bottom: 15px;
 
         display: flex;
         align-items: center;
@@ -82,7 +82,7 @@
     form h2 {
         color: #212121;
         font-size: 1.2em;
-        padding: 10px 20px;
+        padding: 15px 20px;
     }
 
     form button {
@@ -91,7 +91,7 @@
         border-radius: 5px;
         color: #212121;
         cursor: pointer;
-        padding: 10px 20px;
+        padding: 15px 20px;
     }
 
     form button:hover {

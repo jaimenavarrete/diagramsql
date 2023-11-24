@@ -55,7 +55,7 @@
 
     figure {
         margin-right: 10px;
-        max-width: 60px;
+        max-width: 50px;
     }
 
     img {
@@ -66,7 +66,7 @@
     h1 {
         color: #fff;
         font-weight: normal;
-        font-size: 1.65em;
+        font-size: 1.5em;
     }
 
     h1 span {
@@ -75,7 +75,7 @@
     }
 
     .diagram-info {
-        padding-top: 5px;
+        padding-top: 8px;
     }
 
     .title,
@@ -89,7 +89,7 @@
 
     .title {
         color: #5865f2;
-        font-family: 'Montserrat', sans-serif, Arial, Helvetica;
+        font-family: 'Comfortaa', sans-serif, Arial, Helvetica;
         font-size: 1.2em;
         font-weight: bold;
         margin: 0;
