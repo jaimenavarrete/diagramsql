@@ -1,7 +1,7 @@
 <script>
     import Toasts from '../../shared/components/Toasts.svelte';
     import { showToast } from '../../shared/components/Toasts.svelte';
-    import Header from '../../shared/components/header/Header.svelte';
+    import DiagramAreaHeader from '../components/DiagramAreaHeader.svelte';
     import Canvas from '../components/canvas/Canvas.svelte';
     import DiagramExplorer from '../components/diagram-explorer/DiagramExplorer.svelte';
     import { ElementTypes } from '../../shared/constants/element-types';
@@ -52,7 +52,7 @@
     };
 </script>
 
-<Header title={diagram.title} description={diagram.description} />
+<DiagramAreaHeader title={diagram.title} description={diagram.description} />
 
 <main>
     <DiagramExplorer

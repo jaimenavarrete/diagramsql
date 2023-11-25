@@ -1,5 +1,5 @@
 <script>
-    import Logo from './../../../../assets/images/logo.svg';
+    import Logo from '../../../assets/images/logo.svg';
 
     export let title;
     export let description;
