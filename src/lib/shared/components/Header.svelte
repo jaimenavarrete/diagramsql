@@ -13,6 +13,7 @@
     header {
         background-color: #5865f2;
         border-bottom: 1px solid #e4e4e4;
+        height: 65px;
 
         display: flex;
     }
