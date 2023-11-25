@@ -1,7 +1,7 @@
 <script>
-    import { onMount } from 'svelte';
     import {
         IconChevronsLeft,
+        IconChevronsRight,
         IconNote,
         IconPackages,
     } from '@tabler/icons-svelte';
@@ -16,7 +16,8 @@
     let formRef;
 
     // States
-    let formWidth,
+    let formWidth = 350,
+        isFormActive = true,
         isResizeBarGrabbed = false;
 
     // Utility functions
@@ -46,55 +47,63 @@
         if (!isResizeBarGrabbed) return;
         formWidth += e.movementX;
     };
-
-    // Life cycle
-    onMount(() => {
-        let formStyles = window.getComputedStyle(formRef);
-        formWidth = parseFloat(formStyles.getPropertyValue('width'));
-    });
 </script>
 
-<form
-    bind:this={formRef}
-    on:submit|preventDefault
-    style:width={formWidth ? `${formWidth}px` : null}
->
-    <header>
-        <h2>Diagram explorer</h2>
-        <button type="button"><IconChevronsLeft /></button>
-    </header>
-
-    <!-- Content -->
-    <section class="form-section">
-        <h3><IconPackages /> <span>Elements</span></h3>
-        <ul class="menu-items">
-            <li>
-                <ElementsDropdown
-                    bind:elements={tables}
-                    bind:selectedElement
-                    deleteElement={deleteTable}
-                    buttonText="Tables"
-                />
-            </li>
-            <li>
-                <ElementsDropdown
-                    bind:elements={notes}
-                    bind:selectedElement
-                    deleteElement={deleteNote}
-                    buttonText="Notes"
-                >
-                    <IconNote slot="icon" />
-                </ElementsDropdown>
-            </li>
-        </ul>
+<aside class="form-container" class:is-active={isFormActive}>
+    <section class="canvas-buttons">
+        <div class="buttons-container">
+            <button
+                on:click={() => (isFormActive = true)}
+                class="open-form-button"
+                type="button"><IconChevronsRight size={20} /></button
+            >
+        </div>
     </section>
 
-    <!-- svelte-ignore a11y-no-static-element-interactions -->
-    <div
-        on:mousedown|preventDefault={() => (isResizeBarGrabbed = true)}
-        class="resize-bar"
-    />
-</form>
+    <form
+        bind:this={formRef}
+        on:submit|preventDefault
+        style:width={isFormActive ? `${formWidth}px` : '0px'}
+    >
+        <header>
+            <h2>Diagram explorer</h2>
+            <button on:click={() => (isFormActive = false)} type="button"
+                ><IconChevronsLeft /></button
+            >
+        </header>
+
+        <!-- Content -->
+        <section class="form-section">
+            <h3><IconPackages /> <span>Elements</span></h3>
+            <ul class="menu-items">
+                <li>
+                    <ElementsDropdown
+                        bind:elements={tables}
+                        bind:selectedElement
+                        deleteElement={deleteTable}
+                        buttonText="Tables"
+                    />
+                </li>
+                <li>
+                    <ElementsDropdown
+                        bind:elements={notes}
+                        bind:selectedElement
+                        deleteElement={deleteNote}
+                        buttonText="Notes"
+                    >
+                        <IconNote slot="icon" />
+                    </ElementsDropdown>
+                </li>
+            </ul>
+        </section>
+
+        <!-- svelte-ignore a11y-no-static-element-interactions -->
+        <div
+            on:mousedown|preventDefault={() => (isResizeBarGrabbed = true)}
+            class="resize-bar"
+        />
+    </form>
+</aside>
 
 <svelte:document
     on:mouseup={() => (isResizeBarGrabbed = false)}
@@ -102,13 +111,41 @@
 />
 
 <style>
+    /*** OPEN-CLOSE FORM BUTTON STYLES ***/
+
+    .form-container {
+        position: relative;
+    }
+
+    .form-container .canvas-buttons {
+        position: absolute;
+        right: 0;
+        top: 0;
+        transform: translate(100%, 15%);
+        z-index: 1;
+
+        transition: 0.1s width;
+    }
+
+    .form-container.is-active .canvas-buttons {
+        display: none;
+    }
+
+    .form-container.is-active form {
+        opacity: 1;
+    }
+
+    /*** FORM STYLES ***/
+
     form {
         background: #fff;
         border-right: 1px solid #e4e4e4;
         overflow: auto;
         padding-bottom: 100px;
         position: relative;
-        width: 350px;
+        transition: 0.2s width;
+        height: 100%;
+        opacity: 0;
     }
 
     header {

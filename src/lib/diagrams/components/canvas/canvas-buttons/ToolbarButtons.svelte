@@ -37,6 +37,7 @@
 
 <style>
     .canvas-buttons {
+        position: absolute;
         margin-left: -115px;
         left: 50%;
         top: 1rem;
