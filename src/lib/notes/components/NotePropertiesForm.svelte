@@ -17,7 +17,7 @@
         <section class="form-section">
             <h3><IconInfoCircle /> <span>Information</span></h3>
             <div class="form-control">
-                <label for="title">title</label>
+                <label for="title">Title</label>
                 <input
                     on:input={(e) => {
                         selectedNote.title = e.currentTarget.value;
