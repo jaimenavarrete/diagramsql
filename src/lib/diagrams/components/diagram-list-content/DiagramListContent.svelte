@@ -13,9 +13,27 @@
             >
         </article>
 
-        <Diagram diagram={{ title: 'My diagram', modified: 'today' }} />
-        <Diagram diagram={{ title: 'Other diagram', modified: '3 days ago' }} />
-        <Diagram diagram={{ title: 'Last diagram', modified: '16 oct' }} />
+        <Diagram
+            diagram={{
+                title: 'My diagram',
+                isFavorite: false,
+                modified: 'today',
+            }}
+        />
+        <Diagram
+            diagram={{
+                title: 'Other diagram',
+                isFavorite: true,
+                modified: '3 days ago',
+            }}
+        />
+        <Diagram
+            diagram={{
+                title: 'Last diagram',
+                isFavorite: false,
+                modified: '16 oct',
+            }}
+        />
     </section>
 </main>
 
