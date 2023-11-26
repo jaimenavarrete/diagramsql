@@ -11,6 +11,14 @@
                 <span>New diagram</span></button
             >
         </article>
+
+        <article class="diagram-item">
+            <img src="/images/favicon-light.svg" alt="Diagram Logo" />
+            <div class="diagram-info">
+                <h3>My first diagram</h3>
+                <small>Edited today</small>
+            </div>
+        </article>
     </section>
 </main>
 
@@ -25,9 +33,16 @@
         margin-bottom: 50px;
     }
 
+    .diagrams-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+        gap: 40px 30px;
+    }
+
+    /* New diagram button */
+
     .diagrams-list .new-diagram-button {
-        height: 300px;
-        width: 250px;
+        min-height: 250px;
     }
 
     .diagrams-list .new-diagram-button button {
@@ -51,5 +66,34 @@
     .diagrams-list .new-diagram-button span {
         font-weight: bold;
         margin-top: 15px;
+    }
+
+    /* Diagram item */
+
+    .diagrams-list .diagram-item {
+        background-color: #fff;
+        border: 1px solid #e4e4e4;
+        border-radius: 10px;
+    }
+
+    .diagrams-list .diagram-item img {
+        background-color: #f2f2f2;
+        border-radius: 10px 10px 0 0;
+        display: block;
+        height: auto;
+        width: 100%;
+    }
+
+    .diagrams-list .diagram-item .diagram-info {
+        padding: 10px;
+    }
+
+    .diagrams-list .diagram-item h3 {
+        font-size: 1em;
+    }
+
+    .diagrams-list .diagram-item small {
+        color: #4e4e4e;
+        font-size: 0.8em;
     }
 </style>
