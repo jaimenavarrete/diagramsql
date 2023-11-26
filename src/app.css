@@ -11,13 +11,7 @@ input,
 textarea,
 select {
     color: #212121;
-    font-family: 'Poppins', sans-serif, Arial, Helvetica;
-}
-
-h1,
-h2,
-h3 {
-    font-family: 'Comfortaa', sans-serif, Arial, Helvetica;
+    font-family: 'Work Sans', sans-serif, Arial, Helvetica;
 }
 
 h2 {

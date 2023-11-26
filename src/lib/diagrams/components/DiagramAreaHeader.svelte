@@ -89,7 +89,7 @@
 
     .title {
         color: #5865f2;
-        font-family: 'Comfortaa', sans-serif, Arial, Helvetica;
+        font-family: 'Work Sans', sans-serif, Arial, Helvetica;
         font-size: 1.2em;
         font-weight: bold;
         margin: 0;
