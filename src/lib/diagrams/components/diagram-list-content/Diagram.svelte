@@ -6,12 +6,15 @@
 </script>
 
 <article class="diagram-item">
-    <img src="/images/favicon-light.svg" alt="Diagram Logo" />
+    <figure class="diagram-image">
+        <img src="/images/favicon-light.svg" alt="Diagram Logo" />
+    </figure>
     <div class="diagram-info">
         <h3>
             {diagram.title}
             <button
                 class="favorite-button"
+                class:is-favorite={diagram.isFavorite}
                 on:click={() => (diagram.isFavorite = !diagram.isFavorite)}
             >
                 {#if diagram.isFavorite}
@@ -35,9 +38,33 @@
         cursor: pointer;
     }
 
-    .diagram-item img {
+    .diagram-item .diagram-image {
         background-color: #f2f2f2;
         border-radius: 10px 10px 0 0;
+        position: relative;
+    }
+
+    .diagram-item .diagram-image::before {
+        content: '';
+
+        background-color: #212121b0;
+        border-radius: 10px 10px 0 0;
+        height: 100%;
+        left: 0;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        transition: 0.2s all;
+        width: 100%;
+        z-index: 5;
+    }
+
+    .diagram-item:hover .diagram-image::before,
+    .diagram-item:hover .favorite-button {
+        opacity: 1;
+    }
+
+    .diagram-item img {
         display: block;
         height: auto;
         width: 100%;
@@ -57,8 +84,14 @@
     .diagram-info .favorite-button {
         background: none;
         border: none;
+        color: #536aec;
         cursor: pointer;
+        opacity: 0;
         transition: 0.1s all;
+    }
+
+    .diagram-info .favorite-button.is-favorite {
+        opacity: 1;
     }
 
     .diagram-info .favorite-button:hover {

@@ -69,7 +69,7 @@
         flex-direction: column;
         font-size: 1em;
         height: 100%;
-        transition: 0.1s all;
+        transition: 0.2s all;
         width: 100%;
     }
 
