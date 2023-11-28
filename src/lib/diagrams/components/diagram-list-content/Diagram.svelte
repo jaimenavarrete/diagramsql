@@ -3,10 +3,16 @@
     const dispatch = createEventDispatcher();
 
     import { scale } from 'svelte/transition';
-    import { IconHeart, IconHeartFilled } from '@tabler/icons-svelte';
+    import {
+        IconDotsVertical,
+        IconHeart,
+        IconHeartFilled,
+    } from '@tabler/icons-svelte';
     import { navigate } from 'svelte-routing';
 
     export let diagram = {};
+
+    // Event handlers
 
     const updateFavorite = () => {
         diagram.isFavorite = !diagram.isFavorite;
@@ -22,13 +28,15 @@
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <article
     class="diagram-item"
-    role="listitem"
     on:click={() => navigate(`/diagrams/${diagram.id}`, { replace: false })}
 >
-    <figure class="diagram-image">
+    <section class="diagram-image">
         <img src="/images/favicon-light.svg" alt="Diagram Logo" />
-    </figure>
-    <div class="diagram-info">
+        <button class="option-menu-button">
+            <IconDotsVertical />
+        </button>
+    </section>
+    <section class="diagram-info">
         <h3>
             {diagram.title}
             <button
@@ -44,12 +52,10 @@
             </button>
         </h3>
         <small>Edited {diagram.modifiedAt || 'today'}</small>
-    </div>
+    </section>
 </article>
 
 <style>
-    /* Diagram item */
-
     .diagram-item {
         background-color: #fff;
         border: 1px solid #e4e4e4;
@@ -57,13 +63,15 @@
         cursor: pointer;
     }
 
-    .diagram-item .diagram-image {
+    /*** DIAGRAM IMAGE ***/
+
+    .diagram-image {
         background-color: #f2f2f2;
         border-radius: 10px 10px 0 0;
         position: relative;
     }
 
-    .diagram-item .diagram-image::before {
+    .diagram-image::before {
         content: '';
 
         background-color: #212121b0;
@@ -75,21 +83,42 @@
         top: 0;
         transition: 0.2s all;
         width: 100%;
-        z-index: 5;
     }
 
     .diagram-item:hover .diagram-image::before,
-    .diagram-item:hover .favorite-button {
+    .diagram-item:hover .favorite-button,
+    .diagram-item:hover .option-menu-button {
         opacity: 1;
     }
 
-    .diagram-item img {
+    .diagram-image img {
         display: block;
         height: auto;
         width: 100%;
     }
 
-    .diagram-item .diagram-info {
+    /* Option menu */
+
+    .diagram-image .option-menu-button {
+        background: none;
+        border: none;
+        color: #b3b3b3;
+        cursor: pointer;
+        opacity: 0;
+        padding: 5px;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        z-index: 1;
+    }
+
+    .diagram-image .option-menu-button:hover {
+        color: #fff;
+    }
+
+    /*** DIAGRAM INFO ***/
+
+    .diagram-info {
         padding: 10px;
     }
 
