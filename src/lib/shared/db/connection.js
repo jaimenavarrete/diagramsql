@@ -5,7 +5,7 @@ const createDiagramsObjectStore = (dbCreated) => {
         keyPath: 'id',
     });
 
-    objectStore.createIndex('title', 'title', { unique: true });
+    objectStore.createIndex('title', 'title', { unique: false });
     objectStore.createIndex('description', 'description', { unique: false });
     objectStore.createIndex('isFavorite', 'isFavorite', { unique: false });
     objectStore.createIndex('tables', 'description', { unique: false });
@@ -20,7 +20,6 @@ const openDB = () => {
             // @ts-ignore
             db = event.target.result;
             createDiagramsObjectStore(db);
-            console.log('Creados');
         };
 
         DBOpenRequest.onsuccess = () => resolve(DBOpenRequest.result);
