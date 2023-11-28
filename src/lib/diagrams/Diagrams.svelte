@@ -7,5 +7,7 @@
 
 <Router>
     <Route path="/" component={DiagramsList} />
-    <Route path="/diagram" component={DiagramArea} />
+    <Route path="/:id" let:params>
+        <DiagramArea diagramId={params.id} />
+    </Route>
 </Router>

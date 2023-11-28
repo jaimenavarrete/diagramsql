@@ -1,4 +1,5 @@
 <script>
+    import { link } from 'svelte-routing';
     import Logo from '../../../assets/images/logo.svg';
 
     export let title;
@@ -7,7 +8,7 @@
 
 <header>
     <section class="left-content">
-        <a href="/" class="logo-wrapper">
+        <a href="/diagrams" use:link class="logo-wrapper">
             <figure><img src={Logo} alt="DiagramSQL Logo" /></figure>
             <h1>Diagram<span>SQL</span></h1>
         </a>

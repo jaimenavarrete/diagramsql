@@ -19,7 +19,7 @@
     }
 
     .logo-wrapper {
-        padding: 7px 25px;
+        padding: 7px 20px;
         text-decoration: none;
 
         display: flex;

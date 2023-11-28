@@ -1,12 +1,11 @@
 import { db } from '../../shared/db/connection';
 
-const readonlyDiagramsStore = db
-    .transaction('diagrams')
-    .objectStore('diagrams');
-
 const getDiagrams = () => {
     return new Promise((resolve, reject) => {
-        const request = readonlyDiagramsStore.getAll();
+        const request = db
+            .transaction('diagrams')
+            .objectStore('diagrams')
+            .getAll();
 
         request.onsuccess = (e) => resolve(e.target.result ?? []);
         request.onerror = (e) => reject(e);
@@ -15,7 +14,10 @@ const getDiagrams = () => {
 
 const getDiagramById = (id) => {
     return new Promise((resolve, reject) => {
-        const request = readonlyDiagramsStore.get(id);
+        const request = db
+            .transaction('diagrams')
+            .objectStore('diagrams')
+            .get(id);
 
         request.onsuccess = (e) => resolve(e.target.result);
         request.onerror = () => reject();

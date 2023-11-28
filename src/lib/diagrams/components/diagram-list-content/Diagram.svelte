@@ -1,11 +1,18 @@
 <script>
     import { scale } from 'svelte/transition';
     import { IconHeart, IconHeartFilled } from '@tabler/icons-svelte';
+    import { navigate } from 'svelte-routing';
 
     export let diagram = {};
 </script>
 
-<article class="diagram-item">
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+<article
+    class="diagram-item"
+    role="listitem"
+    on:click={() => navigate(`/diagrams/${diagram.id}`, { replace: false })}
+>
     <figure class="diagram-image">
         <img src="/images/favicon-light.svg" alt="Diagram Logo" />
     </figure>
@@ -15,7 +22,8 @@
             <button
                 class="favorite-button"
                 class:is-favorite={diagram.isFavorite}
-                on:click={() => (diagram.isFavorite = !diagram.isFavorite)}
+                on:click|stopPropagation={() =>
+                    (diagram.isFavorite = !diagram.isFavorite)}
             >
                 {#if diagram.isFavorite}
                     <span in:scale><IconHeartFilled /></span>

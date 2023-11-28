@@ -6,6 +6,10 @@
     import DiagramExplorer from '../components/diagram-explorer/DiagramExplorer.svelte';
     import { ElementTypes } from '../../shared/constants/element-types';
 
+    // Props
+    export let diagramId;
+    $: console.log(diagramId);
+
     let diagram = {
         title: 'Untitled diagram',
         description: 'No description',
@@ -13,7 +17,8 @@
         notes: [],
     };
 
-    export let selectedElement = null;
+    // States
+    let selectedElement = null;
 
     // Utility functions
 
