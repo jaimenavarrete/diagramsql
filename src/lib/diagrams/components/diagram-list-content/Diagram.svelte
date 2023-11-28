@@ -1,9 +1,21 @@
 <script>
+    import { createEventDispatcher } from 'svelte';
+    const dispatch = createEventDispatcher();
+
     import { scale } from 'svelte/transition';
     import { IconHeart, IconHeartFilled } from '@tabler/icons-svelte';
     import { navigate } from 'svelte-routing';
 
     export let diagram = {};
+
+    const updateFavorite = () => {
+        diagram.isFavorite = !diagram.isFavorite;
+
+        dispatch('updateFavorite', {
+            id: diagram.id,
+            isFavorite: diagram.isFavorite,
+        });
+    };
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -22,8 +34,7 @@
             <button
                 class="favorite-button"
                 class:is-favorite={diagram.isFavorite}
-                on:click|stopPropagation={() =>
-                    (diagram.isFavorite = !diagram.isFavorite)}
+                on:click|stopPropagation={updateFavorite}
             >
                 {#if diagram.isFavorite}
                     <span in:scale><IconHeartFilled /></span>

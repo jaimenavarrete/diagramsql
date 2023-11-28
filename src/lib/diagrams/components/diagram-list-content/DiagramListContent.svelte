@@ -16,7 +16,7 @@
         </article>
 
         {#each diagrams as diagram}
-            <Diagram {diagram} />
+            <Diagram {diagram} on:updateFavorite />
         {/each}
     </section>
 </main>

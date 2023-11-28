@@ -53,12 +53,29 @@
         showToast('success', 'Note created successfully');
     };
 
+    const updateTitle = async (e) => {
+        diagram.title = e.detail.title;
+        await service.updateDiagram(diagram);
+    };
+
+    const updateDescription = async (e) => {
+        diagram.description = e.detail.description;
+        await service.updateDiagram(diagram);
+    };
+
+    // Lifecycle hooks
+
     onMount(async () => {
         diagram = await service.getDiagramById(diagramId);
     });
 </script>
 
-<DiagramAreaHeader title={diagram.title} description={diagram.description} />
+<DiagramAreaHeader
+    title={diagram.title}
+    description={diagram.description}
+    on:updateTitle={updateTitle}
+    on:updateDescription={updateDescription}
+/>
 
 <main>
     <DiagramExplorer

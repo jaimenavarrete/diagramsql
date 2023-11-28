@@ -8,6 +8,13 @@
 
     let diagrams = [];
 
+    const updateFavorite = async (e) => {
+        const diagram = diagrams.find((diagram) => diagram.id === e.detail.id);
+        diagram.isFavorite = e.detail.isFavorite;
+
+        await service.updateDiagram(diagram);
+    };
+
     onMount(async () => {
         diagrams = await service.getDiagrams();
     });
@@ -19,7 +26,7 @@
     <DiagramListSidebar />
 
     <div class="main-container">
-        <DiagramListContent {diagrams} />
+        <DiagramListContent {diagrams} on:updateFavorite={updateFavorite} />
     </div>
 </div>
 

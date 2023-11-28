@@ -1,4 +1,7 @@
 <script>
+    import { createEventDispatcher } from 'svelte';
+    const dispatch = createEventDispatcher();
+
     import { link } from 'svelte-routing';
     import Logo from '../../../assets/images/logo.svg';
 
@@ -16,6 +19,7 @@
             <input
                 type="text"
                 bind:value={title}
+                on:focusout={() => dispatch('updateTitle', { title })}
                 size="35"
                 class="title"
                 placeholder="No title"
@@ -23,6 +27,8 @@
             <input
                 type="text"
                 bind:value={description}
+                on:focusout={() =>
+                    dispatch('updateDescription', { description })}
                 size="37"
                 class="description"
                 placeholder="No description"
