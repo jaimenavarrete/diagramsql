@@ -1,7 +1,16 @@
 <script>
+    import service from '../services/diagramsService';
+
+    import { onMount } from 'svelte';
     import Header from '../../shared/components/Header.svelte';
     import DiagramListSidebar from '../components/DiagramListSidebar.svelte';
     import DiagramListContent from '../components/diagram-list-content/DiagramListContent.svelte';
+
+    let diagrams = [];
+
+    onMount(async () => {
+        diagrams = await service.getDiagrams();
+    });
 </script>
 
 <Header />
@@ -10,7 +19,7 @@
     <DiagramListSidebar />
 
     <div class="main-container">
-        <DiagramListContent />
+        <DiagramListContent {diagrams} />
     </div>
 </div>
 

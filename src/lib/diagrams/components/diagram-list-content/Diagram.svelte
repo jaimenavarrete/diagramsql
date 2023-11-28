@@ -24,7 +24,7 @@
                 {/if}
             </button>
         </h3>
-        <small>Edited {diagram.modified}</small>
+        <small>Edited {diagram.modifiedAt || 'today'}</small>
     </div>
 </article>
 

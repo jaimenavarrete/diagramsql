@@ -1,6 +1,8 @@
 <script>
     import { IconPlus } from '@tabler/icons-svelte';
     import Diagram from './Diagram.svelte';
+
+    export let diagrams = [];
 </script>
 
 <main>
@@ -13,27 +15,9 @@
             >
         </article>
 
-        <Diagram
-            diagram={{
-                title: 'My diagram',
-                isFavorite: false,
-                modified: 'today',
-            }}
-        />
-        <Diagram
-            diagram={{
-                title: 'Other diagram',
-                isFavorite: true,
-                modified: '3 days ago',
-            }}
-        />
-        <Diagram
-            diagram={{
-                title: 'Last diagram',
-                isFavorite: false,
-                modified: '16 oct',
-            }}
-        />
+        {#each diagrams as diagram}
+            <Diagram {diagram} />
+        {/each}
     </section>
 </main>
 
