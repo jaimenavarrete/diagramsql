@@ -1,4 +1,7 @@
 <script>
+    import service from '../services/diagramsService';
+
+    import { onMount } from 'svelte';
     import Toasts from '../../shared/components/Toasts.svelte';
     import { showToast } from '../../shared/components/Toasts.svelte';
     import DiagramAreaHeader from '../components/DiagramAreaHeader.svelte';
@@ -8,14 +11,8 @@
 
     // Props
     export let diagramId;
-    $: console.log(diagramId);
 
-    let diagram = {
-        title: 'Untitled diagram',
-        description: 'No description',
-        tables: [],
-        notes: [],
-    };
+    let diagram = {};
 
     // States
     let selectedElement = null;
@@ -55,6 +52,10 @@
 
         showToast('success', 'Note created successfully');
     };
+
+    onMount(async () => {
+        diagram = await service.getDiagramById(diagramId);
+    });
 </script>
 
 <DiagramAreaHeader title={diagram.title} description={diagram.description} />

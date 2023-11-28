@@ -20,7 +20,7 @@ const getDiagramById = (id) => {
             .get(id);
 
         request.onsuccess = (e) => resolve(e.target.result);
-        request.onerror = () => reject();
+        request.onerror = (e) => reject(e);
     });
 };
 
@@ -33,9 +33,9 @@ const createDiagram = () => ({
 });
 
 const addDiagram = () => {
-    return new Promise((resolve, reject) => {
-        const newDiagram = createDiagram();
+    const newDiagram = createDiagram();
 
+    return new Promise((resolve, reject) => {
         const transaction = db.transaction(['diagrams'], 'readwrite');
         transaction.onerror = () => reject();
 
@@ -46,8 +46,29 @@ const addDiagram = () => {
     });
 };
 
+const updateDiagram = async (diagram) => {
+    const currentDiagram = await getDiagramById(diagram.id);
+
+    currentDiagram.title = diagram.title;
+    currentDiagram.description = diagram.description;
+    currentDiagram.isFavorite = diagram.isFavorite;
+    currentDiagram.tables = diagram.tables;
+    currentDiagram.notes = diagram.notes;
+
+    return new Promise((resolve, reject) => {
+        const transaction = db.transaction(['diagrams'], 'readwrite');
+        transaction.onerror = () => reject();
+
+        const diagramsStore = transaction.objectStore('diagrams');
+        const request = diagramsStore.put(currentDiagram);
+        request.onsuccess = () => resolve();
+        request.onerror = (e) => reject(e);
+    });
+};
+
 export default {
     getDiagrams,
     getDiagramById,
     addDiagram,
+    updateDiagram,
 };
