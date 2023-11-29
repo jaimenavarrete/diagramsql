@@ -48,8 +48,10 @@
     onMount(() => {
         tableStyles = window.getComputedStyle(tableRef);
 
-        table.positionY = canvasHeight / 2;
-        table.positionX = canvasWidth / 2;
+        table.height = getStyleValue('height');
+        table.width = getStyleValue('width');
+        table.positionY = (canvasHeight - table.height) / 2;
+        table.positionX = (canvasWidth - table.width) / 2;
     });
 </script>
 

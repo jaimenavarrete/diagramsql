@@ -3,12 +3,22 @@
     import { contrastBackgroundColor } from '../../shared/utilities/text-utilities';
 
     export let note;
+    export let selectedElement;
+
     export let canvasHeight;
     export let canvasWidth;
     export let zoomRatio;
-    export let selectedElement;
+
+    let noteRef;
+    let noteStyles;
 
     let isNoteGrabbed = false;
+    $: note, (note.width = getStyleValue('width'));
+    $: note, (note.height = getStyleValue('height'));
+
+    // Utility functions
+    const getStyleValue = (property) =>
+        parseFloat(noteStyles?.getPropertyValue(property));
 
     // Event handler
 
@@ -26,13 +36,18 @@
     // Lifecycle hook
 
     onMount(() => {
-        note.positionY = canvasHeight / 2;
-        note.positionX = canvasWidth / 2;
+        noteStyles = window.getComputedStyle(noteRef);
+
+        note.height = getStyleValue('height');
+        note.width = getStyleValue('width');
+        note.positionY = (canvasHeight - note.height) / 2;
+        note.positionX = (canvasWidth - note.width) / 2;
     });
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
+    bind:this={noteRef}
     on:mousedown|self={() => (isNoteGrabbed = true)}
     class="note"
     style:--note-color={note.color}
