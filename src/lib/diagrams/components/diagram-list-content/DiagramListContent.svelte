@@ -1,4 +1,7 @@
 <script>
+    import { createEventDispatcher } from 'svelte';
+    const dispatch = createEventDispatcher();
+
     import { IconPlus } from '@tabler/icons-svelte';
     import Diagram from './Diagram.svelte';
 
@@ -9,7 +12,7 @@
     <h2>All Diagrams</h2>
     <section class="diagrams-list">
         <article class="new-diagram-button">
-            <button
+            <button on:click={() => dispatch('addDiagram', {})}
                 ><IconPlus size={40} />
                 <span>New diagram</span></button
             >

@@ -5,8 +5,15 @@
     import Header from '../../shared/components/Header.svelte';
     import DiagramListSidebar from '../components/DiagramListSidebar.svelte';
     import DiagramListContent from '../components/diagram-list-content/DiagramListContent.svelte';
+    import { navigate } from 'svelte-routing';
 
     let diagrams = [];
+
+    const addDiagram = async () => {
+        const newDiagram = await service.addDiagram();
+
+        navigate(`/diagrams/${newDiagram.id}`);
+    };
 
     const updateFavorite = async (e) => {
         const diagram = diagrams.find((diagram) => diagram.id === e.detail.id);
@@ -34,6 +41,7 @@
     <div class="main-container">
         <DiagramListContent
             {diagrams}
+            on:addDiagram={addDiagram}
             on:updateFavorite={updateFavorite}
             on:deleteDiagram={deleteDiagram}
         />
