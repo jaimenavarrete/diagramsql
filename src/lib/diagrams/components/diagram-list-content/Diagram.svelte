@@ -42,6 +42,14 @@
         });
     };
 
+    const deleteDiagram = () => {
+        isOptionMenuActive = false;
+
+        dispatch('deleteDiagram', {
+            id: diagram.id,
+        });
+    };
+
     const activeOptionMenu = () => (isOptionMenuActive = !isOptionMenuActive);
 
     onMount(() => checkOptionMenuPosition());
@@ -79,7 +87,9 @@
                 </li>
                 <li class="divider"><hr /></li>
                 <li class="option-item delete-button">
-                    <button><IconTrash size={20} /> <span>Delete</span></button>
+                    <button on:click={deleteDiagram}
+                        ><IconTrash size={20} /> <span>Delete</span></button
+                    >
                 </li>
             </ul>
         </div>

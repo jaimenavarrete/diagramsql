@@ -15,6 +15,12 @@
         await service.updateDiagram(diagram);
     };
 
+    const deleteDiagram = async (e) => {
+        await service.deleteDiagram(e.detail.id);
+
+        diagrams = diagrams.filter((diagram) => diagram.id !== e.detail.id);
+    };
+
     onMount(async () => {
         diagrams = await service.getDiagrams();
     });
@@ -26,7 +32,11 @@
     <DiagramListSidebar />
 
     <div class="main-container">
-        <DiagramListContent {diagrams} on:updateFavorite={updateFavorite} />
+        <DiagramListContent
+            {diagrams}
+            on:updateFavorite={updateFavorite}
+            on:deleteDiagram={deleteDiagram}
+        />
     </div>
 </div>
 

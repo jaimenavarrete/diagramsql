@@ -66,9 +66,22 @@ const updateDiagram = async (diagram) => {
     });
 };
 
+const deleteDiagram = async (id) => {
+    return new Promise((resolve, reject) => {
+        const transaction = db.transaction(['diagrams'], 'readwrite');
+        transaction.onerror = () => reject();
+
+        const diagramsStore = transaction.objectStore('diagrams');
+        const request = diagramsStore.delete(id);
+        request.onsuccess = () => resolve();
+        request.onerror = (e) => reject(e);
+    });
+};
+
 export default {
     getDiagrams,
     getDiagramById,
     addDiagram,
     updateDiagram,
+    deleteDiagram,
 };
