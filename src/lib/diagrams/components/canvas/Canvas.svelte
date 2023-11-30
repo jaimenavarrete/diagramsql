@@ -26,7 +26,7 @@
 
     // States
 
-    let canvasInfo = {
+    export let canvasInfo = {
         zoomRatio: 1,
         containerHeight: 0,
         containerWidth: 0,
@@ -50,6 +50,11 @@
     let showResetPositionButton;
 
     // Event Handlers
+
+    const updateContainerSize = () => {
+        canvasInfo.containerHeight = getContainerStyle('height');
+        canvasInfo.containerWidth = getContainerStyle('width');
+    };
 
     const activateSpecialKey = (e) => {
         if (e.key !== specialKey || isSpecialKeyPressed) return;
@@ -78,8 +83,7 @@
     onMount(() => {
         containerStyles = window.getComputedStyle(containerRef);
 
-        canvasInfo.containerHeight = getContainerStyle('height');
-        canvasInfo.containerWidth = getContainerStyle('width');
+        updateContainerSize();
         canvasInfo.top = canvasInfo.containerHeight / 2;
         canvasInfo.left = canvasInfo.containerWidth / 2;
     });
@@ -148,6 +152,9 @@
     on:keyup={deactivateSpecialKey}
     on:mouseup={() => (isCanvasGrabbed = false)}
 />
+
+<!-- Window reference -->
+<svelte:window on:resize={updateContainerSize} />
 
 <style>
     .canvas-container {

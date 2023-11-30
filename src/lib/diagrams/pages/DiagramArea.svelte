@@ -12,10 +12,10 @@
     // Props
     export let diagramId;
 
-    let diagram = {};
-
     // States
-    let selectedElement = null;
+    let diagram = {},
+        canvasInfo,
+        selectedElement = null;
 
     // Utility functions
 
@@ -82,9 +82,11 @@
         bind:tables={diagram.tables}
         bind:notes={diagram.notes}
         bind:selectedElement
+        bind:canvasInfo
     />
     <div class="container">
         <Canvas
+            bind:canvasInfo
             bind:tables={diagram.tables}
             bind:notes={diagram.notes}
             bind:selectedElement

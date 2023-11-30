@@ -11,6 +11,7 @@
     export let tables = [];
     export let notes = [];
     export let selectedElement;
+    export let canvasInfo = {};
 
     // Element references
     let formRef;
@@ -22,26 +23,43 @@
 
     // Utility functions
 
-    const deleteTable = (targetTable) => {
-        if (selectedElement === targetTable) selectedElement = null;
+    const deleteTable = (e) => {
+        if (selectedElement === e.detail) selectedElement = null;
 
         // Remove relationships to delete arrows related with deleted table
         tables.forEach((table) => {
             table.relationships = table.relationships.filter(
-                (relation) => relation.primaryKeyTableId !== targetTable.id
+                (relation) => relation.primaryKeyTableId !== e.detail.id
             );
         });
 
-        tables = tables.filter((table) => table.id !== targetTable.id);
+        tables = tables.filter((table) => table.id !== e.detail.id);
     };
 
-    const deleteNote = (targetNote) => {
-        if (selectedElement === targetNote) selectedElement = null;
+    const deleteNote = (e) => {
+        if (selectedElement === e.detail) selectedElement = null;
 
-        notes = notes.filter((note) => note.id !== targetNote.id);
+        notes = notes.filter((note) => note.id !== e.detail.id);
     };
 
     // Event handlers
+
+    const locateElement = (e) => {
+        selectedElement = e.detail;
+
+        // The positions are multiply by -1 because the table position should
+        // be inverse to the canvas position
+        const relativeToCanvasCenterY =
+            -1 * (e.detail.positionY - canvasInfo.height / 2);
+        const relativeToCanvasCenterX =
+            -1 * (e.detail.positionX - canvasInfo.width / 2);
+
+        const centerTableY = (canvasInfo.containerHeight - e.detail.height) / 2;
+        const centerTableX = (canvasInfo.containerWidth - e.detail.width) / 2;
+
+        canvasInfo.top = relativeToCanvasCenterY + centerTableY;
+        canvasInfo.left = relativeToCanvasCenterX + centerTableX;
+    };
 
     const resizeForm = (e) => {
         if (!isResizeBarGrabbed) return;
@@ -80,7 +98,8 @@
                     <ElementsDropdown
                         bind:elements={tables}
                         bind:selectedElement
-                        deleteElement={deleteTable}
+                        on:locateElement={locateElement}
+                        on:deleteElement={deleteTable}
                         buttonText="Tables"
                     />
                 </li>
@@ -88,7 +107,8 @@
                     <ElementsDropdown
                         bind:elements={notes}
                         bind:selectedElement
-                        deleteElement={deleteNote}
+                        on:locateElement={locateElement}
+                        on:deleteElement={deleteNote}
                         buttonText="Notes"
                     >
                         <IconNote slot="icon" />

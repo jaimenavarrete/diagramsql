@@ -1,4 +1,7 @@
 <script>
+    import { createEventDispatcher } from 'svelte';
+    const dispatch = createEventDispatcher();
+
     import {
         IconChevronRight,
         IconCurrentLocation,
@@ -10,7 +13,11 @@
     export let elements;
     export let selectedElement;
 
-    export let deleteElement;
+    // Event handlers
+
+    const locateElement = (element) => dispatch('locateElement', element);
+
+    const deleteElement = (element) => dispatch('deleteElement', element);
 </script>
 
 <div class="dropdown">
@@ -42,7 +49,7 @@
                         </span>
                         <span class="right-content">
                             <button
-                                on:click={() => (selectedElement = element)}
+                                on:click={() => locateElement(element)}
                                 class="action-button"
                             >
                                 <IconCurrentLocation size={22} />

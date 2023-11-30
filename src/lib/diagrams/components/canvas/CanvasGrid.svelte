@@ -1,5 +1,5 @@
 <script>
-    export let canvasInfo;
+    export let canvasInfo = {};
     export let isGridActive;
 
     $: gridHeight = canvasInfo.height * canvasInfo.zoomRatio;
