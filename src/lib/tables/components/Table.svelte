@@ -12,7 +12,11 @@
 
     export let canvasHeight;
     export let canvasWidth;
+    export let canvasTop;
+    export let canvasLeft;
     export let zoomRatio;
+
+    export let getContainerStyle;
 
     let tableRef;
     let tableStyles;
@@ -48,10 +52,15 @@
     onMount(() => {
         tableStyles = window.getComputedStyle(tableRef);
 
+        const deltaTop =
+            (getContainerStyle('height') / 2 - canvasTop) / zoomRatio;
+        const deltaLeft =
+            (getContainerStyle('width') / 2 - canvasLeft) / zoomRatio;
+
         table.height = getStyleValue('height');
         table.width = getStyleValue('width');
-        table.positionY = (canvasHeight - table.height) / 2;
-        table.positionX = (canvasWidth - table.width) / 2;
+        table.positionY = (canvasHeight - table.height) / 2 + deltaTop;
+        table.positionX = (canvasWidth - table.width) / 2 + deltaLeft;
     });
 </script>
 

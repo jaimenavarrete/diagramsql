@@ -1,6 +1,7 @@
 <script>
     import './../../../../assets/css/canvas-buttons.css';
 
+    import { onMount } from 'svelte';
     import Table from '../../../tables/components/Table.svelte';
     import Note from '../../../notes/components/Note.svelte';
     import ConnectionArrow from '../connection-arrow/ConnectionArrow.svelte';
@@ -21,7 +22,7 @@
 
     // Element references
     let containerRef;
-    let canvasRef;
+    let containerStyles;
 
     // States
     let zoomRatio = 1,
@@ -33,11 +34,6 @@
         isCanvasGrabbed = false,
         isGridActive,
         hoveredTable;
-
-    // Reactive variables
-    $: containerStyles = containerRef
-        ? window.getComputedStyle(containerRef)
-        : null;
 
     // Utility functions
     const getContainerStyle = (propertyName) =>
@@ -65,11 +61,6 @@
     const moveCanvas = (e) => {
         if (!isSpecialKeyPressed || !isCanvasGrabbed) return;
 
-        if (!canvasTop) {
-            canvasTop = getContainerStyle('height') / 2;
-            canvasLeft = getContainerStyle('width') / 2;
-        }
-
         canvasTop += e.movementY;
         canvasLeft += e.movementX;
 
@@ -77,6 +68,13 @@
     };
 
     let changeCanvasZoomMouseWheel;
+
+    onMount(() => {
+        containerStyles = window.getComputedStyle(containerRef);
+
+        canvasTop = getContainerStyle('height') / 2;
+        canvasLeft = getContainerStyle('width') / 2;
+    });
 </script>
 
 <div bind:this={containerRef} class="canvas-container">
@@ -99,14 +97,13 @@
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div
         id="canvas"
-        bind:this={canvasRef}
         on:mousedown={() => (isCanvasGrabbed = isSpecialKeyPressed)}
         on:mousemove={moveCanvas}
         on:wheel={changeCanvasZoomMouseWheel}
         class="canvas"
         style:transform={`scale(${zoomRatio})`}
-        style:top={canvasTop ? `${canvasTop}px` : null}
-        style:left={canvasLeft ? `${canvasLeft}px` : null}
+        style:top={`${canvasTop}px`}
+        style:left={`${canvasLeft}px`}
         style:cursor={isSpecialKeyPressed ? 'grab' : 'default'}
     >
         {#each tables as table}
@@ -116,7 +113,10 @@
                 bind:selectedElement
                 {canvasHeight}
                 {canvasWidth}
+                {canvasTop}
+                {canvasLeft}
                 {zoomRatio}
+                {getContainerStyle}
             />
 
             {#each table.relationships as relation}
@@ -137,7 +137,10 @@
                 bind:selectedElement
                 {canvasHeight}
                 {canvasWidth}
+                {canvasTop}
+                {canvasLeft}
                 {zoomRatio}
+                {getContainerStyle}
             />
         {/each}
     </div>

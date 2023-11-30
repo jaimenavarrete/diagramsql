@@ -7,7 +7,11 @@
 
     export let canvasHeight;
     export let canvasWidth;
+    export let canvasTop;
+    export let canvasLeft;
     export let zoomRatio;
+
+    export let getContainerStyle;
 
     let noteRef;
     let noteStyles;
@@ -38,10 +42,15 @@
     onMount(() => {
         noteStyles = window.getComputedStyle(noteRef);
 
+        const deltaTop =
+            (getContainerStyle('height') / 2 - canvasTop) / zoomRatio;
+        const deltaLeft =
+            (getContainerStyle('width') / 2 - canvasLeft) / zoomRatio;
+
         note.height = getStyleValue('height');
         note.width = getStyleValue('width');
-        note.positionY = (canvasHeight - note.height) / 2;
-        note.positionX = (canvasWidth - note.width) / 2;
+        note.positionY = (canvasHeight - note.height) / 2 + deltaTop;
+        note.positionX = (canvasWidth - note.width) / 2 + deltaLeft;
     });
 </script>
 
