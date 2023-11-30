@@ -7,11 +7,7 @@
     } from '@tabler/icons-svelte';
 
     // Props
-
-    export let zoomRatio;
-    export let canvasTop;
-    export let canvasLeft;
-    export let getContainerStyle;
+    export let canvasInfo;
 
     // States
     let isResetButtonActive = false;
@@ -21,11 +17,12 @@
 
     // Utility functions
     export const showResetPositionButton = () => {
-        const initialTop = getContainerStyle('height') / 2;
-        const initialLeft = getContainerStyle('width') / 2;
+        const initialTop = canvasInfo.containerHeight / 2;
+        const initialLeft = canvasInfo.containerWidth / 2;
 
-        const isOffScreenY = Math.abs(canvasTop - initialTop) > initialTop;
-        const isOffScreenX = Math.abs(canvasLeft - initialLeft) > initialLeft;
+        const isOffScreenY = Math.abs(canvasInfo.top - initialTop) > initialTop;
+        const isOffScreenX =
+            Math.abs(canvasInfo.left - initialLeft) > initialLeft;
 
         if (isOffScreenY || isOffScreenX) {
             isResetButtonActive = true;
@@ -40,24 +37,24 @@
     const resetCanvasPosition = () => {
         if (!isResetButtonActive) return;
 
-        canvasTop = getContainerStyle('height') / 2;
-        canvasLeft = getContainerStyle('width') / 2;
+        canvasInfo.top = canvasInfo.containerHeight / 2;
+        canvasInfo.left = canvasInfo.containerWidth / 2;
 
         isResetButtonActive = false;
     };
 
     const increaseCanvasZoom = () => {
-        if (zoomRatio >= 2.5) return;
-        zoomRatio += 0.1;
+        if (canvasInfo.zoomRatio >= 2.5) return;
+        canvasInfo.zoomRatio += 0.1;
     };
 
     const decreaseCanvasZoom = () => {
-        if (zoomRatio <= 0.2) return;
-        zoomRatio -= 0.1;
+        if (canvasInfo.zoomRatio <= 0.2) return;
+        canvasInfo.zoomRatio -= 0.1;
     };
 
     const resetCanvasZoom = () => {
-        zoomRatio = 1;
+        canvasInfo.zoomRatio = 1;
     };
 
     export const changeCanvasZoomMouseWheel = (e) => {
@@ -91,7 +88,7 @@
         <button
             on:click={resetCanvasZoom}
             class="reset-zoom-button"
-            title="Reset zoom">{Math.round(zoomRatio * 100)}%</button
+            title="Reset zoom">{Math.round(canvasInfo.zoomRatio * 100)}%</button
         >
         <button
             on:click={increaseCanvasZoom}

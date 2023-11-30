@@ -1,15 +1,11 @@
 <script>
-    export let canvasHeight;
-    export let canvasWidth;
-    export let canvasTop;
-    export let canvasLeft;
-    export let zoomRatio;
+    export let canvasInfo;
     export let isGridActive;
 
-    $: gridHeight = canvasHeight * zoomRatio;
-    $: gridWidth = canvasWidth * zoomRatio;
-    $: gridSize = 100 * zoomRatio;
-    $: subGridSize = 20 * zoomRatio;
+    $: gridHeight = canvasInfo.height * canvasInfo.zoomRatio;
+    $: gridWidth = canvasInfo.width * canvasInfo.zoomRatio;
+    $: gridSize = 100 * canvasInfo.zoomRatio;
+    $: subGridSize = 20 * canvasInfo.zoomRatio;
     $: gridMarginTop = (-1 * gridHeight) / 2;
     $: gridMarginLeft = (-1 * gridWidth) / 2;
 </script>
@@ -20,8 +16,8 @@
     style:--sub-grid-size={`${subGridSize}px`}
     style:--grid-color={`${isGridActive ? '#e0e0e0' : 'transparent'}`}
     style:--sub-grid-color={`${isGridActive ? '#ebebeb' : 'transparent'}`}
-    style:top={canvasTop ? `${canvasTop}px` : null}
-    style:left={canvasLeft ? `${canvasLeft}px` : null}
+    style:top={canvasInfo.top ? `${canvasInfo.top}px` : null}
+    style:left={canvasInfo.left ? `${canvasInfo.left}px` : null}
     style:width="{gridWidth}px"
     style:height="{gridHeight}px"
     style:margin-top="{gridMarginTop}px"

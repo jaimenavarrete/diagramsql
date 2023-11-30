@@ -1,13 +1,13 @@
 <script>
     import { createEventDispatcher } from 'svelte';
+    const dispatch = createEventDispatcher();
+
     import {
         IconArrowBackUp,
         IconArrowForwardUp,
         IconNote,
         IconTablePlus,
     } from '@tabler/icons-svelte';
-
-    const dispatch = createEventDispatcher();
 
     // Event Handlers
 

@@ -6,17 +6,10 @@
         IconKey,
     } from '@tabler/icons-svelte';
 
+    export let canvasInfo;
     export let table;
     export let hoveredTable;
     export let selectedElement;
-
-    export let canvasHeight;
-    export let canvasWidth;
-    export let canvasTop;
-    export let canvasLeft;
-    export let zoomRatio;
-
-    export let getContainerStyle;
 
     let tableRef;
     let tableStyles;
@@ -43,8 +36,8 @@
 
         e.preventDefault();
 
-        table.positionY += e.movementY / zoomRatio;
-        table.positionX += e.movementX / zoomRatio;
+        table.positionY += e.movementY / canvasInfo.zoomRatio;
+        table.positionX += e.movementX / canvasInfo.zoomRatio;
     };
 
     // Lifecycle hook
@@ -53,14 +46,16 @@
         tableStyles = window.getComputedStyle(tableRef);
 
         const deltaTop =
-            (getContainerStyle('height') / 2 - canvasTop) / zoomRatio;
+            (canvasInfo.containerHeight / 2 - canvasInfo.top) /
+            canvasInfo.zoomRatio;
         const deltaLeft =
-            (getContainerStyle('width') / 2 - canvasLeft) / zoomRatio;
+            (canvasInfo.containerWidth / 2 - canvasInfo.left) /
+            canvasInfo.zoomRatio;
 
         table.height = getStyleValue('height');
         table.width = getStyleValue('width');
-        table.positionY = (canvasHeight - table.height) / 2 + deltaTop;
-        table.positionX = (canvasWidth - table.width) / 2 + deltaLeft;
+        table.positionY = (canvasInfo.height - table.height) / 2 + deltaTop;
+        table.positionX = (canvasInfo.width - table.width) / 2 + deltaLeft;
     });
 </script>
 

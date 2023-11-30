@@ -2,16 +2,9 @@
     import { onMount } from 'svelte';
     import { contrastBackgroundColor } from '../../shared/utilities/text-utilities';
 
+    export let canvasInfo;
     export let note;
     export let selectedElement;
-
-    export let canvasHeight;
-    export let canvasWidth;
-    export let canvasTop;
-    export let canvasLeft;
-    export let zoomRatio;
-
-    export let getContainerStyle;
 
     let noteRef;
     let noteStyles;
@@ -33,8 +26,8 @@
 
         e.preventDefault();
 
-        note.positionY += e.movementY / zoomRatio;
-        note.positionX += e.movementX / zoomRatio;
+        note.positionY += e.movementY / canvasInfo.zoomRatio;
+        note.positionX += e.movementX / canvasInfo.zoomRatio;
     };
 
     // Lifecycle hook
@@ -43,14 +36,16 @@
         noteStyles = window.getComputedStyle(noteRef);
 
         const deltaTop =
-            (getContainerStyle('height') / 2 - canvasTop) / zoomRatio;
+            (canvasInfo.containerHeight / 2 - canvasInfo.top) /
+            canvasInfo.zoomRatio;
         const deltaLeft =
-            (getContainerStyle('width') / 2 - canvasLeft) / zoomRatio;
+            (canvasInfo.containerWidth / 2 - canvasInfo.left) /
+            canvasInfo.zoomRatio;
 
         note.height = getStyleValue('height');
         note.width = getStyleValue('width');
-        note.positionY = (canvasHeight - note.height) / 2 + deltaTop;
-        note.positionX = (canvasWidth - note.width) / 2 + deltaLeft;
+        note.positionY = (canvasInfo.height - note.height) / 2 + deltaTop;
+        note.positionX = (canvasInfo.width - note.width) / 2 + deltaLeft;
     });
 </script>
 

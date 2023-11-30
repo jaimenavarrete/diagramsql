@@ -25,12 +25,18 @@
     let containerStyles;
 
     // States
-    let zoomRatio = 1,
-        canvasHeight = 100000,
-        canvasWidth = 100000,
-        canvasTop,
-        canvasLeft,
-        isSpecialKeyPressed = false,
+
+    let canvasInfo = {
+        zoomRatio: 1,
+        containerHeight: 0,
+        containerWidth: 0,
+        height: 100000,
+        width: 100000,
+        top: 0,
+        left: 0,
+    };
+
+    let isSpecialKeyPressed = false,
         isCanvasGrabbed = false,
         isGridActive,
         hoveredTable;
@@ -61,8 +67,8 @@
     const moveCanvas = (e) => {
         if (!isSpecialKeyPressed || !isCanvasGrabbed) return;
 
-        canvasTop += e.movementY;
-        canvasLeft += e.movementX;
+        canvasInfo.top += e.movementY;
+        canvasInfo.left += e.movementX;
 
         showResetPositionButton();
     };
@@ -72,21 +78,16 @@
     onMount(() => {
         containerStyles = window.getComputedStyle(containerRef);
 
-        canvasTop = getContainerStyle('height') / 2;
-        canvasLeft = getContainerStyle('width') / 2;
+        canvasInfo.containerHeight = getContainerStyle('height');
+        canvasInfo.containerWidth = getContainerStyle('width');
+        canvasInfo.top = canvasInfo.containerHeight / 2;
+        canvasInfo.left = canvasInfo.containerWidth / 2;
     });
 </script>
 
 <div bind:this={containerRef} class="canvas-container">
     <!-- Canvas Grid -->
-    <CanvasGrid
-        {canvasHeight}
-        {canvasWidth}
-        {canvasTop}
-        {canvasLeft}
-        {zoomRatio}
-        {isGridActive}
-    />
+    <CanvasGrid {canvasInfo} {isGridActive} />
 
     {#if selectedElement?.type === ElementTypes.Table}
         <TablePropertiesForm bind:tables bind:selectedTable={selectedElement} />
@@ -101,9 +102,9 @@
         on:mousemove={moveCanvas}
         on:wheel={changeCanvasZoomMouseWheel}
         class="canvas"
-        style:transform={`scale(${zoomRatio})`}
-        style:top={`${canvasTop}px`}
-        style:left={`${canvasLeft}px`}
+        style:transform={`scale(${canvasInfo.zoomRatio})`}
+        style:top={`${canvasInfo.top}px`}
+        style:left={`${canvasInfo.left}px`}
         style:cursor={isSpecialKeyPressed ? 'grab' : 'default'}
     >
         {#each tables as table}
@@ -111,12 +112,7 @@
                 bind:table
                 bind:hoveredTable
                 bind:selectedElement
-                {canvasHeight}
-                {canvasWidth}
-                {canvasTop}
-                {canvasLeft}
-                {zoomRatio}
-                {getContainerStyle}
+                {canvasInfo}
             />
 
             {#each table.relationships as relation}
@@ -132,29 +128,17 @@
         {/each}
 
         {#each notes as note}
-            <Note
-                bind:note
-                bind:selectedElement
-                {canvasHeight}
-                {canvasWidth}
-                {canvasTop}
-                {canvasLeft}
-                {zoomRatio}
-                {getContainerStyle}
-            />
+            <Note bind:note bind:selectedElement {canvasInfo} />
         {/each}
     </div>
 
     <ToolbarButtons on:addTable on:addNote />
 
     <ZoomButtons
-        bind:zoomRatio
-        bind:canvasTop
-        bind:canvasLeft
+        bind:canvasInfo
         bind:isGridActive
         bind:showResetPositionButton
         bind:changeCanvasZoomMouseWheel
-        {getContainerStyle}
     />
 </div>
 
