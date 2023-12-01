@@ -121,6 +121,11 @@
 <!-- Toast notifications -->
 <Toasts />
 
+<!-- Head modifier -->
+<svelte:head>
+    <title>{diagram.title} | DiagramSQL</title>
+</svelte:head>
+
 <style>
     main {
         display: flex;

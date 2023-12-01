@@ -48,6 +48,11 @@
     </div>
 </div>
 
+<!-- Head modifier -->
+<svelte:head>
+    <title>Diagrams List | DiagramSQL</title>
+</svelte:head>
+
 <style>
     .container {
         display: flex;
