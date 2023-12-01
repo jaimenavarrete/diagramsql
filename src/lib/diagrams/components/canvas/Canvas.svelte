@@ -116,6 +116,7 @@
                 bind:table
                 bind:hoveredTable
                 bind:selectedElement
+                on:updateTable
                 {canvasInfo}
             />
 

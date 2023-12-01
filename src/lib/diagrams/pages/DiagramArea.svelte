@@ -22,7 +22,7 @@
     const createTable = () => ({
         id: crypto.randomUUID(),
         type: ElementTypes.Table,
-        color: '#000000',
+        color: '#212121',
         columns: [],
         relationships: [],
     });
@@ -35,18 +35,20 @@
 
     // Event handlers
 
-    const addTable = () => {
+    const addTable = async () => {
         const table = createTable();
         diagram.tables = [...diagram.tables, table];
+        await service.updateDiagram(diagram);
 
         selectedElement = table;
 
         showToast('success', 'Table created successfully');
     };
 
-    const addNote = () => {
+    const addNote = async () => {
         const note = createNote();
         diagram.notes = [...diagram.notes, note];
+        await service.updateDiagram(diagram);
 
         selectedElement = note;
 
@@ -60,6 +62,15 @@
 
     const updateDescription = async (e) => {
         diagram.description = e.detail.description;
+        await service.updateDiagram(diagram);
+    };
+
+    const updateTable = async (e) => {
+        const tableIndex = diagram.tables.findIndex(
+            (diagram) => diagram.id === e.detail.id
+        );
+        diagram.tables[tableIndex] = e.detail;
+
         await service.updateDiagram(diagram);
     };
 
@@ -92,6 +103,7 @@
             bind:selectedElement
             on:addTable={addTable}
             on:addNote={addNote}
+            on:updateTable={updateTable}
         />
     </div>
 </main>

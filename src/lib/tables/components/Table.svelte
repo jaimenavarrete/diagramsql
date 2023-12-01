@@ -1,4 +1,7 @@
 <script>
+    import { createEventDispatcher } from 'svelte';
+    const dispatch = createEventDispatcher();
+
     import { onMount } from 'svelte';
     import {
         IconCircleLetterN,
@@ -19,6 +22,7 @@
     $: table, (table.height = getStyleValue('height'));
 
     // Utility functions
+
     const getStyleValue = (property) =>
         parseFloat(tableStyles?.getPropertyValue(property));
 
@@ -26,6 +30,23 @@
         table.relationships.some(
             (relation) => relation.foreignKeyFieldId === columnId
         );
+
+    const setTablePositionValues = () => {
+        if (table.positionX && table.positionY) return;
+
+        const deltaTop =
+            (canvasInfo.containerHeight / 2 - canvasInfo.top) /
+            canvasInfo.zoomRatio;
+        const deltaLeft =
+            (canvasInfo.containerWidth / 2 - canvasInfo.left) /
+            canvasInfo.zoomRatio;
+
+        table.positionY = (canvasInfo.height - table.height) / 2 + deltaTop;
+        table.positionX = (canvasInfo.width - table.width) / 2 + deltaLeft;
+
+        // Update table to save initial position values
+        dispatch('updateTable', table);
+    };
 
     // Event handler
 
@@ -45,17 +66,10 @@
     onMount(() => {
         tableStyles = window.getComputedStyle(tableRef);
 
-        const deltaTop =
-            (canvasInfo.containerHeight / 2 - canvasInfo.top) /
-            canvasInfo.zoomRatio;
-        const deltaLeft =
-            (canvasInfo.containerWidth / 2 - canvasInfo.left) /
-            canvasInfo.zoomRatio;
-
         table.height = getStyleValue('height');
         table.width = getStyleValue('width');
-        table.positionY = (canvasInfo.height - table.height) / 2 + deltaTop;
-        table.positionX = (canvasInfo.width - table.width) / 2 + deltaLeft;
+
+        setTablePositionValues();
     });
 </script>
 
