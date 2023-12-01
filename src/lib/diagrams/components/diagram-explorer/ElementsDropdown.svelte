@@ -13,6 +13,10 @@
     export let elements;
     export let selectedElement;
 
+    // State
+
+    let isActive = true;
+
     // Event handlers
 
     const locateElement = (element) => dispatch('locateElement', element);
@@ -20,10 +24,14 @@
     const deleteElement = (element) => dispatch('deleteElement', element);
 </script>
 
-<div class="dropdown">
+<div class="dropdown" class:is-active={isActive}>
     <label class="dropdown-button">
         <span class="left-content">
-            <input type="checkbox" class="dropdown-check" checked />
+            <input
+                type="checkbox"
+                bind:checked={isActive}
+                class="dropdown-check"
+            />
             <span class="arrow"><IconChevronRight size={20} /></span>
             <slot name="icon"><IconTable size={20} /></slot>
             <span class="text">{buttonText}</span>
@@ -76,11 +84,11 @@
         list-style-type: none;
     }
 
-    .dropdown:has(:checked) {
+    .dropdown.is-active {
         --rows: 1fr;
     }
 
-    .dropdown:has(:checked) .dropdown-content {
+    .dropdown.is-active .dropdown-content {
         margin: 5px 0 10px 0;
     }
 
@@ -121,7 +129,7 @@
         transition: all 0.2s ease-out;
     }
 
-    .dropdown:has(:checked) .dropdown-button {
+    .dropdown.is-active .dropdown-button {
         background-color: #f2f2f2;
     }
 
