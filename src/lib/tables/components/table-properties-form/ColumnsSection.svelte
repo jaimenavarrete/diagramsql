@@ -1,4 +1,7 @@
 <script>
+    import { createEventDispatcher } from 'svelte';
+    const dispatch = createEventDispatcher();
+
     import {
         IconCircleLetterC,
         IconCircleLetterN,
@@ -30,6 +33,8 @@
         selectedTable.columns = selectedTable.columns.filter(
             (column) => column.id !== id
         );
+
+        dispatch('updateTable', selectedTable);
     };
 </script>
 
@@ -47,17 +52,23 @@
                 <!-- svelte-ignore a11y-autofocus -->
                 <input
                     bind:value={column.name}
+                    on:focusout={() => dispatch('updateTable', selectedTable)}
                     type="text"
                     placeholder="Name"
                     autofocus
                 />
                 <input
                     bind:value={column.type}
+                    on:focusout={() => dispatch('updateTable', selectedTable)}
                     type="text"
                     placeholder="Type"
                 />
                 <label class="checkbox is-primary-key" title="Primary Key">
-                    <input bind:checked={column.isPrimaryKey} type="checkbox" />
+                    <input
+                        bind:checked={column.isPrimaryKey}
+                        on:change={() => dispatch('updateTable', selectedTable)}
+                        type="checkbox"
+                    />
                     <button
                         on:click={() =>
                             (column.isPrimaryKey = !column.isPrimaryKey)}
@@ -77,6 +88,8 @@
                         <label class="checkbox is-nullable" title="Nullable">
                             <input
                                 bind:checked={column.isNullable}
+                                on:change={() =>
+                                    dispatch('updateTable', selectedTable)}
                                 type="checkbox"
                             />
                             <button
@@ -88,6 +101,8 @@
                         <label class="checkbox is-unique" title="Unique">
                             <input
                                 bind:checked={column.isUnique}
+                                on:change={() =>
+                                    dispatch('updateTable', selectedTable)}
                                 type="checkbox"
                             />
                             <button

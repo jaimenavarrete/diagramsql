@@ -71,8 +71,8 @@
                 />
             </div>
         </section>
-        <ColumnsSection bind:selectedTable />
-        <RelationshipsSection bind:tables bind:selectedTable />
+        <ColumnsSection bind:selectedTable on:updateTable />
+        <RelationshipsSection bind:tables bind:selectedTable on:updateTable />
     </svelte:fragment>
 </ElementPropertiesForm>
 
