@@ -1,4 +1,7 @@
 <script>
+    import { createEventDispatcher } from 'svelte';
+    const dispatch = createEventDispatcher();
+
     import { IconInfoCircle } from '@tabler/icons-svelte';
     import ElementPropertiesForm from '../../shared/components/element-properties-form/ElementPropertiesForm.svelte';
 
@@ -22,6 +25,7 @@
                     on:input={(e) => {
                         selectedNote.title = e.currentTarget.value;
                     }}
+                    on:focusout={() => dispatch('updateNote', selectedNote)}
                     type="text"
                     id="title"
                     placeholder="To Do"
@@ -34,6 +38,7 @@
                     on:input={(e) => {
                         selectedNote.description = e.currentTarget.value;
                     }}
+                    on:focusout={() => dispatch('updateNote', selectedNote)}
                     id="description"
                     name="description"
                     cols="30"
@@ -48,6 +53,7 @@
                     on:input={(e) => {
                         selectedNote.color = e.currentTarget.value;
                     }}
+                    on:change={() => dispatch('updateNote', selectedNote)}
                     type="color"
                     id="color"
                     name="color"

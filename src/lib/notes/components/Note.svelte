@@ -1,4 +1,7 @@
 <script>
+    import { createEventDispatcher } from 'svelte';
+    const dispatch = createEventDispatcher();
+
     import { onMount } from 'svelte';
     import { contrastBackgroundColor } from '../../shared/utilities/text-utilities';
 
@@ -14,8 +17,26 @@
     $: note, (note.height = getStyleValue('height'));
 
     // Utility functions
+
     const getStyleValue = (property) =>
         parseFloat(noteStyles?.getPropertyValue(property));
+
+    const setNotePositionValues = () => {
+        if (note.positionX && note.positionY) return;
+
+        const deltaTop =
+            (canvasInfo.containerHeight / 2 - canvasInfo.top) /
+            canvasInfo.zoomRatio;
+        const deltaLeft =
+            (canvasInfo.containerWidth / 2 - canvasInfo.left) /
+            canvasInfo.zoomRatio;
+
+        note.positionY = (canvasInfo.height - note.height) / 2 + deltaTop;
+        note.positionX = (canvasInfo.width - note.width) / 2 + deltaLeft;
+
+        // Update note to save initial position values
+        dispatch('updateNote', note);
+    };
 
     // Event handler
 
@@ -30,22 +51,23 @@
         note.positionX += e.movementX / canvasInfo.zoomRatio;
     };
 
+    const dropNote = () => {
+        if (!isNoteGrabbed) return;
+
+        isNoteGrabbed = false;
+
+        dispatch('updateNote', note);
+    };
+
     // Lifecycle hook
 
     onMount(() => {
         noteStyles = window.getComputedStyle(noteRef);
 
-        const deltaTop =
-            (canvasInfo.containerHeight / 2 - canvasInfo.top) /
-            canvasInfo.zoomRatio;
-        const deltaLeft =
-            (canvasInfo.containerWidth / 2 - canvasInfo.left) /
-            canvasInfo.zoomRatio;
-
         note.height = getStyleValue('height');
         note.width = getStyleValue('width');
-        note.positionY = (canvasInfo.height - note.height) / 2 + deltaTop;
-        note.positionX = (canvasInfo.width - note.width) / 2 + deltaLeft;
+
+        setNotePositionValues();
     });
 </script>
 
@@ -72,10 +94,7 @@
     </div>
 </div>
 
-<svelte:document
-    on:mouseup={() => (isNoteGrabbed = false)}
-    on:mousemove={moveNote}
-/>
+<svelte:document on:mouseup={dropNote} on:mousemove={moveNote} />
 
 <style>
     .note {

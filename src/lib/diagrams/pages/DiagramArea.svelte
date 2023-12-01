@@ -74,6 +74,15 @@
         await service.updateDiagram(diagram);
     };
 
+    const updateNote = async (e) => {
+        const noteIndex = diagram.notes.findIndex(
+            (diagram) => diagram.id === e.detail.id
+        );
+        diagram.notes[noteIndex] = e.detail;
+
+        await service.updateDiagram(diagram);
+    };
+
     // Lifecycle hooks
 
     onMount(async () => {
@@ -104,6 +113,7 @@
             on:addTable={addTable}
             on:addNote={addNote}
             on:updateTable={updateTable}
+            on:updateNote={updateNote}
         />
     </div>
 </main>

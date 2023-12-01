@@ -100,7 +100,11 @@
             on:updateTable
         />
     {:else if selectedElement?.type === ElementTypes.Note}
-        <NotePropertiesForm bind:notes bind:selectedNote={selectedElement} />
+        <NotePropertiesForm
+            bind:notes
+            bind:selectedNote={selectedElement}
+            on:updateNote
+        />
     {/if}
 
     <!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -137,7 +141,7 @@
         {/each}
 
         {#each notes as note}
-            <Note bind:note bind:selectedElement {canvasInfo} />
+            <Note bind:note bind:selectedElement on:updateNote {canvasInfo} />
         {/each}
     </div>
 
