@@ -1,4 +1,7 @@
 <script>
+    import { createEventDispatcher } from 'svelte';
+    const dispatch = createEventDispatcher();
+
     import {
         IconChevronsLeft,
         IconChevronsRight,
@@ -34,12 +37,16 @@
         });
 
         tables = tables.filter((table) => table.id !== e.detail.id);
+
+        dispatch('updateTable', e.detail);
     };
 
     const deleteNote = (e) => {
         if (selectedElement === e.detail) selectedElement = null;
 
         notes = notes.filter((note) => note.id !== e.detail.id);
+
+        dispatch('updateNote', e.detail);
     };
 
     // Event handlers

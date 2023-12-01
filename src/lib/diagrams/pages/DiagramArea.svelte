@@ -103,6 +103,8 @@
         bind:notes={diagram.notes}
         bind:selectedElement
         bind:canvasInfo
+        on:updateTable={updateTable}
+        on:updateNote={updateNote}
     />
     <div class="container">
         <Canvas
