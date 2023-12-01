@@ -94,7 +94,11 @@
     <CanvasGrid {canvasInfo} {isGridActive} />
 
     {#if selectedElement?.type === ElementTypes.Table}
-        <TablePropertiesForm bind:tables bind:selectedTable={selectedElement} />
+        <TablePropertiesForm
+            bind:tables
+            bind:selectedTable={selectedElement}
+            on:updateTable
+        />
     {:else if selectedElement?.type === ElementTypes.Note}
         <NotePropertiesForm bind:notes bind:selectedNote={selectedElement} />
     {/if}

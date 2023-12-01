@@ -61,6 +61,14 @@
         table.positionX += e.movementX / canvasInfo.zoomRatio;
     };
 
+    const dropTable = () => {
+        if (!isTableGrabbed) return;
+
+        isTableGrabbed = false;
+
+        dispatch('updateTable', table);
+    };
+
     // Lifecycle hook
 
     onMount(() => {
@@ -150,10 +158,7 @@
     </div>
 </div>
 
-<svelte:document
-    on:mouseup={() => (isTableGrabbed = false)}
-    on:mousemove={moveTable}
-/>
+<svelte:document on:mouseup={dropTable} on:mousemove={moveTable} />
 
 <style>
     .table {

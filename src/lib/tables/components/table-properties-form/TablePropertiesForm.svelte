@@ -1,4 +1,7 @@
 <script>
+    import { createEventDispatcher } from 'svelte';
+    const dispatch = createEventDispatcher();
+
     import { IconInfoCircle } from '@tabler/icons-svelte';
 
     import ColumnsSection from './ColumnsSection.svelte';
@@ -32,6 +35,7 @@
                     on:input={(e) => {
                         selectedTable.name = e.currentTarget.value;
                     }}
+                    on:focusout={() => dispatch('updateTable', selectedTable)}
                     type="text"
                     id="name"
                     placeholder="Users"
@@ -44,6 +48,7 @@
                     on:input={(e) => {
                         selectedTable.description = e.currentTarget.value;
                     }}
+                    on:focusout={() => dispatch('updateTable', selectedTable)}
                     id="description"
                     name="description"
                     cols="30"
@@ -58,6 +63,7 @@
                     on:input={(e) => {
                         selectedTable.color = e.currentTarget.value;
                     }}
+                    on:focusout={() => dispatch('updateTable', selectedTable)}
                     type="color"
                     id="color"
                     name="color"
