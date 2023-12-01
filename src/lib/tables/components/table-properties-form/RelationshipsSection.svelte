@@ -1,4 +1,7 @@
 <script>
+    import { createEventDispatcher } from 'svelte';
+    const dispatch = createEventDispatcher();
+
     import {
         IconPlus,
         IconRoute,
@@ -30,6 +33,8 @@
         selectedTable.relationships = selectedTable.relationships.filter(
             (relation) => relation.id !== id
         );
+
+        dispatch('updateTable', selectedTable);
     };
 </script>
 
@@ -48,6 +53,7 @@
                 <select
                     on:change={(e) => {
                         relation.foreignKeyFieldId = e.currentTarget.value;
+                        dispatch('updateTable', selectedTable);
                     }}
                     value={relation.foreignKeyFieldId || ''}
                     autofocus
@@ -78,6 +84,7 @@
                 <select
                     on:change={(e) => {
                         relation.primaryKeyFieldId = e.currentTarget.value;
+                        dispatch('updateTable', selectedTable);
                     }}
                     value={relation.primaryKeyFieldId || ''}
                 >
