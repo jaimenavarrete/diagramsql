@@ -1,11 +1,3 @@
-<p align="center">
-    <a href="https://github.com/jaimenavarrete/diagramsql/blob/master/LICENSE">
-        <img alt="DiagramSQL is under the MIT license." src="https://img.shields.io/github/license/jaimenavarrete/diagramsql?style=flat-square&color=blue" height="22" />
-    </a>
-</p>
-
-<br />
-
 <figure>
     <img alt="DiagramSQL" src="./docs/images/Logotype_DiagramSQL.svg" />
 </figure>
@@ -14,9 +6,20 @@
   <h2>
     An open source database diagram designer. <br>
     Built with Svelte and IndexedDB.
-    <br />
+    <br /><br />
   </h2>
 </div>
+
+<br />
+
+<p align="center">
+    <a href="https://github.com/jaimenavarrete/diagramsql/blob/master/LICENSE">
+        <img alt="DiagramSQL is under the MIT license" src="https://img.shields.io/github/license/jaimenavarrete/diagramsql?&color=blue" height="22" />
+    </a>
+    <a href="https://app.netlify.com/sites/preeminent-biscotti-8a1e6d/deploys">
+        <img alt="DiagramSQL Netlify deploy status" src="https://api.netlify.com/api/v1/badges/7227e56c-6a1d-4c02-94da-bf2768407b56/deploy-status" height="22" />
+    </a>
+</p>
 
 <br />
 
