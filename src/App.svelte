@@ -1,6 +1,10 @@
 <script>
-    import { Router, Route } from 'svelte-routing';
+    import { Router, Route, navigate } from 'svelte-routing';
     import Diagrams from './lib/diagrams/Diagrams.svelte';
+
+    if (location.pathname === '/') {
+        navigate('/diagrams/', { replace: true });
+    }
 </script>
 
 <Router>
