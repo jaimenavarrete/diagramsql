@@ -18,7 +18,7 @@ const openDB = () => {
 
         DBOpenRequest.onupgradeneeded = (event) => {
             // @ts-ignore
-            db = event.target.result;
+            const db = event.target.result;
             createDiagramsObjectStore(db);
         };
 
@@ -27,10 +27,6 @@ const openDB = () => {
     });
 };
 
-try {
-    db = await openDB();
-} catch (error) {
-    console.log(error);
-}
+const getDB = async () => (db ??= await openDB());
 
-export { db };
+export { getDB };

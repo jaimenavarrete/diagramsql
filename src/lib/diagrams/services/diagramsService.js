@@ -1,6 +1,8 @@
-import { db } from '../../shared/db/connection';
+import { getDB } from '../../shared/db/connection';
 
-const getDiagrams = () => {
+const getDiagrams = async () => {
+    const db = await getDB();
+
     return new Promise((resolve, reject) => {
         const request = db
             .transaction('diagrams')
@@ -12,7 +14,9 @@ const getDiagrams = () => {
     });
 };
 
-const getDiagramById = (id) => {
+const getDiagramById = async (id) => {
+    const db = await getDB();
+
     return new Promise((resolve, reject) => {
         const request = db
             .transaction('diagrams')
@@ -32,7 +36,8 @@ const createDiagram = () => ({
     notes: [],
 });
 
-const addDiagram = () => {
+const addDiagram = async () => {
+    const db = await getDB();
     const newDiagram = createDiagram();
 
     return new Promise((resolve, reject) => {
@@ -47,6 +52,7 @@ const addDiagram = () => {
 };
 
 const updateDiagram = async (diagram) => {
+    const db = await getDB();
     const currentDiagram = await getDiagramById(diagram.id);
 
     currentDiagram.title = diagram.title;
@@ -67,6 +73,8 @@ const updateDiagram = async (diagram) => {
 };
 
 const deleteDiagram = async (id) => {
+    const db = await getDB();
+
     return new Promise((resolve, reject) => {
         const transaction = db.transaction(['diagrams'], 'readwrite');
         transaction.onerror = () => reject();
